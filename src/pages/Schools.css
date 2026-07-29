@@ -1,0 +1,57 @@
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.benefits-list {
+  font-size: 1.1rem;
+}
+
+.text-champagne {
+  color: var(--color-champagne) !important;
+}
+
+.text-dark-override {
+  color: var(--color-gunmetal) !important;
+}
+
+.text-indigo {
+  color: var(--color-indigo) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.step-card.bg-light {
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+.step-card.bg-light:hover {
+  background: #f8fafc;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.partner-tag {
+  background: var(--color-indigo);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .benefits-list {
+    grid-template-columns: 1fr;
+    font-size: 1rem;
+  }
+}

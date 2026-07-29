@@ -1,0 +1,91 @@
+.page-hero {
+  background: linear-gradient(135deg, var(--color-gunmetal) 0%, var(--color-indigo) 100%);
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.breadcrumb {
+  color: var(--color-champagne);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb a {
+  color: white;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.story-box {
+  padding: 2.5rem;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+  border-left: 6px solid var(--color-maize);
+}
+
+.story-box h3 {
+  color: var(--color-indigo);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.story-box p {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.story-box p:last-child {
+  margin-bottom: 0;
+}
+
+.card-dark {
+  background: rgba(255,255,255,0.05);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.text-champagne {
+  color: var(--color-champagne);
+  margin-bottom: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.value-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+}
+
+.icon-wrapper {
+  width: 60px;
+  height: 60px;
+  background: rgba(238, 197, 80, 0.1);
+  color: var(--color-maize);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-wrapper svg {
+  width: 28px;
+  height: 28px;
+}

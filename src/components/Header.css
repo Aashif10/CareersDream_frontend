@@ -1,0 +1,152 @@
+.header {
+  background-color: var(--color-gunmetal);
+  color: white;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: visible;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 48px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  display: block;
+  transform: scale(1.6);
+  transform-origin: left center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--color-maize);
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Global Button Styles */
+.btn {
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--color-maize);
+  color: var(--color-gunmetal);
+  border: 2px solid var(--color-maize);
+}
+
+.btn-primary:hover {
+  background-color: #d6af45; /* Darker maize */
+  border-color: #d6af45;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-maize);
+  border: 2px solid var(--color-maize);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-maize);
+  color: var(--color-gunmetal);
+}
+
+.btn-secondary {
+  background-color: var(--color-indigo);
+  color: white;
+  border: 2px solid var(--color-indigo);
+}
+
+.btn-secondary:hover {
+  background-color: #172c44; /* Darker indigo */
+  border-color: #172c44;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  .desktop-only {
+    display: none;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-gunmetal);
+    flex-direction: column;
+    padding: 1rem 0;
+    gap: 1rem;
+    align-items: center;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .mobile-only {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 2rem;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .mobile-only .btn {
+    width: 100%;
+  }
+}
