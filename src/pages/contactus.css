@@ -1,0 +1,321 @@
+/* ===========================
+   Contact Us Page Styles
+   =========================== */
+
+.contact-page .page-hero {
+  background: linear-gradient(135deg, var(--color-gunmetal) 0%, var(--color-indigo) 100%);
+  padding: 5rem 0 4rem;
+  text-align: center;
+}
+
+.contact-hero-sub {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Two-column grid ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ══════════════════════════
+   Info Cards (left column)
+══════════════════════════ */
+.contact-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.75rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.09);
+  border-color: var(--color-maize);
+}
+
+.contact-card--school {
+  background: linear-gradient(135deg, var(--color-gunmetal) 0%, var(--color-indigo) 100%);
+  border: none;
+  color: white;
+}
+
+/* Card header row */
+.contact-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.contact-card-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-indigo);
+  margin: 0;
+}
+
+.contact-card--school .contact-card-header h3 {
+  color: var(--color-champagne);
+}
+
+.school-heading {
+  color: var(--color-champagne) !important;
+}
+
+/* Icon circle */
+.contact-card-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(32, 62, 95, 0.1);
+  color: var(--color-indigo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-card-icon-wrap--gold {
+  background: var(--color-maize);
+  color: var(--color-gunmetal);
+}
+
+/* Detail list */
+.contact-detail-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-detail-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.93rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.contact-detail-list strong {
+  color: var(--color-gunmetal);
+}
+
+.detail-icon {
+  color: var(--color-maize);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.contact-link {
+  color: var(--color-indigo);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contact-link:hover {
+  color: var(--color-maize);
+  text-decoration: underline;
+}
+
+.contact-card--school .contact-link {
+  color: var(--color-champagne);
+}
+
+/* Social buttons */
+.contact-follow-sub {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.social-btn--instagram {
+  background: linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7);
+  color: white;
+}
+
+.social-btn--linkedin {
+  background: #0077b5;
+  color: white;
+}
+
+.social-btn--facebook {
+  background: #1877f2;
+  color: white;
+}
+
+/* School description */
+.school-desc {
+  color: #cbd5e1;
+  font-size: 0.93rem;
+  line-height: 1.75;
+}
+
+/* ══════════════════════════
+   Contact Form (right column)
+══════════════════════════ */
+.contact-form-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 100px;
+}
+
+.form-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-indigo);
+  margin-bottom: 0.4rem;
+}
+
+.form-card-sub {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.cf-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cf-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-gunmetal);
+}
+
+.cf-group input,
+.cf-group select,
+.cf-group textarea {
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-family: var(--font-main);
+  font-size: 0.93rem;
+  color: var(--text-main);
+  background: #fafafa;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  outline: none;
+  resize: vertical;
+}
+
+.cf-group input:focus,
+.cf-group select:focus,
+.cf-group textarea:focus {
+  border-color: var(--color-maize);
+  box-shadow: 0 0 0 3px rgba(238, 197, 80, 0.15);
+  background: #ffffff;
+}
+
+.cf-group select {
+  cursor: pointer;
+}
+
+/* Submit button */
+.cf-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, var(--color-gunmetal), var(--color-indigo));
+  color: var(--color-maize);
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s;
+  margin-top: 0.5rem;
+}
+
+.cf-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 38, 52, 0.3);
+  opacity: 0.95;
+}
+
+/* ══════════════════════════
+   Responsive
+══════════════════════════ */
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form-card {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .social-links {
+    flex-direction: column;
+  }
+
+  .social-btn {
+    justify-content: center;
+  }
+}

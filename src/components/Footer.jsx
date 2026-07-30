@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
 import './Footer.css';
 
@@ -60,8 +60,9 @@ const Footer = () => {
           <div className="footer-contact">
             <h4>Contact</h4>
             <ul>
-              <li><Phone size={14} /> +91 98765 43210</li>
-              <li><Mail size={14} /> info@careersdream.com</li>
+              <li><Phone size={14} /> +91 7417573741</li>
+              <li><Mail size={14} />careersdream4u@gmail.com </li>
+              <li><Globe size={14} /> <a href="https://www.careersdream.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>CareersDream.com</a></li>
               <li><MapPin size={14} /> New Delhi, India</li>
             </ul>
           </div>

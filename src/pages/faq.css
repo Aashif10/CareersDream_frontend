@@ -1,0 +1,198 @@
+/* ===========================
+   FAQ Page Styles
+   =========================== */
+
+/* Re-use .page-hero from About.css — defined globally via About.css import,
+   but we redeclare it here so FAQ is self-contained */
+.faq-page .page-hero {
+  background: linear-gradient(135deg, var(--color-gunmetal) 0%, var(--color-indigo) 100%);
+  padding: 5rem 0 4rem;
+  text-align: center;
+}
+
+/* Wrapper */
+.faq-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Section header row */
+.faq-header-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.faq-header-icon {
+  color: var(--color-maize);
+  flex-shrink: 0;
+}
+
+/* FAQ list */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Single FAQ item */
+.faq-item {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.faq-item:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-maize);
+}
+
+.faq-item--open {
+  border-color: var(--color-maize);
+  box-shadow: 0 8px 24px rgba(238, 197, 80, 0.15);
+}
+
+/* Question button */
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.faq-question:hover {
+  background: #fafafa;
+}
+
+.faq-item--open .faq-question {
+  background: linear-gradient(90deg, rgba(238, 197, 80, 0.06), transparent);
+}
+
+/* Number badge */
+.faq-q-number {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--color-gunmetal), var(--color-indigo));
+  color: var(--color-maize);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: background 0.3s ease;
+}
+
+.faq-item--open .faq-q-number {
+  background: var(--color-maize);
+  color: var(--color-gunmetal);
+}
+
+/* Question text */
+.faq-q-text {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gunmetal);
+  line-height: 1.4;
+}
+
+/* Chevron */
+.faq-chevron {
+  flex-shrink: 0;
+  color: var(--color-indigo);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item--open .faq-chevron {
+  transform: rotate(180deg);
+  color: var(--color-maize);
+}
+
+/* Answer wrapper — CSS max-height accordion trick */
+.faq-answer-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item--open .faq-answer-wrapper {
+  max-height: 300px;
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1.5rem 4.25rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+/* CTA block */
+.faq-cta {
+  max-width: 800px;
+  margin: 4rem auto 0;
+  background: linear-gradient(135deg, var(--color-gunmetal) 0%, var(--color-indigo) 100%);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  color: white;
+}
+
+.faq-cta h3 {
+  color: var(--color-champagne);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.faq-cta p {
+  color: #cbd5e1;
+  margin-bottom: 1.75rem;
+}
+
+.faq-cta-btn {
+  display: inline-block;
+  background: var(--color-maize);
+  color: var(--color-gunmetal);
+  font-weight: 700;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faq-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(238, 197, 80, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .faq-header-row {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .faq-answer {
+    padding: 0 1.25rem 1.25rem;
+  }
+
+  .faq-q-text {
+    font-size: 0.95rem;
+  }
+
+  .faq-cta {
+    padding: 2rem 1.5rem;
+  }
+}

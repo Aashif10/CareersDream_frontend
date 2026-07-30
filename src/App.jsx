@@ -8,6 +8,8 @@ import Students from './pages/Students';
 import Schools from './pages/Schools';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import FAQ from './pages/faq';
+import ContactUs from './pages/contactus';
 import './index.css';
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
             {/* Placeholders for other routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/contactus" element={<ContactUs />} />
           </Routes>
         </main>
         <Footer />
