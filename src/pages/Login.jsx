@@ -24,7 +24,8 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://careersdream-backend.onrender.com/api/auth/login', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
+      const response = await fetch(`${apiUrl}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

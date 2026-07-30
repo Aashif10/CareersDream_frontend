@@ -26,7 +26,8 @@ const Register = () => {
     
     try {
       console.log('Sending registration request...', { name: formData.fullName, email: formData.email });
-      const response = await fetch('https://careersdream-backend.onrender.com/api/auth/register', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
+      const response = await fetch(`${apiUrl}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
