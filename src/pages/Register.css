@@ -332,88 +332,112 @@
   }
 }
 
-/* Success Modal Styles */
+/* ── Register Success Modal ── */
 .success-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(4px);
+  animation: regOverlayFadeIn 0.3s ease forwards;
+}
+
+@keyframes regOverlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .success-modal-card {
-  background: white;
+  background: #ffffff;
+  border-radius: 24px;
   padding: 2.5rem 2rem;
-  border-radius: 16px;
+  max-width: 380px;
   width: 90%;
-  max-width: 400px;
   text-align: center;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  animation: modalScaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.2);
+  animation: regCardPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes modalScaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.success-modal-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-indigo), var(--color-maize));
+}
+
+@keyframes regCardPop {
+  from { opacity: 0; transform: scale(0.75) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .success-modal-icon {
-  width: 80px;
-  height: 80px;
-  background-color: #f0fdf4;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 1.25rem auto;
+  animation: regIconBounce 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes regIconBounce {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
 }
 
 .success-modal-icon svg {
-  color: #16a34a;
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
+  stroke: #059669;
+  stroke-width: 2.5;
+  color: #059669;
 }
 
 .success-modal-title {
-  color: #16a34a;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 700;
+  color: var(--color-gunmetal);
   margin-bottom: 0.5rem;
 }
 
 .success-modal-subtitle {
-  color: #64748b;
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
 }
 
 .success-modal-btn {
-  background-color: #16a34a;
-  color: white;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, var(--color-indigo) 0%, var(--color-gunmetal) 100%);
+  color: #ffffff;
   border: none;
-  border-radius: 24px;
-  padding: 0.75rem 3rem;
-  font-size: 1.1rem;
+  border-radius: 12px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
+  letter-spacing: 0.3px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(32, 62, 95, 0.3);
 }
 
 .success-modal-btn:hover {
-  background-color: #15803d;
+  opacity: 0.9;
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(32, 62, 95, 0.35);
 }
+
+.success-modal-btn:active {
+  transform: translateY(0);
+}
+

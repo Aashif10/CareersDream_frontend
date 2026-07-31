@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
@@ -12,6 +12,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -22,6 +23,10 @@ const Login = () => {
     e.preventDefault();
     setError('');
     setLoading(true);
+
+    // Abort the request if it takes longer than 30 seconds
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
@@ -34,21 +39,26 @@ const Login = () => {
           email: formData.identifier,
           password: formData.password
         }),
+        signal: controller.signal,
       });
 
+      clearTimeout(timeoutId);
       const data = await response.json();
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        navigate('/'); // Redirect to home or dashboard after login
+        setShowSuccessPopup(true);
       } else {
         setError(data.message || 'Login failed');
-        alert('Login Error: ' + (data.message || 'Login failed'));
       }
     } catch (err) {
+      clearTimeout(timeoutId);
       console.error('Fetch error:', err);
-      setError('An error occurred during login. Please try again.');
-      alert('Network Error: Could not connect to the server.');
+      if (err.name === 'AbortError') {
+        setError('Request timed out. The server may be starting up — please try again in a moment.');
+      } else {
+        setError('Network error. Could not connect to the server. Please check your connection.');
+      }
     } finally {
       setLoading(false);
     }
@@ -179,12 +189,36 @@ const Login = () => {
             </form>
 
             <div className="login-form-footer">
-              <p>Don't have an account? <a href="/register" className="register-link">Register Now</a></p>
+              <p>Don't have an account? <Link to="/register" className="register-link">Register Now</Link></p>
             </div>
           </div>
         </div>
 
       </div>
+      {/* Login Success Modal */}
+      {showSuccessPopup && (
+        <div className="login-success-modal-overlay">
+          <div className="login-success-modal-card">
+            <div className="login-success-modal-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <h3 className="login-success-modal-title">Login Successful! 🎉</h3>
+            <p className="login-success-modal-subtitle">Welcome back! You are now logged in to your account.</p>
+            <button
+              className="login-success-modal-btn"
+              onClick={() => {
+                setShowSuccessPopup(false);
+                navigate('/');
+              }}
+            >
+              Go to Dashboard
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

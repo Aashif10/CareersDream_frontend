@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Register.css';
 
 const Register = () => {
@@ -23,7 +23,11 @@ const Register = () => {
     e.preventDefault();
     setError('');
     setLoading(true);
-    
+
+    // Abort the request if it takes longer than 30 seconds
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
+
     try {
       console.log('Sending registration request...', { name: formData.fullName, email: formData.email });
       const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
@@ -37,8 +41,10 @@ const Register = () => {
           email: formData.email,
           password: formData.password
         }),
+        signal: controller.signal,
       });
 
+      clearTimeout(timeoutId);
       const data = await response.json();
       console.log('Server response:', response.status, data);
 
@@ -48,12 +54,15 @@ const Register = () => {
       } else {
         const errorMsg = data.message || 'Registration failed';
         setError(errorMsg);
-        alert('Registration Error: ' + errorMsg);
       }
     } catch (err) {
+      clearTimeout(timeoutId);
       console.error('Fetch error:', err);
-      setError('An error occurred during registration. Please check the console.');
-      alert('Network Error: Could not connect to the server.');
+      if (err.name === 'AbortError') {
+        setError('Request timed out. The server may be starting up — please try again in a moment.');
+      } else {
+        setError('Network error. Could not connect to the server. Please check your connection.');
+      }
     } finally {
       setLoading(false);
     }
@@ -156,7 +165,7 @@ const Register = () => {
             </form>
 
             <div className="form-footer">
-              <p>Already have an account? <a href="/login" className="login-link">Log In</a></p>
+              <p>Already have an account? <Link to="/login" className="login-link">Log In</Link></p>
             </div>
           </div>
         </div>
