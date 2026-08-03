@@ -1,8 +1,16 @@
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Star } from 'lucide-react';
 import './Home.css';
 
 const Home = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem('token'));
+  }, [location]);
+
   return (
     <div className="home-page">
       {/* Hero Section */}
@@ -11,7 +19,7 @@ const Home = () => {
           <h1 className="heading-primary">Shape Your Future with the Right Career Guidance</h1>
           <p className="subheading">At CareersDream, we help students discover their strengths, explore career opportunities, and make informed decisions through expert counseling, psychometric assessments, and personalized career planning.</p>
           <div className="hero-buttons">
-            <Link to="/register" className="btn btn-primary">Get Started</Link>
+            <Link to={isLoggedIn ? "/counselling" : "/register"} className="btn btn-primary">Get Started</Link>
             <Link to="/contact" className="btn btn-secondary">Book Free Counseling</Link>
           </div>
           <div className="trusted-by">
