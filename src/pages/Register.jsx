@@ -50,6 +50,11 @@ const Register = () => {
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
+        if (data.user && data.user.name) {
+          localStorage.setItem('userName', data.user.name);
+        } else if (data.name) {
+          localStorage.setItem('userName', data.name);
+        }
         setShowSuccessPopup(true);
       } else {
         const errorMsg = data.message || 'Registration failed';
