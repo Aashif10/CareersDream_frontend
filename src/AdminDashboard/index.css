@@ -436,10 +436,24 @@
     grid-template-columns: 1fr;
   }
   .admin-header {
-    padding: 0 16px;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
   }
   .dashboard-content {
     padding: 16px;
+  }
+  .dashboard-subtitle {
+    display: none;
+  }
+  .dashboard-date {
+    display: none;
+  }
+  .user-info {
+    display: none;
+  }
+  .header-actions {
+    gap: 10px;
   }
 }
 
