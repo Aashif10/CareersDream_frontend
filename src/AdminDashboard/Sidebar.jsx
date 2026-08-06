@@ -65,7 +65,7 @@ const Sidebar = ({ activePage }) => {
             <a href="/admin/registrationlist"><FileText size={20} /> User List</a>
           </li>
           <li className={activePage === 'settings' ? 'active' : ''}>
-            <a href="admin/settings"><Settings size={20} /> Settings</a>
+            <a href="/admin/settings"><Settings size={20} /> Settings</a>
           </li>
           <li className="nav-divider"></li>
           <li>
