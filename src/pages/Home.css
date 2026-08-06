@@ -17,9 +17,79 @@
 
 .hero-buttons {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
   justify-content: center;
-  margin-bottom: 4rem;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+
+.hero-buttons .btn {
+  padding: 0.75rem 1.75rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.hero-buttons .btn-primary {
+  background-color: #f5c542;
+  color: #0d1b2a !important;
+  border: 1px solid #f5c542;
+}
+
+.hero-buttons .btn-primary:hover {
+  background-color: #e5b432;
+  border-color: #e5b432;
+  color: #0d1b2a !important;
+  transform: translateY(-2px);
+}
+
+/* Secondary Button in Dark Hero Section */
+.hero .hero-buttons .btn-secondary {
+  background-color: #121e30;
+  color: #ffffff !important;
+  border: 1px solid #121e30;
+}
+
+.hero .hero-buttons .btn-secondary:hover {
+  background-color: #0b1421;
+  border-color: #0b1421;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+/* Secondary Button in Light CTA Section */
+.cta .hero-buttons .btn-secondary {
+  background-color: #1d2d44;
+  color: #ffffff !important;
+  border: 1px solid #1d2d44;
+}
+
+.cta .hero-buttons .btn-secondary:hover {
+  background-color: #121e30;
+  border-color: #121e30;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+/* Admin Button with Red-Blue-Green Gradient */
+.hero-buttons .btn-admin {
+  background: linear-gradient(145deg, #f7797d 0%, #d9a835 100%);
+  color: #ffffff !important;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+.hero-buttons .btn-admin:hover {
+  background: linear-gradient(135deg, #2f0808 0%, #2563eb 50%, #059669 100%);
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
 }
 
 .trusted-by {

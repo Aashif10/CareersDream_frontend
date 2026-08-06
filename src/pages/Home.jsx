@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Star } from 'lucide-react';
 import './Home.css';
 
 const Home = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const location = useLocation();
 
   useEffect(() => {
@@ -20,6 +22,8 @@ const Home = () => {
           <p className="subheading">At CareersDream, we help students discover their strengths, explore career opportunities, and make informed decisions through expert counseling, psychometric assessments, and personalized career planning.</p>
           <div className="hero-buttons">
             <Link to={isLoggedIn ? "/counselling" : "/register"} className="btn btn-primary">Get Started</Link>
+          
+            {showLoginModal && <AdminLoginModal onClose={() => setShowLoginModal(false)} />}
             <Link to="/contact" className="btn btn-secondary">Book Free Counseling</Link>
           </div>
           <div className="trusted-by">
@@ -182,6 +186,8 @@ const Home = () => {
           <div className="hero-buttons justify-center">
             <Link to="/contact" className="btn btn-primary">Book Free Counseling</Link>
             <Link to="/courses" className="btn btn-secondary">Explore Courses</Link>
+            {/* Admin Button – opens login modal */}
+            <Link to="/adminlogin" className="btn btn-admin">Admin</Link>
           </div>
         </div>
       </section>

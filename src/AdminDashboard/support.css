@@ -1,0 +1,219 @@
+.support-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--admin-text-main);
+}
+
+/* Header Section */
+.support-header {
+  text-align: center;
+  margin-bottom: 40px;
+  background-color: var(--admin-card);
+  padding: 40px 30px;
+  border-radius: 16px;
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-md);
+}
+
+.support-header h1 {
+  font-size: 2.4rem;
+  color: var(--admin-text-main);
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+.support-header p {
+  font-size: 1.1rem;
+  color: var(--admin-text-muted);
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 15px auto;
+}
+
+.support-header .subtitle-highlight {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--admin-primary);
+  background-color: var(--admin-primary-dark);
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 30px;
+  margin-top: 10px;
+  border: 1px solid var(--admin-primary-light);
+}
+
+/* Content Layout */
+.support-content {
+  display: flex;
+  gap: 30px;
+  align-items: stretch;
+}
+
+.support-left,
+.support-right {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.support-left {
+  flex: 1.2;
+}
+
+.support-right {
+  flex: 1;
+}
+
+/* Shared Card Styles */
+.support-card {
+  background-color: var(--admin-card);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: var(--admin-shadow-md);
+  border: 1px solid var(--admin-border);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.support-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(52, 211, 153, 0.3); /* Match stat card hover in main dashboard */
+}
+
+.support-card h2 {
+  margin: 0 0 25px 0;
+  font-size: 1.5rem;
+  color: var(--admin-text-main);
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Contact Info Card */
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.contact-item:last-child {
+  margin-bottom: 0;
+}
+
+.primary-icon {
+  background-color: var(--admin-primary-light);
+  color: var(--admin-primary);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  margin-right: 18px;
+  flex-shrink: 0;
+}
+
+.contact-item h4 {
+  margin: 0 0 6px 0;
+  font-size: 1.1rem;
+  color: var(--admin-text-main);
+  font-weight: 600;
+}
+
+.contact-item a {
+  color: var(--admin-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.contact-item a:hover {
+  color: #6ee7b7; /* Lighter emerald for hover */
+  text-decoration: underline;
+}
+
+.contact-item p {
+  margin: 0;
+  color: var(--admin-text-muted);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* Services Card */
+.services-card {
+  height: 100%;
+}
+
+.services-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.services-list li {
+  display: flex;
+  align-items: center;
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--admin-border);
+  color: var(--admin-text-main);
+  font-size: 1.05rem;
+  transition: background 0.2s, transform 0.2s;
+  border-radius: 8px;
+}
+
+.services-list li:hover {
+  background-color: var(--admin-primary-dark);
+  transform: translateX(5px);
+}
+
+.services-list li:last-child {
+  border-bottom: none;
+}
+
+.check-icon {
+  color: var(--admin-primary);
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+/* Admin Message Card */
+.admin-message {
+  background-color: var(--admin-primary-dark);
+  border: 1px solid var(--admin-primary-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-message h2 {
+  color: var(--admin-primary);
+  border-bottom: 1px solid var(--admin-primary-light);
+}
+
+.admin-message p {
+  color: var(--admin-text-main);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.admin-icon {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  color: var(--admin-primary-light);
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .support-content {
+    flex-direction: column;
+  }
+  
+  .support-card {
+    height: auto;
+  }
+}

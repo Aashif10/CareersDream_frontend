@@ -30,7 +30,7 @@ const Register = () => {
 
     try {
       console.log('Sending registration request...', { name: formData.fullName, email: formData.email });
-      const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       const response = await fetch(`${apiUrl}/api/auth/register`, {
         method: 'POST',
         headers: {

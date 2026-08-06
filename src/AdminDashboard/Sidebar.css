@@ -1,0 +1,206 @@
+/* ── Sidebar Layout ── */
+.admin-sidebar {
+  width: 260px;
+  background-color: var(--admin-sidebar-bg);
+  border-right: 1px solid var(--admin-sidebar-border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  flex-shrink: 0;
+}
+
+/* ── Logo ── */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px;
+  margin-bottom: 32px;
+}
+
+.logo-icon {
+  background-color: var(--admin-primary-light);
+  color: var(--admin-primary);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-logo h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--admin-sidebar-text);
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+/* ── Nav & Footer ── */
+.sidebar-nav,
+.sidebar-footer {
+  padding: 0 16px;
+}
+
+.sidebar-nav {
+  flex: 1;
+}
+
+.sidebar-nav ul,
+.sidebar-footer ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-nav li a,
+.sidebar-footer li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: var(--admin-sidebar-text-muted);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:hover,
+.sidebar-footer li a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--admin-sidebar-text);
+}
+
+.sidebar-nav li.active a {
+  background-color: var(--admin-sidebar-active);
+  color: var(--admin-primary);
+  font-weight: 500;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+/* ── Divider ── */
+.nav-divider {
+  height: 1px;
+  background-color: var(--admin-sidebar-border);
+  margin: 16px 0;
+}
+
+/* ── Badge ── */
+.badge {
+  background-color: var(--admin-primary);
+  color: #111312;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: auto;
+}
+
+/* ── Chevron Icon ── */
+.chevron {
+  color: var(--admin-text-muted);
+}
+
+/* ── Dropdown (Team Members) ── */
+.sidebar-nav li.has-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-nav li.has-dropdown .dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--admin-sidebar-text-muted);
+  font-weight: 500;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.sidebar-nav li.has-dropdown .dropdown-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--admin-sidebar-text);
+}
+
+.sidebar-nav li.has-dropdown.active .dropdown-toggle,
+.sidebar-nav li.has-dropdown.open .dropdown-toggle {
+  color: var(--admin-primary);
+}
+
+.sidebar-nav li.has-dropdown .nav-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-nav li.has-dropdown .dropdown-toggle .chevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.sidebar-nav li.has-dropdown .dropdown-toggle .chevron.rotated {
+  transform: rotate(180deg);
+}
+
+/* ── Sub-menu ── */
+.sidebar-nav .dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 0 4px 20px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+}
+
+.sidebar-nav .dropdown-menu.show {
+  max-height: 200px;
+  opacity: 1;
+}
+
+.sidebar-nav .dropdown-menu li a {
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  border-left: 2px solid var(--admin-sidebar-border);
+  border-radius: 0 6px 6px 0;
+  color: var(--admin-sidebar-text-muted);
+  transition: all 0.2s ease;
+}
+
+.sidebar-nav .dropdown-menu li a:hover {
+  color: var(--admin-primary);
+  border-left-color: var(--admin-primary);
+  background-color: var(--admin-primary-dark);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+    z-index: 50;
+    height: 100%;
+  }
+}
+
+/* ── Logout Button ── */
+.sidebar-footer li a.logout-link {
+  color: #ef4444; /* Red color */
+}
+
+.sidebar-footer li a.logout-link:hover {
+  color: #f87171;
+  background-color: rgba(239, 68, 68, 0.1);
+}

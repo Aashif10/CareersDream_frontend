@@ -1,0 +1,136 @@
+.settings-container {
+  display: flex;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.settings-sidebar {
+  flex: 0 0 250px;
+}
+
+.settings-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: var(--admin-card);
+  border-radius: 12px;
+  border: 1px solid var(--admin-border);
+  overflow: hidden;
+  box-shadow: var(--admin-shadow-md);
+}
+
+.settings-sidebar li {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: var(--admin-text-muted);
+  font-weight: 500;
+  border-bottom: 1px solid var(--admin-border);
+  transition: all 0.2s;
+}
+
+.settings-sidebar li:last-child {
+  border-bottom: none;
+}
+
+.settings-sidebar li:hover {
+  background-color: var(--admin-bg);
+  color: var(--admin-text-main);
+}
+
+.settings-sidebar li.active {
+  background-color: var(--admin-primary-dark);
+  color: var(--admin-primary);
+  border-left: 3px solid var(--admin-primary);
+}
+
+.settings-content {
+  flex: 1;
+}
+
+.settings-card {
+  background-color: var(--admin-card);
+  border-radius: 12px;
+  padding: 30px;
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-md);
+}
+
+.settings-card h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+  color: var(--admin-text-main);
+}
+
+.settings-desc {
+  color: var(--admin-text-muted);
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 20px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.setting-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  color: var(--admin-text-main);
+}
+
+.setting-info p {
+  margin: 0;
+  color: var(--admin-text-muted);
+  font-size: 0.9rem;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.theme-toggle.light {
+  background-color: #fef3c7;
+  color: #d97706;
+  border-color: #fde68a;
+}
+
+.theme-toggle.light:hover {
+  background-color: #fde68a;
+}
+
+.theme-toggle.dark {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+.theme-toggle.dark:hover {
+  background-color: #0f172a;
+}
+
+@media (max-width: 768px) {
+  .settings-container {
+    flex-direction: column;
+  }
+  .settings-sidebar {
+    flex: none;
+  }
+}

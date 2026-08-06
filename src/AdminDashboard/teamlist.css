@@ -1,0 +1,344 @@
+/* ── Page Header ─────────────────────────────────── */
+.tl-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.tl-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--admin-text-main);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.025em;
+}
+
+.tl-subtitle {
+  font-size: 0.9rem;
+  color: var(--admin-text-muted);
+  margin: 0;
+}
+
+.tl-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── Search ──────────────────────────────────────── */
+.tl-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tl-search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--admin-text-muted);
+  pointer-events: none;
+}
+
+.tl-search input {
+  background-color: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 9px 14px 9px 36px;
+  font-size: 0.875rem;
+  color: var(--admin-text-main);
+  font-family: inherit;
+  outline: none;
+  width: 260px;
+  transition: border-color 0.2s;
+}
+
+.tl-search input::placeholder {
+  color: var(--admin-text-muted);
+}
+
+.tl-search input:focus {
+  border-color: var(--admin-primary);
+  box-shadow: 0 0 0 1px var(--admin-primary);
+}
+
+/* ── Buttons ─────────────────────────────────────── */
+.tl-refresh-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-card);
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tl-refresh-btn:hover {
+  color: var(--admin-primary);
+  border-color: var(--admin-primary);
+}
+
+.tl-add-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  border-radius: 8px;
+  background-color: var(--admin-primary);
+  color: #111312;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.tl-add-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+/* ── Card ────────────────────────────────────────── */
+.tl-card {
+  background-color: var(--admin-card);
+  border-radius: 14px;
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-md);
+  overflow: hidden;
+}
+
+/* ── Table ───────────────────────────────────────── */
+.tl-table-wrapper {
+  overflow-x: auto;
+}
+
+.tl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tl-table thead tr {
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.tl-table th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--admin-text-muted);
+  white-space: nowrap;
+}
+
+.tl-table tbody tr {
+  border-bottom: 1px solid var(--admin-border);
+  transition: background-color 0.15s;
+}
+
+.tl-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.tl-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+
+.tl-table td {
+  padding: 14px 20px;
+  vertical-align: middle;
+}
+
+.tl-index {
+  color: var(--admin-text-muted);
+  font-size: 0.85rem;
+  width: 40px;
+}
+
+.tl-muted {
+  color: var(--admin-text-muted);
+  font-size: 0.875rem;
+}
+
+/* ── Member Cell ─────────────────────────────────── */
+.tl-member-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tl-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--admin-border);
+  flex-shrink: 0;
+}
+
+.tl-avatar-placeholder {
+  background-color: var(--admin-primary-light);
+  color: var(--admin-primary);
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tl-member-name {
+  font-weight: 500;
+  color: var(--admin-text-main);
+}
+
+/* ── Role Badge ──────────────────────────────────── */
+.tl-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  background-color: var(--admin-primary-light);
+  color: var(--admin-primary);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+/* ── Delete Button ───────────────────────────────── */
+.tl-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tl-delete-btn:hover:not(:disabled) {
+  background-color: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #EF4444;
+}
+
+.tl-delete-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tl-deleting {
+  font-size: 1.1rem;
+  animation: pulse 0.8s infinite;
+}
+
+/* ── Empty / Loading / Error States ─────────────── */
+.tl-state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 64px 24px;
+  color: var(--admin-text-muted);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.tl-state-box--error {
+  color: #EF4444;
+}
+
+.tl-retry-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.tl-retry-btn:hover {
+  opacity: 0.8;
+}
+
+/* ── Spinner ─────────────────────────────────────── */
+.tl-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--admin-border);
+  border-top-color: var(--admin-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── Toast ───────────────────────────────────────── */
+.tl-toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 9999;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: slideInRight 0.3s ease;
+}
+
+.tl-toast--success {
+  background-color: rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #34D399;
+}
+
+.tl-toast--error {
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #EF4444;
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .tl-page-header {
+    flex-direction: column;
+  }
+  .tl-search input {
+    width: 100%;
+  }
+  .tl-header-actions {
+    width: 100%;
+  }
+}
