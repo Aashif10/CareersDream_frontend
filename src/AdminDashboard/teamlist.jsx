@@ -14,7 +14,7 @@ const TeamList = () => {
   const [toast, setToast]       = useState({ msg: '', type: '' });
 
   // ── Fetch members from API ──────────────────────────────────────
-  const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
+  const apiUrl = "https://careersdream-backend.onrender.com";
   const fetchMembers = async () => {
     setLoading(true);
     setError('');
@@ -160,9 +160,9 @@ const TeamList = () => {
                           <div className="tl-member-cell">
                             {m.profileImage ? (
                               <img
-                                src={`${apiUrl}/uploads/${m.profileImage}`}
-                                alt={m.name}
-                                className="tl-avatar"
+                               src={`${apiUrl}/uploads/${m.profileImage}`}
+                               alt={m.name}
+                               className="tl-avatar"
                               />
                             ) : (
                               <div className="tl-avatar tl-avatar-placeholder">
