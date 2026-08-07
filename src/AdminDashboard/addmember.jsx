@@ -61,7 +61,7 @@ const Team = () => {
       }
     const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
   
-      const res = await fetch(`{${apiUrl}/api/team/add`, {
+      const res = await fetch(`${apiUrl}/api/team/add`, {
         method: 'POST',
         body: payload,
       });
