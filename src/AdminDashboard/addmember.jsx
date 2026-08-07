@@ -59,8 +59,9 @@ const Team = () => {
       if (imageFile) {
         payload.append('profileImage', imageFile);
       }
-
-      const res = await fetch('http://localhost:5000/api/team/add', {
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
+  
+      const res = await fetch(`{${apiUrl}/api/team/add`, {
         method: 'POST',
         body: payload,
       });

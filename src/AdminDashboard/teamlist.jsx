@@ -18,7 +18,8 @@ const TeamList = () => {
     setLoading(true);
     setError('');
     try {
-      const res  = await fetch('http://localhost:5000/api/team');
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
+      const res  = await fetch(`${apiUrl}/api/team`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Failed to fetch members');
       setMembers(data.data);
