@@ -8,6 +8,8 @@ const AdminHeader = ({ title = 'Dashboard Overview' }) => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
+  const apiUrl = "https://careersdream-backend.onrender.com";
+
   useEffect(() => {
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -59,7 +61,7 @@ const AdminHeader = ({ title = 'Dashboard Overview' }) => {
             <img
               src={
                 user && user.profileImage
-                  ? `http://localhost:5000/uploads/${user.profileImage}`
+                  ? `${apiUrl}/${user.profileImage}`
                   : `https://ui-avatars.com/api/?name=${encodeURIComponent(user ? user.name : 'Admin')}&background=34D399&color=111312&bold=true`
               }
               alt="User"
