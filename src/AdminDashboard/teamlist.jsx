@@ -14,11 +14,11 @@ const TeamList = () => {
   const [toast, setToast]       = useState({ msg: '', type: '' });
 
   // ── Fetch members from API ──────────────────────────────────────
+  const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
   const fetchMembers = async () => {
     setLoading(true);
     setError('');
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
       const res  = await fetch(`${apiUrl}/api/team`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Failed to fetch members');
@@ -44,7 +44,7 @@ const TeamList = () => {
     if (!window.confirm('Are you sure you want to delete this member?')) return;
     setDeletingId(id);
     try {
-      const res  = await fetch(`http://localhost:5000/api/team/${id}`, { method: 'DELETE' });
+      const res  = await fetch(`${apiUrl}/api/team/${id}`, { method: 'DELETE' });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Delete failed');
       setMembers(prev => prev.filter(m => m._id !== id));
@@ -160,7 +160,7 @@ const TeamList = () => {
                           <div className="tl-member-cell">
                             {m.profileImage ? (
                               <img
-                                src={`http://localhost:5000/uploads/${m.profileImage}`}
+                                src={`${apiUrl}/uploads/${m.profileImage}`}
                                 alt={m.name}
                                 className="tl-avatar"
                               />
