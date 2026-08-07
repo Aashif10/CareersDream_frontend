@@ -13,60 +13,59 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [statusMsg, setStatusMsg] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-
-    // Abort the request if it takes longer than 30 seconds
+  const doLogin = async (retrying = false) => {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000);
-
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
       const response = await fetch(`${apiUrl}/api/auth/login`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: formData.identifier,
           password: formData.password
         }),
         signal: controller.signal,
       });
-
       clearTimeout(timeoutId);
       const data = await response.json();
-
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        if (data.user && data.user.name) {
-          localStorage.setItem('userName', data.user.name);
-        } else if (data.name) {
-          localStorage.setItem('userName', data.name);
-        }
+        if (data.user && data.user.name) localStorage.setItem('userName', data.user.name);
+        else if (data.name) localStorage.setItem('userName', data.name);
+        setStatusMsg('');
         setShowSuccessPopup(true);
       } else {
         setError(data.message || 'Login failed');
       }
     } catch (err) {
       clearTimeout(timeoutId);
-      console.error('Fetch error:', err);
-      if (err.name === 'AbortError') {
-        setError('Request timed out. The server may be starting up — please try again in a moment.');
-      } else {
-        setError('Network error. Could not connect to the server. Please check your connection.');
+      if (err.name === 'AbortError' && !retrying) {
+        setStatusMsg('⏳ Server is starting up, retrying...');
+        setTimeout(() => doLogin(true), 2000);
+        return;
       }
+      setError(err.name === 'AbortError'
+        ? 'Server is taking too long. Please try again in a moment.'
+        : 'Network error. Could not connect to the server.');
     } finally {
-      setLoading(false);
+      if (!(!retrying && false)) setLoading(false);
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setStatusMsg('');
+    setLoading(true);
+    await doLogin();
   };
 
   return (
@@ -115,6 +114,7 @@ const Login = () => {
             <h2 className="login-form-title">Log In</h2>
             <p className="login-form-subtitle">Enter your credentials to continue.</p>
             {error && <div className="error-message" style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
+            {statusMsg && <div style={{ color: '#d97706', marginBottom: '12px', fontSize: '0.9rem', textAlign: 'center' }}>{statusMsg}</div>}
 
             <form onSubmit={handleSubmit} className="login-form">
 
