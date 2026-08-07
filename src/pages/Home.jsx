@@ -19,12 +19,12 @@ const Home = () => {
       <section className="hero">
         <div className="container hero-content animate-fade-in">
           <h1 className="heading-primary">Shape Your Future with the Right Career Guidance</h1>
-          <p className="subheading">At CareersDream, we help students discover their strengths, explore career opportunities, and make informed decisions through expert counseling, psychometric assessments, and personalized career planning.</p>
+          <p className="subheading">At CareersDream, we help students discover their strengths, explore career opportunities, and make informed decisions through expert Counselling, psychometric assessments, and personalized career planning.</p>
           <div className="hero-buttons">
             <Link to={isLoggedIn ? "/counselling" : "/register"} className="btn btn-primary">Get Started</Link>
           
             {showLoginModal && <AdminLoginModal onClose={() => setShowLoginModal(false)} />}
-            <Link to="/contact" className="btn btn-secondary">Book Free Counseling</Link>
+            <Link to="/contact" className="btn btn-secondary">Book Free Counselling</Link>
           </div>
           <div className="trusted-by">
             <p>Trusted By: Helping students, schools, and parents make smarter career decisions.</p>
@@ -41,7 +41,7 @@ const Home = () => {
       {/* About Section */}
       <section className="about-section section-padding">
         <div className="container text-center">
-          <h2 className="heading-secondary">Your Trusted Career Counseling Partner</h2>
+          <h2 className="heading-secondary">Your Trusted Career Counselling Partner</h2>
           <p className="about-text">
             Choosing the right career is one of the most important decisions in life. CareersDream empowers students with personalized career guidance, expert mentorship, aptitude assessments, and skill development programs. Whether you are in school, college, or preparing for competitive exams, we help you choose the career path that matches your passion, abilities, and future goals.
           </p>
@@ -55,7 +55,7 @@ const Home = () => {
           <div className="grid grid-cols-3 gap-8">
             <div className="card">
               <h3>Personalized Career Guidance</h3>
-              <p>Receive one-on-one counseling sessions based on your interests, strengths, personality, and aspirations.</p>
+              <p>Receive one-on-one Counselling sessions based on your interests, strengths, personality, and aspirations.</p>
             </div>
             <div className="card">
               <h3>Career Assessment</h3>
@@ -89,7 +89,7 @@ const Home = () => {
             <div className="service-item">
               <CheckCircle className="icon-maize" />
               <div>
-                <h3>Career Counseling</h3>
+                <h3>Career Counselling</h3>
                 <p>Personalized guidance to help students identify the right career path.</p>
               </div>
             </div>
@@ -140,7 +140,7 @@ const Home = () => {
             {[
               { step: 1, title: 'Register Your Account', desc: 'Create your CareersDream account in just a few minutes.' },
               { step: 2, title: 'Take Career Assessment', desc: 'Complete our scientifically designed aptitude and personality assessment.' },
-              { step: 3, title: 'Meet Your Counselor', desc: 'Schedule a one-on-one counseling session with our career expert.' },
+              { step: 3, title: 'Meet Your Counselor', desc: 'Schedule a one-on-one Counselling session with our career expert.' },
               { step: 4, title: 'Receive Your Career Roadmap', desc: 'Get a personalized report with career recommendations and action plans.' },
               { step: 5, title: 'Achieve Your Dream Career', desc: 'Follow expert guidance, improve your skills, and achieve your goals.' }
             ].map(item => (
@@ -165,7 +165,7 @@ const Home = () => {
               <div className="stars"><Star/><Star/><Star/><Star/><Star/></div>
             </div>
             <div className="testimonial-card">
-              <p>"The psychometric assessment and counseling session gave me complete clarity about my future. Highly recommended!"</p>
+              <p>"The psychometric assessment and Counselling session gave me complete clarity about my future. Highly recommended!"</p>
               <h4>Aman Verma</h4>
               <div className="stars"><Star/><Star/><Star/><Star/><Star/></div>
             </div>
@@ -184,7 +184,7 @@ const Home = () => {
           <h2 className="heading-secondary">Ready to Discover Your Dream Career?</h2>
           <p className="subheading">Take the first step toward a successful future with CareersDream. Connect with our expert counselors and receive personalized guidance tailored to your goals.</p>
           <div className="hero-buttons justify-center">
-            <Link to="/contact" className="btn btn-primary">Book Free Counseling</Link>
+            <Link to="/contact" className="btn btn-primary">Book Free Counselling</Link>
             <Link to="/courses" className="btn btn-secondary">Explore Courses</Link>
             {/* Admin Button – opens login modal */}
             <Link to="/adminlogin" className="btn btn-admin">Admin</Link>

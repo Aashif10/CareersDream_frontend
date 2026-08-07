@@ -15,35 +15,7 @@ const MOCK_USERS = [
     email: 'aashif6004@gmail.com',
     createdAt: '2026-07-30T07:03:27.068+00:00',
     __v: 0,
-  },
-  {
-    _id: '6a7189c21dfa079da2711496',
-    name: 'Aashif',
-    email: 'aashif12@example.com',
-    createdAt: '2026-08-04T06:42:10.825+00:00',
-    __v: 0,
-  },
-  {
-    _id: '6a71a2e3dfa079da2711abc',
-    name: 'Jane Doe',
-    email: 'jane.doe@example.com',
-    createdAt: '2026-08-01T10:15:00.000+00:00',
-    __v: 0,
-  },
-  {
-    _id: '6a71b9d4dfa079da2711def',
-    name: 'Mohammed Ali',
-    email: 'moh.ali@techcorp.io',
-    createdAt: '2026-08-02T14:22:33.000+00:00',
-    __v: 0,
-  },
-  {
-    _id: '6a71c5e5dfa079da2711fed',
-    name: 'Priya Sharma',
-    email: 'priya.sharma@startup.com',
-    createdAt: '2026-08-03T09:00:00.000+00:00',
-    __v: 0,
-  },
+  }
 ];
 
 // ── Utility ──────────────────────────────────────────────────────────────────
