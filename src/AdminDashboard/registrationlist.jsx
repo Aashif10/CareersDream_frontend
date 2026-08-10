@@ -7,16 +7,7 @@ import AdminHeader from './AdminHeader';
 import './index.css';
 import './registrationlist.css';
 
-// ── Mock data matching the MongoDB structure from the screenshot ─────────────
-const MOCK_USERS = [
-  {
-    _id: '6a6af73fa96b848bb087479b',
-    name: 'Aashif',
-    email: 'aashif6004@gmail.com',
-    createdAt: '2026-07-30T07:03:27.068+00:00',
-    __v: 0,
-  }
-];
+const API_URL = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
 
 // ── Utility ──────────────────────────────────────────────────────────────────
 const formatDate = (iso) =>
@@ -43,18 +34,18 @@ const RegistrationList = () => {
   const [deletingId, setDeletingId] = useState(null);
   const [toast, setToast]           = useState({ msg: '', type: '' });
 
-  // ── Simulate fetch (replace with real API call later) ──────────────
+  // ── Fetch all registered users from the real API ──────────────────
   const fetchUsers = async () => {
     setLoading(true);
     setError('');
     try {
-      // TODO: Replace with real API call when ready
-      // const res  = await fetch('http://localhost:5000/api/auth/users');
-      // const data = await res.json();
-      // if (!res.ok) throw new Error(data.message || 'Failed to fetch');
-      // setUsers(data.data);
-      await new Promise((r) => setTimeout(r, 800)); // Simulate network delay
-      setUsers(MOCK_USERS);
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_URL}/api/auth/users`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to fetch users');
+      setUsers(data.data);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -76,8 +67,13 @@ const RegistrationList = () => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
     setDeletingId(id);
     try {
-      // TODO: Replace with real delete API call
-      await new Promise((r) => setTimeout(r, 600));
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_URL}/api/auth/users/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Delete failed');
       setUsers((prev) => prev.filter((u) => u._id !== id));
       setToast({ msg: 'User deleted successfully', type: 'success' });
     } catch (err) {
