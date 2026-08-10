@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, ShieldCheck, Mail, Lock } from 'lucide-react';
 import './Adminlogin.css';
@@ -11,6 +11,35 @@ const Adminlogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const logoutTimerRef = useRef(null);
+
+  // On mount: if already logged in, check remaining session time
+  useEffect(() => {
+    const loginTime = localStorage.getItem('adminLoginTime');
+    const token = localStorage.getItem('token');
+    if (loginTime && token) {
+      const elapsed = Date.now() - parseInt(loginTime, 10);
+      const remaining = 3600000 - elapsed; // 1 hour in ms
+      if (remaining <= 0) {
+        // Session already expired
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('adminLoginTime');
+        navigate('/adminlogin');
+      } else {
+        // Set timer for remaining time
+        logoutTimerRef.current = setTimeout(() => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('adminLoginTime');
+          navigate('/adminlogin');
+        }, remaining);
+      }
+    }
+    return () => {
+      if (logoutTimerRef.current) clearTimeout(logoutTimerRef.current);
+    };
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +56,16 @@ const Adminlogin = () => {
       const data = await response.json();
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data));
+      // Store login time for auto-logout after 1 hour
+      localStorage.setItem('adminLoginTime', Date.now().toString());
       setSuccess('Authentication successful...');
+      // Auto-logout after 1 hour (3600000 ms)
+      setTimeout(() => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('adminLoginTime');
+        navigate('/adminlogin');
+      }, 3600000);
       setTimeout(() => navigate('/admin'), 1200);
     } catch (err) {
       setError(err.message);

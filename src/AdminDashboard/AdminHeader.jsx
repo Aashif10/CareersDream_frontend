@@ -61,7 +61,7 @@ const AdminHeader = ({ title = 'Dashboard Overview' }) => {
             <img
               src={
                 user && user.profileImage
-                  ? `${apiUrl}/${user.profileImage}`
+                  ? `${apiUrl}/uploads/${user.profileImage}`
                   : `https://ui-avatars.com/api/?name=${encodeURIComponent(user ? user.name : 'Admin')}&background=34D399&color=111312&bold=true`
               }
               alt="User"
