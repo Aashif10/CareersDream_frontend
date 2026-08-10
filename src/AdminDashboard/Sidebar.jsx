@@ -41,7 +41,7 @@ const Sidebar = ({ activePage }) => {
               onClick={() => setTeamOpen(!teamOpen)}
               aria-expanded={teamOpen}
             >
-              <span className="nav-label"><Users size={20} /> Team Members</span>
+              <span className="nav-label"><Users size={20} /> Team</span>
               <ChevronDown size={16} className={`chevron ${teamOpen ? 'rotated' : ''}`} />
             </button>
             <ul className={`dropdown-menu ${teamOpen ? 'show' : ''}`}>
