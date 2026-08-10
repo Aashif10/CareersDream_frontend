@@ -1,0 +1,415 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Admin Profile  – scoped styles  (prefix: ap-)
+   Uses the global admin design tokens from index.css
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Toast ──────────────────────────────────────────────────────── */
+.ap-toast {
+  position: fixed;
+  top: 24px;
+  right: 32px;
+  z-index: 9999;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: ap-slide-in 0.35s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+.ap-toast--success {
+  background: linear-gradient(135deg, #065f46, #064e3b);
+  border: 1px solid #34d399;
+  color: #d1fae5;
+}
+.ap-toast--error {
+  background: linear-gradient(135deg, #7f1d1d, #6b1d1d);
+  border: 1px solid #ef4444;
+  color: #fecaca;
+}
+@keyframes ap-slide-in {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Page Content ───────────────────────────────────────────────── */
+.ap-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Hero Card ──────────────────────────────────────────────────── */
+.ap-hero-card {
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-md);
+}
+
+.ap-cover {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+}
+
+.ap-cover-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0d2b1f 0%, #0f3b2a 40%, #1a4d38 70%, #0a2219 100%);
+}
+
+.ap-cover-pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(52, 211, 153, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 60% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 40%);
+}
+
+.ap-hero-body {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 0 32px 28px;
+  flex-wrap: wrap;
+}
+
+/* ── Avatar ─────────────────────────────────────────────────────── */
+.ap-avatar-wrap {
+  position: relative;
+  margin-top: -52px;
+  flex-shrink: 0;
+}
+
+.ap-avatar {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--admin-card);
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.ap-avatar-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(52, 211, 153, 0.35);
+  animation: ap-pulse-ring 3s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes ap-pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50%       { transform: scale(1.04); opacity: 1; }
+}
+
+.ap-avatar-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  background: var(--admin-primary);
+  border-radius: 50%;
+  border: 2px solid var(--admin-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a1a12;
+}
+
+/* ── Hero Info ──────────────────────────────────────────────────── */
+.ap-hero-info {
+  flex: 1;
+  min-width: 0;
+  padding-top: 14px;
+}
+
+.ap-name {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--admin-text-main);
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.ap-role-pill {
+  display: inline-block;
+  background: rgba(52, 211, 153, 0.12);
+  color: var(--admin-primary);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.ap-email-sub {
+  font-size: 0.875rem;
+  color: var(--admin-text-muted);
+  margin: 4px 0 0;
+}
+
+/* ── Hero Actions ───────────────────────────────────────────────── */
+.ap-hero-actions {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 14px;
+}
+
+.ap-edit-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 20px;
+  border-radius: 9px;
+  border: 1px solid var(--admin-primary);
+  background: rgba(52, 211, 153, 0.08);
+  color: var(--admin-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.ap-edit-btn:hover {
+  background: rgba(52, 211, 153, 0.16);
+  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.15);
+}
+
+.ap-edit-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.ap-save-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 20px;
+  border-radius: 9px;
+  border: none;
+  background: var(--admin-primary);
+  color: #0a1a12;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.ap-save-btn:hover:not(:disabled) {
+  background: #2ebd87;
+}
+.ap-save-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.ap-cancel-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 9px;
+  border: 1px solid var(--admin-border);
+  background: transparent;
+  color: var(--admin-text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.ap-cancel-btn:hover {
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+/* ── Grid ───────────────────────────────────────────────────────── */
+.ap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* ── Card ───────────────────────────────────────────────────────── */
+.ap-card {
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--admin-shadow-md);
+  transition: border-color 0.2s;
+}
+.ap-card:hover {
+  border-color: rgba(52, 211, 153, 0.2);
+}
+
+.ap-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.ap-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(52, 211, 153, 0.1);
+  color: var(--admin-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ap-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--admin-text-main);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* ── Fields ─────────────────────────────────────────────────────── */
+.ap-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ap-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ap-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--admin-text-muted);
+}
+
+.ap-value {
+  font-size: 0.925rem;
+  color: var(--admin-text-main);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+}
+
+.ap-value-icon {
+  color: var(--admin-text-muted);
+  flex-shrink: 0;
+}
+
+.ap-na {
+  color: var(--admin-text-muted);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.ap-id {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  color: var(--admin-primary);
+  background: rgba(52, 211, 153, 0.07);
+  border: 1px solid rgba(52, 211, 153, 0.15);
+  padding: 4px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.03em;
+  word-break: break-all;
+}
+
+.ap-role-tag {
+  background: rgba(52, 211, 153, 0.1);
+  color: var(--admin-primary);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.ap-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--admin-primary);
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+  animation: ap-blink 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes ap-blink {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2); }
+  50%       { box-shadow: 0 0 0 5px rgba(52, 211, 153, 0.08); }
+}
+
+/* ── Inputs (edit mode) ─────────────────────────────────────────── */
+.ap-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 9px;
+  border: 1px solid var(--admin-border);
+  background: rgba(52, 211, 153, 0.03);
+  color: var(--admin-text-main);
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.ap-input:focus {
+  border-color: var(--admin-primary);
+  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.12);
+}
+.ap-input::placeholder {
+  color: var(--admin-text-muted);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ap-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .ap-hero-body {
+    padding: 0 20px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ap-avatar-wrap {
+    margin-top: -48px;
+  }
+  .ap-hero-actions {
+    width: 100%;
+  }
+  .ap-edit-btn,
+  .ap-save-btn,
+  .ap-cancel-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}

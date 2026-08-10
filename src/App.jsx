@@ -18,6 +18,7 @@ import RegistrationList from './AdminDashboard/registrationlist';
 import AdminLogin from './AdminDashboard/Adminlogin';
 import Support from './AdminDashboard/support';
 import Settings from './AdminDashboard/settings';
+import AdminProfile from './AdminDashboard/adminprofile';
 import './index.css';
 
 function AppLayout() {
@@ -55,6 +56,7 @@ function AppLayout() {
           <Route path="/admin/registrationlist" element={<RegistrationList />} />
           <Route path="/admin/support" element={<Support />} />
           <Route path="/admin/settings" element={<Settings />} />
+          <Route path="/admin/profile" element={<AdminProfile />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
         </Routes>
       </main>

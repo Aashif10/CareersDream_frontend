@@ -85,7 +85,7 @@ const AdminHeader = ({ title = 'Dashboard Overview' }) => {
             <div className="profile-dropdown-menu">
 
               <div className="dropdown-divider" />
-              <button className="dropdown-item">
+              <button className="dropdown-item" onClick={() => { setProfileOpen(false); navigate('/admin/profile'); }}>
                 <User size={16} /> View Profile
               </button>
               <button className="dropdown-item text-red" onClick={handleLogout}>
