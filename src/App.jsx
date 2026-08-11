@@ -7,6 +7,8 @@ import About from './pages/About';
 import Courses from './pages/Courses';
 import Students from './pages/Students';
 import Schools from './pages/Schools';
+import Assessment from './pages/assessment';
+import Assessment1 from './pages/assessment1';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import FAQ from './pages/faq';
@@ -44,6 +46,8 @@ function AppLayout() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/students" element={<Students />} />
           <Route path="/schools" element={<Schools />} />
+          <Route path="/assessment" element={<Assessment />} />
+          <Route path="/assessment1" element={<Assessment1 />} />
           {/* Placeholders for other routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

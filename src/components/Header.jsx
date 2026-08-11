@@ -56,6 +56,7 @@ const Header = () => {
           <Link to="/courses" onClick={() => setIsMenuOpen(false)}>Our Courses</Link>
           <Link to="/schools" onClick={() => setIsMenuOpen(false)}>For Schools</Link>
           <Link to="/students" onClick={() => setIsMenuOpen(false)}>For Students</Link>
+          <Link to="/assessment" onClick={() => setIsMenuOpen(false)}>Assessment</Link>
           <Link to="/contactus" onClick={() => setIsMenuOpen(false)}>Contact Us</Link>
 
           <div className="auth-buttons mobile-only">
