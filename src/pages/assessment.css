@@ -77,10 +77,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.25rem;
   padding: 1.1rem 1.75rem;
-  min-height: 64px;
-  font-size: 1.05rem;
   border-radius: 16px;
   background: linear-gradient(135deg, #FFF1BC 0%, #F5CE59 45%, #E5B229 100%);
   border: 1.5px solid rgba(255, 255, 255, 0.8);
@@ -92,6 +90,7 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  text-decoration: none;
 }
 
 .class-tab-pill.full-width-tab:hover {
@@ -100,22 +99,18 @@
   box-shadow: 0 12px 28px -4px rgba(229, 178, 41, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.9);
 }
 
-.class-tab-pill.full-width-tab.active {
-  justify-content: center;
-  background: linear-gradient(135deg, #FFF1BC 0%, #F5CE59 45%, #E5B229 100%);
-  border-color: #1A2634;
-  color: #1A2634;
-  box-shadow: 0 0 0 3.5px rgba(26, 38, 52, 0.25), 0 10px 26px -4px rgba(229, 178, 41, 0.4);
-}
-
-.class-tab-pill.full-width-tab.active .banner-content {
-  flex-grow: 0;
+.banner-left-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
 }
 
 /* Icon Badge */
 .banner-icon-badge {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   background: #1A2634;
   color: #EEC550;
   border-radius: 10px;
@@ -131,59 +126,56 @@
   transform: scale(1.08) rotate(-4deg);
 }
 
-.banner-content {
+.banner-text-group {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  flex-grow: 1;
+  flex-direction: column;
+  gap: 0.15rem;
+  text-align: left;
+  min-width: 0;
 }
 
 .class-tab-pill.full-width-tab .tab-title {
-  font-size: 1.08rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: #1A2634;
   letter-spacing: -0.01em;
-}
-
-.class-tab-pill.full-width-tab .tab-divider {
-  color: rgba(26, 38, 52, 0.35);
-  font-weight: 400;
-  font-size: 1.1rem;
+  line-height: 1.3;
 }
 
 .class-tab-pill.full-width-tab .tab-badge {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: rgba(26, 38, 52, 0.85);
   padding-left: 0;
   border-left: none;
+  line-height: 1.3;
 }
 
 /* Action Pill */
+.banner-action-wrapper {
+  flex-shrink: 0;
+}
+
 .banner-action-pill {
   background: #1A2634;
   color: #ffffff;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  padding: 0.45rem 1rem;
+  padding: 0.55rem 1.25rem;
   border-radius: 20px;
   letter-spacing: 0.02em;
   white-space: nowrap;
   box-shadow: 0 2px 6px rgba(26, 38, 52, 0.2);
   transition: all 0.25s ease;
-  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .class-tab-pill.full-width-tab:hover .banner-action-pill {
   background: #203E5F;
   transform: translateX(3px);
   box-shadow: 0 4px 10px rgba(32, 62, 95, 0.3);
-}
-
-.class-tab-pill.full-width-tab.active .banner-action-pill {
-  background: #1A2634;
-  color: #EEC550;
 }
 
 /* Active Class Header */
@@ -331,20 +323,87 @@
   .subject-cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .class-tabs-grid {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.35rem;
+  }
+
+  .class-tab-pill {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .class-tab-pill.full-width-tab {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+    padding: 1rem 1.1rem;
+    border-radius: 14px;
+  }
+
+  .banner-left-group {
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .banner-icon-badge {
+    width: 40px;
+    height: 40px;
+  }
+
+  .class-tab-pill.full-width-tab .tab-title {
+    font-size: 1rem;
+  }
+
+  .class-tab-pill.full-width-tab .tab-badge {
+    font-size: 0.82rem;
+  }
+
+  .banner-action-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .banner-action-pill {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
 }
 
 @media (max-width: 640px) {
   .subject-cards-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
-  
-  .class-tabs-list {
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .class-tab-pill.full-width-tab {
+    padding: 0.85rem;
+    gap: 0.75rem;
   }
-  
-  .class-tab-pill {
-    white-space: nowrap;
+
+  .banner-left-group {
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .class-tab-pill.full-width-tab .tab-title {
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .class-tab-pill.full-width-tab .tab-badge {
+    font-size: 0.78rem;
+    line-height: 1.35;
   }
 }

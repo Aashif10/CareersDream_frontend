@@ -138,15 +138,18 @@ const Assessment = () => {
               to="/assessment1"
               className="class-tab-pill personality-tab full-width-tab"
             >
-              <div className="banner-icon-badge">
-                <Brain size={22} className="tab-icon" />
+              <div className="banner-left-group">
+                <div className="banner-icon-badge">
+                  <Brain size={24} className="tab-icon" />
+                </div>
+                <div className="banner-text-group">
+                  <div className="tab-title">{tab.title}</div>
+                  <div className="tab-badge">{tab.desc}</div>
+                </div>
               </div>
-              <div className="banner-content">
-                <span className="tab-title">{tab.title}</span>
-                <span className="tab-divider">|</span>
-                <span className="tab-badge">{tab.desc}</span>
+              <div className="banner-action-wrapper">
+                <span className="banner-action-pill">Explore Test →</span>
               </div>
-              <span className="banner-action-pill">Explore Test →</span>
             </Link>
           </div>
         ))}

@@ -18,7 +18,7 @@ const Footer = () => {
             <div className="social-icons">
               <a href="#" aria-label="Facebook"><FaFacebook size={18} /></a>
               <a href="#" aria-label="Instagram"><FaInstagram size={18} /></a>
-              <a href="#" aria-label="LinkedIn"><FaLinkedin size={18} /></a>
+              <a href="https://www.linkedin.com/feed/" aria-label="LinkedIn"><FaLinkedin size={18} /></a>
               <a href="#" aria-label="YouTube"><FaYoutube size={18} /></a>
             </div>
           </div>
