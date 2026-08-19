@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Brain, 
@@ -11,7 +11,9 @@ import {
   Award,
   Download,
   Sparkles,
-  Trophy
+  Trophy,
+  Lock,
+  UserCheck
 } from 'lucide-react';
 import './assessment1.css';
 
@@ -286,9 +288,15 @@ const questionsData = [
 ];
 
 const Assessment1 = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem('token'));
   const [currentIdx, setCurrentIdx] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
 
   const totalQuestions = questionsData.length;
   const currentQ = questionsData[currentIdx];
@@ -368,7 +376,7 @@ const Assessment1 = () => {
     <div className="assessment1-page">
       <section className="assessment1-section container">
         {/* Hero Header Banner */}
-        {!showResults && (
+        {!showResults && isLoggedIn && (
           <div className="personality-hero-banner hide-on-print" style={{marginBottom: '0.75rem'}}>
             <div className="hero-banner-badge">
               <Brain size={32} />
@@ -381,7 +389,7 @@ const Assessment1 = () => {
         )}
 
         {/* Quiz Header Progress Bar */}
-        {!showResults && (
+        {!showResults && isLoggedIn && (
           <div className="quiz-status-bar hide-on-print" style={{marginBottom: '0.75rem'}}>
             <div className="status-item">
               <span className="status-label">Progress:</span>
@@ -390,7 +398,30 @@ const Assessment1 = () => {
           </div>
         )}
 
-        {!showResults ? (
+        {!isLoggedIn ? (
+          /* Auth Required View (Must Log In or Register first) */
+          <div className="auth-required-wrapper">
+            <div className="auth-required-card">
+              <div className="auth-lock-circle">
+                <Lock size={44} className="icon-lock" />
+              </div>
+              <h2 className="auth-required-title">Login or Register Required</h2>
+              <p className="auth-required-desc">
+                Please log in to your CareersDream account or register a new account before starting the Psychometric & Aptitude Assessment Test.
+              </p>
+              <div className="auth-required-buttons">
+                <Link to="/login" className="btn-auth btn-auth-login">
+                  <UserCheck size={18} />
+                  <span>Log In to Account</span>
+                </Link>
+                <Link to="/register" className="btn-auth btn-auth-register">
+                  <Sparkles size={18} />
+                  <span>Register New Account</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        ) : !showResults ? (
           /* Single Active Question Card View */
           <div className="single-question-wrapper">
             <div className="question-card">
