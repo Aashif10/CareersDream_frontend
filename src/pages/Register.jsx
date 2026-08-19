@@ -77,6 +77,7 @@ const Register = () => {
         <div className="register-visual">
           <div className="visual-content animate-fade-in">
             <div className="reg-brand-name"><span className="brand-white">Careers</span><span className="brand-gold">Dream</span></div>
+            <div className="reg-brand-divider"></div>
             <h2 className="visual-title">Unlock Your<br/>Future with Us</h2>
             <p className="visual-subtitle">
               Join thousands of students discovering their perfect career path. A world of opportunities awaits!
@@ -117,33 +118,32 @@ const Register = () => {
             {error && <div className="error-message" style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
             {statusMsg && <div style={{ color: '#d97706', marginBottom: '12px', fontSize: '0.9rem', textAlign: 'center' }}>{statusMsg}</div>}
 
-            <form onSubmit={handleSubmit} className="modern-form">
+            <form onSubmit={handleSubmit} className="modern-form" autoComplete="off">
               <div className="form-group">
-                <label htmlFor="fullName">Full Name</label>
-                <div className="input-wrapper">
-                  <input type="text" id="fullName" name="fullName" placeholder="Name" required value={formData.fullName} onChange={handleChange} />
+                <div className="input-wrapper floating-label-wrapper">
+                  <input type="text" id="fullName" name="fullName" placeholder=" " required value={formData.fullName} onChange={handleChange} autoComplete="off" />
+                  <label htmlFor="fullName">Full Name</label>
                 </div>
               </div>
 
               <div className="form-group">
-                <label htmlFor="email">Email Address</label>
-                <div className="input-wrapper">
-                  <input type="email" id="email" name="email" placeholder="Email" required value={formData.email} onChange={handleChange} />
+                <div className="input-wrapper floating-label-wrapper">
+                  <input type="email" id="email" name="email" placeholder=" " required value={formData.email} onChange={handleChange} autoComplete="off" />
+                  <label htmlFor="email">Email Address</label>
                 </div>
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <div className="input-wrapper">
-                  <input type="password" id="password" name="password" placeholder="Password" required value={formData.password} onChange={handleChange} />
+                <div className="input-wrapper floating-label-wrapper">
+                  <input type="password" id="password" name="password" placeholder=" " required value={formData.password} onChange={handleChange} autoComplete="new-password" />
+                  <label htmlFor="password">Password</label>
                 </div>
               </div>
 
               <div className="form-group">
-                <label htmlFor="qualification">Class / Qualification</label>
-                <div className="input-wrapper">
+                <div className="input-wrapper floating-label-wrapper floating-select-wrapper">
                   <select id="qualification" name="qualification" required value={formData.qualification} onChange={handleChange}>
-                    <option value="" disabled>Select your current status</option>
+                    <option value="" disabled hidden></option>
                     <option value="Class 8">Class 8</option>
                     <option value="Class 9">Class 9</option>
                     <option value="Class 10">Class 10</option>
@@ -155,6 +155,7 @@ const Register = () => {
                     <option value="Working Professional">Working Professional</option>
                     <option value="Other">Other</option>
                   </select>
+                  <label htmlFor="qualification" className={formData.qualification ? 'label-float' : ''}>Class / Qualification</label>
                 </div>
               </div>
 

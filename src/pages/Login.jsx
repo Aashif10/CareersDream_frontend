@@ -72,43 +72,19 @@ const Login = () => {
     <div className="login-page">
       <div className="login-layout">
 
-        {/* Left Side: Branding */}
+        {/* Top: Branding Banner */}
         <div className="login-visual">
           <div className="login-visual-content animate-fade-in">
             <div className="login-brand-name"><span className="brand-white">Careers</span><span className="brand-gold">Dream</span></div>
             <div className="login-brand-divider"></div>
             <h2 className="login-visual-title">Welcome Back!</h2>
-            <p className="login-visual-subtitle">
-              Log in to access your personalized career dashboard, counseling sessions, and expert guidance.
-            </p>
-            <div className="login-stats-grid">
-              <div className="login-stat-card">
-                <span className="login-stat-icon">🎯</span>
-                <span className="login-stat-value">10k+</span>
-                <span className="login-stat-label">Students Guided</span>
-              </div>
-              <div className="login-stat-card">
-                <span className="login-stat-icon">👩‍💼</span>
-                <span className="login-stat-value">500+</span>
-                <span className="login-stat-label">Expert Counselors</span>
-              </div>
-              <div className="login-stat-card">
-                <span className="login-stat-icon">🏆</span>
-                <span className="login-stat-value">95%</span>
-                <span className="login-stat-label">Success Rate</span>
-              </div>
-              <div className="login-stat-card">
-                <span className="login-stat-icon">🌍</span>
-                <span className="login-stat-value">50+</span>
-                <span className="login-stat-label">Career Paths</span>
-              </div>
-            </div>
+
           </div>
           <div className="login-blob login-blob-1"></div>
           <div className="login-blob login-blob-2"></div>
         </div>
 
-        {/* Right Side: Login Form */}
+        {/* Bottom: Login Form */}
         <div className="login-form-container">
           <div className="login-form-wrapper animate-fade-in">
             <h2 className="login-form-title">Log In</h2>
@@ -116,12 +92,11 @@ const Login = () => {
             {error && <div className="error-message" style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
             {statusMsg && <div style={{ color: '#d97706', marginBottom: '12px', fontSize: '0.9rem', textAlign: 'center' }}>{statusMsg}</div>}
 
-            <form onSubmit={handleSubmit} className="login-form">
+            <form onSubmit={handleSubmit} className="login-form" autoComplete="off">
 
               {/* Email or Mobile */}
               <div className="login-form-group">
-                <label htmlFor="identifier">Email Address or Mobile Number</label>
-                <div className="login-input-wrapper">
+                <div className="login-input-wrapper login-floating-wrapper">
                   <span className="input-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                   </span>
@@ -129,21 +104,19 @@ const Login = () => {
                     type="text"
                     id="identifier"
                     name="identifier"
-                    placeholder="Enter your Email or Mobile Number"
+                    placeholder=" "
                     required
                     value={formData.identifier}
                     onChange={handleChange}
+                    autoComplete="off"
                   />
+                  <label htmlFor="identifier">Email or Mobile Number</label>
                 </div>
               </div>
 
               {/* Password */}
               <div className="login-form-group">
-                <div className="password-label-row">
-                  <label htmlFor="password">Password</label>
-                  <a href="#" className="forgot-link">Forgot Password?</a>
-                </div>
-                <div className="login-input-wrapper">
+                <div className="login-input-wrapper login-floating-wrapper">
                   <span className="input-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                   </span>
@@ -151,11 +124,13 @@ const Login = () => {
                     type={showPassword ? 'text' : 'password'}
                     id="password"
                     name="password"
-                    placeholder="Enter your Password"
+                    placeholder=" "
                     required
                     value={formData.password}
                     onChange={handleChange}
+                    autoComplete="new-password"
                   />
+                  <label htmlFor="password">Password</label>
                   <button
                     type="button"
                     className="toggle-password"
@@ -168,6 +143,9 @@ const Login = () => {
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                     )}
                   </button>
+                </div>
+                <div className="forgot-link-row">
+                  <a href="#" className="forgot-link">Forgot Password?</a>
                 </div>
               </div>
 
