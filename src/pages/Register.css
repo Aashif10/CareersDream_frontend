@@ -313,6 +313,27 @@
   color: transparent;
 }
 
+/* Password show/hide toggle */
+.reg-toggle-password {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color 0.25s ease;
+  z-index: 2;
+}
+
+.reg-toggle-password:hover {
+  color: var(--color-indigo);
+}
+
 .submit-btn {
   margin-top: -1.2rem;
   width: 100%;

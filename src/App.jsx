@@ -13,6 +13,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import FAQ from './pages/faq';
 import ContactUs from './pages/contactus';
+import Privacy from './pages/privacy';
 import AdminDashboard from './AdminDashboard';
 import Team from './AdminDashboard/addmember';
 import TeamList from './AdminDashboard/teamlist';
@@ -53,6 +54,7 @@ function AppLayout() {
           <Route path="/register" element={<Register />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/team" element={<TeamList />} />
           <Route path="/admin/add-member" element={<Team />} />

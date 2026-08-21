@@ -148,7 +148,7 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 1.7rem;
 }
 
 .login-form-group {
@@ -166,13 +166,13 @@
 .forgot-link {
   font-size: 0.78rem;
   font-weight: 500;
-  color: var(--color-indigo);
+  color: var(--color-maize);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .forgot-link:hover {
-  color: var(--color-maize);
+  color: var(--color-indigo);
   text-decoration: underline;
 }
 
