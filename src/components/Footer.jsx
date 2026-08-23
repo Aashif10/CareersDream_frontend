@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Globe } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import './Footer.css';
 
 const Footer = () => {
@@ -16,10 +17,11 @@ const Footer = () => {
               <input type="email" placeholder="Subscribe to newsletter" className="newsletter-input" />
             </div>
             <div className="social-icons">
-              <a href="#" aria-label="Facebook"><FaFacebook size={18} /></a>
-              <a href="#" aria-label="Instagram"><FaInstagram size={18} /></a>
-              <a href="https://www.linkedin.com/feed/" aria-label="LinkedIn"><FaLinkedin size={18} /></a>
-              <a href="#" aria-label="YouTube"><FaYoutube size={18} /></a>
+              <a href="#" aria-label="Facebook" className="social-icon facebook"><FaFacebook size={18} /></a>
+              <a href="https://www.instagram.com/careersdream4u/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="social-icon instagram"><FaInstagram size={18} /></a>
+              <a href="https://www.linkedin.com/in/careers-dream-92630b425/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="social-icon linkedin"><FaLinkedin size={18} /></a>
+              <a href="https://www.youtube.com/channel/UCJ3eiGtgCmOaLuvvv7Jvs-g" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="social-icon youtube"><FaYoutube size={18} /></a>
+              <a href="https://x.com/Careersdream4u" target="_blank" rel="noopener noreferrer" aria-label="X" className="social-icon x-twitter"><FaXTwitter size={18} /></a>
             </div>
           </div>
 
