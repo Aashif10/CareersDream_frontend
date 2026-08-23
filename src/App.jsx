@@ -23,6 +23,7 @@ import Support from './AdminDashboard/support';
 import Settings from './AdminDashboard/settings';
 import AdminProfile from './AdminDashboard/adminprofile';
 import Subscribers from './AdminDashboard/subscribers';
+import AdminProtectedRoute from './AdminDashboard/AdminProtectedRoute';
 import './index.css';
 
 function AppLayout() {
@@ -56,16 +57,20 @@ function AppLayout() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/privacy" element={<Privacy />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/team" element={<TeamList />} />
-          <Route path="/admin/add-member" element={<Team />} />
-          <Route path="/admin/team-list" element={<TeamList />} />
-          <Route path="/admin/registrationlist" element={<RegistrationList />} />
-          <Route path="/admin/subscribers" element={<Subscribers />} />
-          <Route path="/admin/newsletter" element={<Subscribers />} />
-          <Route path="/admin/support" element={<Support />} />
-          <Route path="/admin/settings" element={<Settings />} />
-          <Route path="/admin/profile" element={<AdminProfile />} />
+
+          {/* Admin Protected Routes */}
+          <Route path="/admin" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
+          <Route path="/admin/team" element={<AdminProtectedRoute><TeamList /></AdminProtectedRoute>} />
+          <Route path="/admin/add-member" element={<AdminProtectedRoute><Team /></AdminProtectedRoute>} />
+          <Route path="/admin/team-list" element={<AdminProtectedRoute><TeamList /></AdminProtectedRoute>} />
+          <Route path="/admin/registrationlist" element={<AdminProtectedRoute><RegistrationList /></AdminProtectedRoute>} />
+          <Route path="/admin/subscribers" element={<AdminProtectedRoute><Subscribers /></AdminProtectedRoute>} />
+          <Route path="/admin/newsletter" element={<AdminProtectedRoute><Subscribers /></AdminProtectedRoute>} />
+          <Route path="/admin/support" element={<AdminProtectedRoute><Support /></AdminProtectedRoute>} />
+          <Route path="/admin/settings" element={<AdminProtectedRoute><Settings /></AdminProtectedRoute>} />
+          <Route path="/admin/profile" element={<AdminProtectedRoute><AdminProfile /></AdminProtectedRoute>} />
+
+          {/* Admin Public Login Route */}
           <Route path="/adminlogin" element={<AdminLogin />} />
         </Routes>
       </main>
