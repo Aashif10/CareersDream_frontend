@@ -142,7 +142,7 @@
   to { transform: scale(1); opacity: 1; }
 }
 
-.form-card {
+.am-form-card {
   background-color: var(--admin-card);
   border-radius: 12px;
   padding: 24px 28px;
@@ -150,68 +150,76 @@
   box-shadow: var(--admin-shadow-md);
   max-width: 1100px;
   width: 100%;
+  box-sizing: border-box;
 }
 
-.form-grid {
+.am-form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px 20px;
+  align-items: start;
 }
 
-.form-group {
-  margin-bottom: 6px;
+.am-form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 4px 0 !important;
+  padding: 0 !important;
 }
 
-.form-group.full-width {
+.am-form-group.am-full-width {
   grid-column: 1 / -1;
 }
 
-.form-group label {
+.am-label {
   display: block;
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--admin-text-main);
-  margin-bottom: 6px;
+  margin: 0 0 6px 0 !important;
+  padding: 0 !important;
+  line-height: 1.2;
 }
 
-.form-control {
+.am-form-control {
   width: 100%;
   height: 44px;
   padding: 10px 14px;
   background-color: var(--admin-bg) !important;
-  border: 1px solid var(--admin-border);
+  border: 1px solid var(--admin-border) !important;
   border-radius: 8px;
   color: var(--admin-text-main) !important;
   font-size: 0.92rem;
   font-family: inherit;
   transition: all 0.2s;
   box-sizing: border-box;
+  margin: 0 !important;
   -webkit-appearance: none;
 }
 
-.form-control:focus {
+.am-form-control:focus {
   outline: none;
-  border-color: var(--admin-primary);
+  border-color: var(--admin-primary) !important;
   box-shadow: 0 0 0 1px var(--admin-primary);
 }
 
-.form-control::placeholder {
+.am-form-control::placeholder {
   color: var(--admin-text-muted);
   opacity: 0.8;
 }
 
 /* Fix browser autofill background */
-.form-control:-webkit-autofill,
-.form-control:-webkit-autofill:hover, 
-.form-control:-webkit-autofill:focus, 
-.form-control:-webkit-autofill:active {
+.am-form-control:-webkit-autofill,
+.am-form-control:-webkit-autofill:hover, 
+.am-form-control:-webkit-autofill:focus, 
+.am-form-control:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 40px var(--admin-bg) inset !important;
   -webkit-text-fill-color: var(--admin-text-main) !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 
 /* ── File Upload (Compact) ── */
-.file-upload-wrapper {
+.am-file-upload-wrapper {
   border: 1.5px dashed var(--admin-border);
   border-radius: 8px;
   padding: 14px 20px;
@@ -224,16 +232,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
-.file-upload-wrapper.has-preview {
+.am-file-upload-wrapper.has-preview {
   padding: 10px 18px;
   border-style: solid;
   border-color: rgba(52, 211, 153, 0.3);
   background-color: rgba(52, 211, 153, 0.03);
 }
 
-.file-upload-wrapper .file-upload-input {
+.am-file-upload-wrapper .am-file-upload-input {
   position: absolute;
   top: 0;
   left: 0;
@@ -244,37 +253,37 @@
   z-index: 2;
 }
 
-.file-upload-wrapper:hover {
+.am-file-upload-wrapper:hover {
   border-color: var(--admin-primary);
   background-color: var(--admin-primary-dark);
 }
 
-.file-upload-placeholder {
+.am-file-upload-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
 }
 
-.file-icon {
+.am-file-icon {
   color: var(--admin-primary);
   display: flex;
   align-items: center;
 }
 
-.upload-text {
+.am-upload-text {
   font-size: 0.88rem;
   color: var(--admin-text-muted);
   margin: 0;
 }
 
-.upload-text span {
+.am-upload-text span {
   color: var(--admin-primary);
   font-weight: 500;
 }
 
 /* ── Image Preview in Upload (Horizontal & Compact) ── */
-.image-preview-container {
+.am-image-preview-container {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -283,7 +292,7 @@
   z-index: 1;
 }
 
-.image-preview {
+.am-image-preview {
   width: 52px;
   height: 52px;
   object-fit: cover;
@@ -293,7 +302,7 @@
   flex-shrink: 0;
 }
 
-.image-preview-meta {
+.am-image-preview-meta {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -302,7 +311,7 @@
   min-width: 0;
 }
 
-.image-filename {
+.am-image-filename {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -319,12 +328,12 @@
   white-space: nowrap;
 }
 
-.image-change-hint {
+.am-image-change-hint {
   font-size: 11px;
   color: var(--admin-text-muted);
 }
 
-.image-remove-btn {
+.am-image-remove-btn {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -341,13 +350,13 @@
   flex-shrink: 0;
 }
 
-.image-remove-btn:hover {
+.am-image-remove-btn:hover {
   background: #dc2626;
   transform: scale(1.1);
 }
 
 /* ── Actions ── */
-.form-actions {
+.am-form-actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
@@ -356,7 +365,7 @@
   border-top: 1px solid var(--admin-border);
 }
 
-.btn-secondary {
+.am-btn-secondary {
   background-color: transparent;
   color: var(--admin-text-main);
   border: 1px solid var(--admin-border);
@@ -368,11 +377,11 @@
   transition: all 0.2s;
 }
 
-.btn-secondary:hover {
+.am-btn-secondary:hover {
   background-color: var(--admin-bg);
 }
 
-.btn-primary {
+.am-btn-primary {
   background-color: var(--admin-primary);
   color: #111312; /* Dark text for contrast on green */
   border: none;
@@ -387,21 +396,21 @@
   gap: 8px;
 }
 
-.btn-primary:hover {
+.am-btn-primary:hover {
   background-color: #2ebc89;
 }
 
-.password-input-wrapper {
+.am-password-input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.password-input-wrapper .form-control {
+.am-password-input-wrapper .am-form-control {
   padding-right: 44px;
 }
 
-.password-toggle-btn {
+.am-password-toggle-btn {
   position: absolute;
   right: 12px;
   background: none;
@@ -415,7 +424,8 @@
   transition: color 0.2s ease;
 }
 
-.password-toggle-btn:hover {
+.am-password-toggle-btn:hover {
   color: var(--admin-text-main);
 }
+
 

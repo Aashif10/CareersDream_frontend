@@ -111,19 +111,18 @@ const Team = () => {
             </div>
           )}
 
-          <div className="form-card">
+          <div className="am-form-card">
             <form onSubmit={handleSubmit} autoComplete="off">
-              <div className="form-grid">
-
+              <div className="am-form-grid">
 
                 {/* Name */}
-                <div className="form-group">
-                  <label htmlFor="name">Full Name</label>
+                <div className="am-form-group">
+                  <label htmlFor="name" className="am-label">Full Name</label>
                   <input 
                     type="text" 
                     id="name" 
                     name="name" 
-                    className="form-control" 
+                    className="am-form-control" 
                     placeholder="e.g. John Doe"
                     autoComplete="off"
                     value={formData.name}
@@ -133,13 +132,13 @@ const Team = () => {
                 </div>
 
                 {/* Phone */}
-                <div className="form-group">
-                  <label htmlFor="phone">Phone Number</label>
+                <div className="am-form-group">
+                  <label htmlFor="phone" className="am-label">Phone Number</label>
                   <input 
                     type="tel" 
                     id="phone" 
                     name="phone" 
-                    className="form-control" 
+                    className="am-form-control" 
                     placeholder="e.g. +1 (555) 000-0000"
                     autoComplete="off"
                     value={formData.phone}
@@ -149,13 +148,13 @@ const Team = () => {
                 </div>
 
                 {/* Email */}
-                <div className="form-group">
-                  <label htmlFor="email">Email Address</label>
+                <div className="am-form-group">
+                  <label htmlFor="email" className="am-label">Email Address</label>
                   <input 
                     type="email" 
                     id="email" 
                     name="email" 
-                    className="form-control" 
+                    className="am-form-control" 
                     placeholder="e.g. john@example.com"
                     autoComplete="off"
                     value={formData.email}
@@ -165,14 +164,14 @@ const Team = () => {
                 </div>
 
                 {/* Password */}
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <div className="password-input-wrapper">
+                <div className="am-form-group">
+                  <label htmlFor="password" className="am-label">Password</label>
+                  <div className="am-password-input-wrapper">
                     <input 
                       type={showPassword ? "text" : "password"} 
                       id="password" 
                       name="password" 
-                      className="form-control" 
+                      className="am-form-control" 
                       placeholder="Create a password"
                       autoComplete="new-password"
                       value={formData.password}
@@ -181,7 +180,7 @@ const Team = () => {
                     />
                     <button 
                       type="button" 
-                      className="password-toggle-btn"
+                      className="am-password-toggle-btn"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -190,28 +189,28 @@ const Team = () => {
                 </div>
                 
                 {/* Image Upload - Full Width (Compact Height) */}
-                <div className="form-group full-width">
-                  <label>Profile Image</label>
-                  <div className={`file-upload-wrapper ${imagePreview ? 'has-preview' : ''}`}>
+                <div className="am-form-group am-full-width">
+                  <label className="am-label">Profile Image</label>
+                  <div className={`am-file-upload-wrapper ${imagePreview ? 'has-preview' : ''}`}>
                     <input 
                       type="file" 
                       accept="image/*" 
                       onChange={handleImageChange}
-                      className="file-upload-input"
+                      className="am-file-upload-input"
                     />
                     {imagePreview ? (
-                      <div className="image-preview-container">
-                        <img src={imagePreview} alt="Preview" className="image-preview" />
-                        <div className="image-preview-meta">
-                          <div className="image-filename">
+                      <div className="am-image-preview-container">
+                        <img src={imagePreview} alt="Preview" className="am-image-preview" />
+                        <div className="am-image-preview-meta">
+                          <div className="am-image-filename">
                             <Upload size={13} />
                             <span>{imageFile?.name || 'Selected Image'}</span>
                           </div>
-                          <span className="image-change-hint">Click box to change photo</span>
+                          <span className="am-image-change-hint">Click box to change photo</span>
                         </div>
                         <button
                           type="button"
-                          className="image-remove-btn"
+                          className="am-image-remove-btn"
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
@@ -223,11 +222,11 @@ const Team = () => {
                         </button>
                       </div>
                     ) : (
-                      <div className="file-upload-placeholder">
-                        <div className="file-icon">
+                      <div className="am-file-upload-placeholder">
+                        <div className="am-file-icon">
                           <Upload size={22} />
                         </div>
-                        <p className="upload-text">
+                        <p className="am-upload-text">
                           <span>Click to upload</span> or drag and drop photo (PNG, JPG)
                         </p>
                       </div>
@@ -236,8 +235,8 @@ const Team = () => {
                 </div>
               </div>
 
-              <div className="form-actions">
-                <button type="button" className="btn-secondary"
+              <div className="am-form-actions">
+                <button type="button" className="am-btn-secondary"
                   onClick={() => {
                     setFormData({ name: '', phone: '', email: '', password: '' });
                     setImageFile(null);
@@ -246,9 +245,9 @@ const Team = () => {
                     setError('');
                   }}
                 >Cancel</button>
-                <button type="submit" className="btn-primary" disabled={loading}>
+                <button type="submit" className="am-btn-primary" disabled={loading}>
                   {loading ? (
-                    <span className="btn-spinner">⏳ Saving...</span>
+                    <span className="am-btn-spinner">⏳ Saving...</span>
                   ) : (
                     <><Save size={18} /> Save Member</>
                   )}
