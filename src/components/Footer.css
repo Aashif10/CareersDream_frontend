@@ -113,6 +113,18 @@
   padding: 0.35rem 0.6rem;
   border-radius: 4px;
   line-height: 1.3;
+  animation: newsletterFadeIn 0.3s ease-out;
+}
+
+@keyframes newsletterFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .newsletter-feedback.success {

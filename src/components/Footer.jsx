@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Globe, Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
@@ -10,6 +10,17 @@ const Footer = () => {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // 'success' | 'error' | null
   const [message, setMessage] = useState('');
+
+  // Automatically hide the message popup after 5 seconds
+  useEffect(() => {
+    if (status) {
+      const timer = setTimeout(() => {
+        setStatus(null);
+        setMessage('');
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [status, message]);
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
