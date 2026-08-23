@@ -22,6 +22,7 @@ import AdminLogin from './AdminDashboard/Adminlogin';
 import Support from './AdminDashboard/support';
 import Settings from './AdminDashboard/settings';
 import AdminProfile from './AdminDashboard/adminprofile';
+import Subscribers from './AdminDashboard/subscribers';
 import './index.css';
 
 function AppLayout() {
@@ -60,6 +61,8 @@ function AppLayout() {
           <Route path="/admin/add-member" element={<Team />} />
           <Route path="/admin/team-list" element={<TeamList />} />
           <Route path="/admin/registrationlist" element={<RegistrationList />} />
+          <Route path="/admin/subscribers" element={<Subscribers />} />
+          <Route path="/admin/newsletter" element={<Subscribers />} />
           <Route path="/admin/support" element={<Support />} />
           <Route path="/admin/settings" element={<Settings />} />
           <Route path="/admin/profile" element={<AdminProfile />} />

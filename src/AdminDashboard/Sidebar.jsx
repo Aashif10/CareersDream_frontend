@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, Activity, Users, FileText, Settings, Bell, 
-  Mail, HelpCircle, LogOut, Briefcase, ChevronDown, UserPlus, List
+  Mail, HelpCircle, LogOut, Briefcase, ChevronDown, UserPlus, List, MailCheck
 } from 'lucide-react';
 import './Sidebar.css';
 
@@ -58,8 +58,8 @@ const Sidebar = ({ activePage }) => {
             </ul>
           </li>
 
-          <li className={activePage === 'content' ? 'active' : ''}>
-            <a href="#"><FileText size={20} /> Content</a>
+          <li className={activePage === 'subscribers' ? 'active' : ''}>
+            <a href="/admin/subscribers"><MailCheck size={20} /> Subscribers</a>
           </li>
           <li className={activePage === 'registration-list' ? 'active' : ''}>
             <a href="/admin/registrationlist"><FileText size={20} /> User List</a>
