@@ -125,6 +125,7 @@ const Team = () => {
                     name="name" 
                     className="form-control" 
                     placeholder="e.g. John Doe"
+                    autoComplete="off"
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -140,6 +141,7 @@ const Team = () => {
                     name="phone" 
                     className="form-control" 
                     placeholder="e.g. +1 (555) 000-0000"
+                    autoComplete="off"
                     value={formData.phone}
                     onChange={handleChange}
                     required
@@ -155,6 +157,7 @@ const Team = () => {
                     name="email" 
                     className="form-control" 
                     placeholder="e.g. john@example.com"
+                    autoComplete="off"
                     value={formData.email}
                     onChange={handleChange}
                     required
@@ -186,42 +189,48 @@ const Team = () => {
                   </div>
                 </div>
                 
-                {/* Image Upload - Full Width (Moved to end) */}
+                {/* Image Upload - Full Width (Compact Height) */}
                 <div className="form-group full-width">
                   <label>Profile Image</label>
-                  <div className="file-upload-wrapper" style={{ cursor: 'pointer', position: 'relative' }}>
+                  <div className={`file-upload-wrapper ${imagePreview ? 'has-preview' : ''}`}>
                     <input 
                       type="file" 
                       accept="image/*" 
                       onChange={handleImageChange}
-                      style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', zIndex: 2 }}
+                      className="file-upload-input"
                     />
                     {imagePreview ? (
                       <div className="image-preview-container">
+                        <img src={imagePreview} alt="Preview" className="image-preview" />
+                        <div className="image-preview-meta">
+                          <div className="image-filename">
+                            <Upload size={13} />
+                            <span>{imageFile?.name || 'Selected Image'}</span>
+                          </div>
+                          <span className="image-change-hint">Click box to change photo</span>
+                        </div>
                         <button
                           type="button"
                           className="image-remove-btn"
-                          onClick={handleRemoveImage}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            handleRemoveImage();
+                          }}
                           title="Remove image"
                         >
-                          <X size={14} />
+                          <X size={15} />
                         </button>
-                        <img src={imagePreview} alt="Preview" className="image-preview" />
-                        <div className="image-filename">
-                          <Upload size={14} />
-                          <span>{imageFile.name}</span>
-                        </div>
                       </div>
                     ) : (
-                      <>
+                      <div className="file-upload-placeholder">
                         <div className="file-icon">
-                          <Upload size={32} />
+                          <Upload size={22} />
                         </div>
                         <p className="upload-text">
-                          <span>Click to upload</span> or drag and drop<br />
-                          SVG, PNG, JPG or GIF (max. 800x400px)
+                          <span>Click to upload</span> or drag and drop photo (PNG, JPG)
                         </p>
-                      </>
+                      </div>
                     )}
                   </div>
                 </div>
