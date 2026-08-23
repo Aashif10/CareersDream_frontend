@@ -1,10 +1,53 @@
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe, Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import './Footer.css';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null); // 'success' | 'error' | null
+  const [message, setMessage] = useState('');
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    if (!email || !email.trim()) return;
+
+    setLoading(true);
+    setStatus(null);
+    setMessage('');
+
+    const rawApiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
+    const apiUrl = rawApiUrl.endsWith('/') ? rawApiUrl.slice(0, -1) : rawApiUrl;
+
+    try {
+      const response = await fetch(`${apiUrl}/api/newsletter/subscribe`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setStatus('success');
+        setMessage(data.message || 'Subscribed successfully!');
+        setEmail('');
+      } else {
+        setStatus('error');
+        setMessage(data.message || 'Subscription failed. Please try again.');
+      }
+    } catch (err) {
+      console.error('Newsletter error:', err);
+      setStatus('error');
+      setMessage('Unable to connect. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="container">
@@ -13,9 +56,37 @@ const Footer = () => {
           <div className="footer-brand">
             <h3 className="logo">Careers<span>Dream</span></h3>
             <p className="tagline">Empowering students to discover their potential and design their future.</p>
-            <div className="newsletter">
-              <input type="email" placeholder="Subscribe to newsletter" className="newsletter-input" />
-            </div>
+            <form className="newsletter-form" onSubmit={handleSubscribe}>
+              <div className="newsletter-input-wrapper">
+                <input
+                  type="email"
+                  placeholder="Subscribe to newsletter"
+                  className="newsletter-input"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (status) setStatus(null);
+                  }}
+                  disabled={loading}
+                  required
+                />
+                <button
+                  type="submit"
+                  className="newsletter-submit-btn"
+                  disabled={loading || !email.trim()}
+                  aria-label="Subscribe"
+                  title="Subscribe"
+                >
+                  {loading ? <Loader2 size={16} className="newsletter-spinner" /> : <Send size={15} />}
+                </button>
+              </div>
+              {status && (
+                <div className={`newsletter-feedback ${status}`}>
+                  {status === 'success' ? <CheckCircle2 size={14} /> : <AlertCircle size={14} />}
+                  <span>{message}</span>
+                </div>
+              )}
+            </form>
             <div className="social-icons">
               <a href="#" aria-label="Facebook" className="social-icon facebook"><FaFacebook size={18} /></a>
               <a href="https://www.instagram.com/careersdream4u/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="social-icon instagram"><FaInstagram size={18} /></a>
