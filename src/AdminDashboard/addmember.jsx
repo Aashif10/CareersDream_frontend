@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
-  Upload, Save, Eye, EyeOff, X, CheckCircle2
+  Upload, Save, Eye, EyeOff, X, CheckCircle2, Image as ImageIcon
 } from 'lucide-react';
 import Sidebar from './Sidebar';
 import AdminHeader from './AdminHeader';
@@ -8,6 +8,7 @@ import './index.css';
 import './addmember.css';
 
 const Team = () => {
+  const fileInputRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -28,9 +29,15 @@ const Team = () => {
   };
 
   const handleRemoveImage = (e) => {
-    e.stopPropagation();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     setImageFile(null);
     setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const [loading, setLoading]       = useState(false);
@@ -193,6 +200,7 @@ const Team = () => {
                   <label className="am-label">Profile Image</label>
                   <div className={`am-file-upload-wrapper ${imagePreview ? 'has-preview' : ''}`}>
                     <input 
+                      ref={fileInputRef}
                       type="file" 
                       accept="image/*" 
                       onChange={handleImageChange}
@@ -224,7 +232,7 @@ const Team = () => {
                     ) : (
                       <div className="am-file-upload-placeholder">
                         <div className="am-file-icon">
-                          <Upload size={22} />
+                          <ImageIcon size={32} />
                         </div>
                         <p className="am-upload-text">
                           <span>Click to upload</span> or drag and drop photo (PNG, JPG)
