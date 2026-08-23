@@ -371,10 +371,7 @@ const Subscribers = () => {
                               >
                                 {initial}
                               </div>
-                              <div className="sub-email-details">
-                                <span className="sub-email-text">{item.email}</span>
-                                <span className="sub-id-text">ID: {item._id}</span>
-                              </div>
+                              <span className="sub-email-text">{item.email}</span>
                             </div>
                           </td>
 
