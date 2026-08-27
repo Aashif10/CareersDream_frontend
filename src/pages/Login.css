@@ -156,23 +156,29 @@
   flex-direction: column;
 }
 
-/* Forgot link row — sits below password wrapper */
-.forgot-link-row {
+/* ── Remember Me & Forgot Password Row ── */
+.login-options-row {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 0.3rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: -0.3rem;
+  margin-bottom: 0.1rem;
 }
 
-.forgot-link {
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--color-maize);
+.login-page .forgot-link,
+.login-options-row .forgot-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #203E5F !important;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.25s ease;
+  white-space: nowrap;
 }
 
-.forgot-link:hover {
-  color: var(--color-indigo);
+.login-page .forgot-link:hover,
+.login-options-row .forgot-link:hover {
+  color: #e5b229 !important;
   text-decoration: underline;
 }
 

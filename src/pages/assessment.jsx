@@ -14,7 +14,8 @@ import {
   CheckCircle,
   FileText,
   HelpCircle,
-  Lock
+  Lock,
+  Shield
 } from 'lucide-react';
 import './assessment.css';
 
@@ -124,84 +125,54 @@ const Assessment = () => {
 
   return (
     <div className="assessment-page">
-      {/* Main Class Tabs & Subject Cards Section */}
-      <section className="assessment-section container">
-        <div className="text-center mb-4">
-          <h2 className="heading-secondary">Class-wise Academic & Subject Assessment</h2>
-          <p className="subheading assessment-subheading">Select your class level below to explore subject assessment cards</p>
-        </div>
-        
-        {/* Personality & Psychometric Test Banner */}
-        {classTabs.filter(t => t.id === 'personality').map((tab) => (
-          <div key={tab.id} className="personality-banner-wrapper">
-            <Link
-              to="/assessment1"
-              className="class-tab-pill personality-tab full-width-tab"
-            >
-              <div className="banner-left-group">
-                <div className="banner-icon-badge">
-                  <Brain size={24} className="tab-icon" />
-                </div>
-                <div className="banner-text-group">
-                  <div className="tab-title">{tab.title}</div>
-                  <div className="tab-badge">{tab.desc}</div>
-                </div>
-              </div>
-              <div className="banner-action-wrapper">
-                <span className="banner-action-pill">Explore Test →</span>
-              </div>
-            </Link>
-          </div>
-        ))}
-
-        {/* Class Selection Tabs Container */}
-        <div className="class-tabs-container mb-8">
-          <div className="class-tabs-grid">
-            {classTabs.filter(t => t.id !== 'personality').map((tab) => (
-              <button
-                key={tab.id}
-                className={`class-tab-pill ${selectedTab === tab.id ? 'active' : ''}`}
-                onClick={() => setSelectedTab(tab.id)}
-              >
-                <span className="tab-title">{tab.title}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Active Class Title */}
-        <div className="class-active-header mb-6">
-          <h3 className="class-active-title">
-            {classTabs.find(t => t.id === selectedTab)?.title} Subjects
-          </h3>
-          <p className="class-active-desc">
-            {classTabs.find(t => t.id === selectedTab)?.desc}
-          </p>
-        </div>
-
-        {/* Subject Cards Grid */}
-        <div className="subject-cards-grid grid grid-cols-3 gap-6 mb-12">
-          {currentSubjects.map((sub, idx) => (
-            <div key={idx} className="subject-card subject-card-locked">
-              {/* Lock Overlay */}
-              <div className="subject-lock-overlay">
-                <div className="subject-lock-icon">
-                  <Lock size={28} />
-                </div>
-              </div>
-              <div className="subject-card-header flex items-center justify-between mb-4">
-                <div className="subject-icon-box">{sub.icon}</div>
-                <span className="subject-tag">{sub.tag}</span>
-              </div>
-              <h3 className="subject-name">{sub.name}</h3>
-              <p className="subject-desc">{sub.desc}</p>
-              <div className="subject-card-footer mt-4">
-                <span className="btn-subject-outline">Assessment Module</span>
-              </div>
+      {/* Centred Personality Test Hero Card */}
+      <section className="assessment-hero-section">
+        <div className="assessment-hero-card">
+          {/* Icon area with badge below */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', marginBottom: '1.4rem' }}>
+            {/* Icon circle */}
+            <div className="ahc-icon-ring">
+              <Brain size={30} className="ahc-brain-icon" />
+              <Sparkles size={14} className="ahc-sparkle-icon" />
             </div>
-          ))}
+
+            {/* Badge sits below icon */}
+            <div className="ahc-top-badge">
+              <Brain size={14} />
+              <span>Psychometric &amp; Personality Assessment</span>
+            </div>
+          </div>
+
+          {/* Title */}
+          <h2 className="ahc-title">Discover Your Personality Strengths</h2>
+          <p className="ahc-subtitle">
+            A scientifically designed psychometric test to evaluate your behavioral traits,
+            cognitive orientation, and personal strengths — helping you find the right career path.
+          </p>
+
+          {/* Feature pills */}
+          <div className="ahc-features">
+            <span className="ahc-feature-pill"><CheckCircle size={12} /> 10 Questions</span>
+            <span className="ahc-feature-pill"><CheckCircle size={12} /> One-time Assessment</span>
+            <span className="ahc-feature-pill"><CheckCircle size={12} /> Instant Results</span>
+            <span className="ahc-feature-pill"><CheckCircle size={12} /> PDF Report</span>
+          </div>
+
+          {/* CTA Button */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.6rem' }}>
+            <Link to="/test" className="ahc-explore-btn">
+              <Award size={17} />
+              <span>Explore Test</span>
+              <span className="ahc-btn-arrow">→</span>
+            </Link>
+
+            <p className="ahc-note">
+              <Shield size={12} /> Free for all registered students · Takes ~5 minutes
+            </p>
+          </div>
         </div>
       </section>
+
 
       {/* Bottom CTA Banner */}
       <section className="cta section-padding text-center">

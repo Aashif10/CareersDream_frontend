@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import FAQ from './pages/faq';
 import ContactUs from './pages/contactus';
 import Privacy from './pages/privacy';
+import PersonalityTest from './pages/personalitytest';
 import AdminDashboard from './AdminDashboard';
 import Team from './AdminDashboard/addmember';
 import TeamList from './AdminDashboard/teamlist';
@@ -23,6 +24,8 @@ import Support from './AdminDashboard/support';
 import Settings from './AdminDashboard/settings';
 import AdminProfile from './AdminDashboard/adminprofile';
 import Subscribers from './AdminDashboard/subscribers';
+import AdminQuestions from './AdminDashboard/adminquestions';
+import AdminReports from './AdminDashboard/adminreports';
 import AdminProtectedRoute from './AdminDashboard/AdminProtectedRoute';
 import './index.css';
 
@@ -51,6 +54,7 @@ function AppLayout() {
           <Route path="/schools" element={<Schools />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/assessment1" element={<Assessment1 />} />
+          <Route path="/test" element={<PersonalityTest />} />
           {/* Placeholders for other routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -60,6 +64,8 @@ function AppLayout() {
 
           {/* Admin Protected Routes */}
           <Route path="/admin" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
+          <Route path="/admin/questions" element={<AdminProtectedRoute><AdminQuestions /></AdminProtectedRoute>} />
+          <Route path="/admin/test-reports" element={<AdminProtectedRoute><AdminReports /></AdminProtectedRoute>} />
           <Route path="/admin/team" element={<AdminProtectedRoute><TeamList /></AdminProtectedRoute>} />
           <Route path="/admin/add-member" element={<AdminProtectedRoute><Team /></AdminProtectedRoute>} />
           <Route path="/admin/team-list" element={<AdminProtectedRoute><TeamList /></AdminProtectedRoute>} />

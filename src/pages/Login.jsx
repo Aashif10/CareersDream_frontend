@@ -144,13 +144,10 @@ const Login = () => {
                     )}
                   </button>
                 </div>
-                <div className="forgot-link-row">
-                  <a href="#" className="forgot-link">Forgot Password?</a>
-                </div>
               </div>
 
-              {/* Remember Me */}
-              <div className="remember-row">
+              {/* Remember Me & Forgot Password in Same Row */}
+              <div className="login-options-row">
                 <label className="remember-label">
                   <input
                     type="checkbox"
@@ -162,6 +159,7 @@ const Login = () => {
                   <span className="custom-checkbox"></span>
                   Remember Me
                 </label>
+                <a href="#" className="forgot-link">Forgot Password?</a>
               </div>
 
               {/* Submit */}

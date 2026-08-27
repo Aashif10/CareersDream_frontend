@@ -39,9 +39,7 @@ const Register = () => {
       clearTimeout(timeoutId);
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem('token', data.token);
-        if (data.user && data.user.name) localStorage.setItem('userName', data.user.name);
-        else if (data.name) localStorage.setItem('userName', data.name);
+        // Do NOT store token in localStorage to prevent auto-login
         setStatusMsg('');
         setShowSuccessPopup(true);
       } else {
@@ -58,7 +56,9 @@ const Register = () => {
         ? 'Server is taking too long. Please try again in a moment.'
         : 'Network error. Could not connect to the server.');
     } finally {
-      if (!(!retrying && false)) setLoading(false);
+      if (!retrying) {
+        setLoading(false);
+      }
     }
   };
 

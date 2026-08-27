@@ -8,6 +8,7 @@ import './Sidebar.css';
 
 const Sidebar = ({ activePage }) => {
   const [teamOpen, setTeamOpen] = useState(activePage === 'team');
+  const [testsOpen, setTestsOpen] = useState(activePage === 'questions' || activePage === 'test-reports');
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
@@ -53,6 +54,30 @@ const Sidebar = ({ activePage }) => {
               <li>
                 <a href="/admin/team-list">
                   <List size={16} /> Team List
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          {/* Questionnaire & Tests Dropdown */}
+          <li className={`has-dropdown ${activePage === 'questions' || activePage === 'test-reports' ? 'active' : ''} ${testsOpen ? 'open' : ''}`}>
+            <button
+              className="dropdown-toggle"
+              onClick={() => setTestsOpen(!testsOpen)}
+              aria-expanded={testsOpen}
+            >
+              <span className="nav-label"><HelpCircle size={20} /> Tests & Questions</span>
+              <ChevronDown size={16} className={`chevron ${testsOpen ? 'rotated' : ''}`} />
+            </button>
+            <ul className={`dropdown-menu ${testsOpen ? 'show' : ''}`}>
+              <li>
+                <a href="/admin/questions" className={activePage === 'questions' ? 'active-sub' : ''}>
+                  <List size={16} /> Manage Questions
+                </a>
+              </li>
+              <li>
+                <a href="/admin/test-reports" className={activePage === 'test-reports' ? 'active-sub' : ''}>
+                  <FileText size={16} /> User Test Reports
                 </a>
               </li>
             </ul>

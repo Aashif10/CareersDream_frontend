@@ -407,3 +407,231 @@
     line-height: 1.35;
   }
 }
+
+/* ── Assessment Hero Card ── */
+.assessment-hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
+  padding: 2.5rem 2rem;
+  background: linear-gradient(160deg, #f0f4ff 0%, #f8fafc 50%, #fff7ed 100%);
+  width: 100%;
+}
+
+.assessment-hero-card {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 2.8rem 5vw;
+  max-width: 100%;
+  width: 100%;
+  text-align: center;
+  box-shadow:
+    0 4px 6px rgba(0,0,0,0.02),
+    0 20px 60px rgba(32, 62, 95, 0.08),
+    0 0 0 1px rgba(255,255,255,0.8) inset;
+  animation: ahcFadeUp 0.5s ease both;
+}
+
+@keyframes ahcFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Glow blobs */
+.ahc-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ahc-glow-tl {
+  width: 260px;
+  height: 260px;
+  top: -80px;
+  left: -80px;
+  background: rgba(245, 206, 89, 0.22);
+}
+
+.ahc-glow-br {
+  width: 220px;
+  height: 220px;
+  bottom: -60px;
+  right: -60px;
+  background: rgba(32, 62, 95, 0.1);
+}
+
+/* All inner content above blobs */
+.assessment-hero-card > *:not(.ahc-glow) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Top badge */
+.ahc-top-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #FFF1BC, #F5CE59);
+  color: #1A2634;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 0;
+  border: 1px solid rgba(229, 178, 41, 0.4);
+}
+
+/* Icon ring */
+.ahc-icon-ring {
+  width: 76px;
+  height: 76px;
+  background: linear-gradient(135deg, #1A2634 0%, #203E5F 100%);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  position: relative;
+  box-shadow:
+    0 6px 22px rgba(32, 62, 95, 0.3),
+    0 0 0 6px rgba(32, 62, 95, 0.07);
+}
+
+.ahc-brain-icon {
+  color: #F5CE59;
+}
+
+.ahc-sparkle-icon {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  color: #f59e0b;
+  animation: ahcSpin 3s linear infinite;
+}
+
+@keyframes ahcSpin {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Title */
+.ahc-title {
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.7rem;
+}
+
+/* Subtitle */
+.ahc-subtitle {
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.7;
+  max-width: 680px;
+  margin: 0 auto 1.75rem auto;
+}
+
+/* Feature pills row */
+.ahc-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.ahc-feature-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+}
+
+.ahc-feature-pill svg {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+/* CTA Button */
+.ahc-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #1A2634 0%, #203E5F 100%);
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 0.9rem 2.4rem;
+  border-radius: 14px;
+  text-decoration: none;
+  margin-bottom: 1.2rem;
+  box-shadow:
+    0 4px 15px rgba(32, 62, 95, 0.35),
+    0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  letter-spacing: 0.01em;
+}
+
+.ahc-explore-btn:hover {
+  background: linear-gradient(135deg, #0f172a 0%, #1A2634 100%);
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 25px rgba(32, 62, 95, 0.45),
+    0 2px 6px rgba(0,0,0,0.15);
+}
+
+.ahc-btn-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.ahc-explore-btn:hover .ahc-btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Footer note */
+.ahc-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin: 0;
+}
+
+.ahc-note svg {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .assessment-hero-card {
+    padding: 2.5rem 1.5rem;
+  }
+  .ahc-title {
+    font-size: 1.55rem;
+  }
+  .ahc-explore-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
