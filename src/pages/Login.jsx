@@ -40,6 +40,10 @@ const Login = () => {
         localStorage.setItem('token', data.token);
         if (data.user && data.user.name) localStorage.setItem('userName', data.user.name);
         else if (data.name) localStorage.setItem('userName', data.name);
+        
+        const email = (data.user && data.user.email) || data.email || (formData.identifier && formData.identifier.includes('@') ? formData.identifier : '');
+        if (email) localStorage.setItem('userEmail', email);
+
         setStatusMsg('');
         setShowSuccessPopup(true);
       } else {

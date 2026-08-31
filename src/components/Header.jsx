@@ -8,6 +8,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,8 +17,37 @@ const Header = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const name = localStorage.getItem('userName') || '';
+    const email = localStorage.getItem('userEmail') || '';
     setIsLoggedIn(!!token);
     setUserName(name);
+    setUserEmail(email);
+
+    if (token) {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
+      fetch(`${apiUrl}/api/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error('Auth failed');
+          return res.json();
+        })
+        .then((data) => {
+          const user = data?.data || data?.user || data;
+          if (user?.email) {
+            setUserEmail(user.email);
+            localStorage.setItem('userEmail', user.email);
+          }
+          if (user?.name) {
+            setUserName(user.name);
+            localStorage.setItem('userName', user.name);
+          }
+        })
+        .catch((err) => {
+          console.error('Failed to fetch user info:', err);
+        });
+    }
   }, [location]);
 
   // Close dropdown when clicking outside
@@ -34,12 +64,14 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
+    localStorage.removeItem('userEmail');
     setIsLoggedIn(false);
     setDropdownOpen(false);
     navigate('/login');
   };
 
-  const avatarLetter = userName ? userName.charAt(0).toUpperCase() : '?';
+  const displayName = userEmail || userName;
+  const avatarLetter = displayName ? displayName.charAt(0).toUpperCase() : '?';
 
   return (
     <header className="header">
@@ -77,15 +109,19 @@ const Header = () => {
                 className="user-avatar-btn"
                 onClick={() => setDropdownOpen((prev) => !prev)}
                 aria-label="User menu"
-                title={userName || 'User'}
+                title={userEmail || userName || 'User'}
               >
                 {avatarLetter}
               </button>
               {dropdownOpen && (
                 <div className="user-dropdown">
                   <div className="user-dropdown-header">
-                    <div className="user-dropdown-avatar">{avatarLetter}</div>
-                    <div className="user-dropdown-name">{userName || 'User'}</div>
+                    <div className="user-dropdown-info">
+                      {userName && <div className="user-dropdown-name" title={userName}>{userName}</div>}
+                      <div className="user-dropdown-email" title={userEmail || userName || 'User'}>
+                        {userEmail || userName || 'User'}
+                      </div>
+                    </div>
                   </div>
                   <div className="user-dropdown-divider" />
                   <button className="user-dropdown-logout" onClick={handleLogout}>
