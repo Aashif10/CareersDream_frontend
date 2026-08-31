@@ -5,15 +5,34 @@ import { Bell, ChevronDown, LogOut, User } from 'lucide-react';
 const AdminHeader = ({ title = 'Dashboard Overview' }) => {
   const [profileOpen, setProfileOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [imgError, setImgError] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  const apiUrl = "https://careersdream-backend.onrender.com";
+  const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
 
   useEffect(() => {
     const userData = localStorage.getItem('user');
     if (userData) {
-      setUser(JSON.parse(userData));
+      const parsed = JSON.parse(userData);
+      setUser(parsed);
+      setImgError(false);
+
+      // Fetch latest profile details if ID is available
+      if (parsed._id) {
+        const token = localStorage.getItem('token');
+        fetch(`${apiUrl}/api/team/${parsed._id}`, {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.data) {
+              setUser((prev) => ({ ...prev, ...data.data }));
+              localStorage.setItem('user', JSON.stringify({ ...parsed, ...data.data }));
+            }
+          })
+          .catch(() => {});
+      }
     }
 
     const handleClickOutside = (event) => {
@@ -31,6 +50,24 @@ const AdminHeader = ({ title = 'Dashboard Overview' }) => {
     localStorage.removeItem('user');
     navigate('/adminlogin');
   };
+
+  // Helper to format profile image source correctly
+  const getProfileImageUrl = () => {
+    if (!user || !user.profileImage) return null;
+    const img = user.profileImage;
+    if (img.startsWith('http://') || img.startsWith('https://')) {
+      return img;
+    }
+    const cleanPath = img.startsWith('/') ? img.slice(1) : img;
+    if (cleanPath.startsWith('uploads/')) {
+      return `${apiUrl}/${cleanPath}`;
+    }
+    return `${apiUrl}/uploads/${cleanPath}`;
+  };
+
+  const avatarSrc = !imgError && getProfileImageUrl()
+    ? getProfileImageUrl()
+    : `https://ui-avatars.com/api/?name=${encodeURIComponent(user ? user.name : 'Admin')}&background=34D399&color=111312&bold=true`;
 
   // Get today's date formatted
   const today = new Date().toLocaleDateString('en-GB', {
@@ -59,13 +96,10 @@ const AdminHeader = ({ title = 'Dashboard Overview' }) => {
         <div className="profile-dropdown-container" style={{ position: 'relative' }} ref={dropdownRef}>
           <div className="user-profile" onClick={() => setProfileOpen(!profileOpen)}>
             <img
-              src={
-                user && user.profileImage
-                  ? `${apiUrl}/uploads/${user.profileImage}`
-                  : `https://ui-avatars.com/api/?name=${encodeURIComponent(user ? user.name : 'Admin')}&background=34D399&color=111312&bold=true`
-              }
-              alt="User"
+              src={avatarSrc}
+              alt={user ? user.name : 'User'}
               className="avatar"
+              onError={() => setImgError(true)}
             />
             <div className="user-info">
               <span className="user-name">{user ? user.name : 'Admin User'}</span>
@@ -83,7 +117,6 @@ const AdminHeader = ({ title = 'Dashboard Overview' }) => {
 
           {profileOpen && (
             <div className="profile-dropdown-menu">
-
               <div className="dropdown-divider" />
               <button className="dropdown-item" onClick={() => { setProfileOpen(false); navigate('/admin/profile'); }}>
                 <User size={16} /> View Profile
@@ -100,3 +133,4 @@ const AdminHeader = ({ title = 'Dashboard Overview' }) => {
 };
 
 export default AdminHeader;
+

@@ -14,7 +14,7 @@ const TeamList = () => {
   const [toast, setToast]       = useState({ msg: '', type: '' });
 
   // ── Fetch members from API ──────────────────────────────────────
-  const apiUrl = "https://careersdream-backend.onrender.com";
+  const apiUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
   const fetchMembers = async () => {
     setLoading(true);
     setError('');
@@ -160,15 +160,27 @@ const TeamList = () => {
                           <div className="tl-member-cell">
                             {m.profileImage ? (
                               <img
-                               src={`${apiUrl}/uploads/${m.profileImage}`}
+                               src={
+                                 m.profileImage.startsWith('http://') || m.profileImage.startsWith('https://')
+                                   ? m.profileImage
+                                   : `${apiUrl}/uploads/${m.profileImage.startsWith('/') ? m.profileImage.slice(1) : m.profileImage.replace(/^uploads\//, '')}`
+                               }
                                alt={m.name}
                                className="tl-avatar"
+                               onError={(e) => {
+                                 e.currentTarget.style.display = 'none';
+                                 if (e.currentTarget.nextElementSibling) {
+                                   e.currentTarget.nextElementSibling.style.display = 'flex';
+                                 }
+                               }}
                               />
-                            ) : (
-                              <div className="tl-avatar tl-avatar-placeholder">
-                                {m.name.charAt(0).toUpperCase()}
-                              </div>
-                            )}
+                            ) : null}
+                            <div
+                              className="tl-avatar tl-avatar-placeholder"
+                              style={{ display: m.profileImage ? 'none' : 'flex' }}
+                            >
+                              {m.name.charAt(0).toUpperCase()}
+                            </div>
                             <span className="tl-member-name">{m.name}</span>
                           </div>
                         </td>
