@@ -88,7 +88,7 @@ const Adminlogin = () => {
           <div className="icon-wrapper">
             <ShieldCheck size={32} strokeWidth={1.5} />
           </div>
-          <h1>Admin Portal</h1>
+          <h1><span className="brand-white">Careers</span><span className="brand-gold">Dream</span></h1>
           <p>Sign in to the CareersDream Admin Portal</p>
         </div>
 

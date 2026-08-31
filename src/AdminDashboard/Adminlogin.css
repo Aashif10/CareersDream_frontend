@@ -150,6 +150,14 @@ body {
   letter-spacing: -0.5px;
 }
 
+.brand-white {
+  color: #ffffff;
+}
+
+.brand-gold {
+  color: var(--color-maize, #EEC550);
+}
+
 .card-header p {
   color: #9ca3af;
   font-size: 0.95rem;
