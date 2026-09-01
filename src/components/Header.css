@@ -22,13 +22,11 @@
 }
 
 .logo-img {
-  height: 48px;
-  width: auto;
-  max-width: 200px;
-  object-fit: contain;
+  height: 82px;
+  width: 82px;
+  border-radius: 50%;
+  object-fit: cover;
   display: block;
-  transform: scale(1.6);
-  transform-origin: left center;
 }
 
 .nav-links {
