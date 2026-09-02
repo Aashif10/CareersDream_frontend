@@ -375,52 +375,55 @@
   border: 1px solid #dc2626;
 }
 
-/* Modal Styling */
+/* Modal Styling — Clean Modern White Theme */
 .ar-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(5px);
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
   z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 1rem 1.25rem;
 }
 
 .ar-report-modal {
-  background: #121624;
-  border: 1px solid #28334a;
-  border-radius: 14px;
-  width: 100%;
-  max-width: 900px;
-  max-height: 92vh;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  width: 96vw;
+  max-width: 1440px;
+  height: 94vh;
+  max-height: 94vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
+  color: #0f172a;
 }
 
 .ar-modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.15rem 1.5rem;
-  background: #0d111b;
-  border-bottom: 1px solid #242b3d;
+  padding: 1.15rem 1.6rem;
+  background: #ffffff;
+  border-bottom: 1.5px solid #f1f5f9;
 }
 
 .ar-modal-title {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .ar-modal-title h3 {
   margin: 0;
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
 }
 
 .ar-modal-actions {
@@ -433,37 +436,47 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background: linear-gradient(135deg, #c29903 0%, #eab308 100%);
-  color: #0b0f17;
+  background: linear-gradient(135deg, #203E5F 0%, #162B45 100%);
+  color: #ffffff;
   font-size: 0.85rem;
-  font-weight: 600;
-  padding: 0.45rem 0.95rem;
-  border-radius: 6px;
+  font-weight: 700;
+  padding: 0.5rem 1.05rem;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(32, 62, 95, 0.2);
 }
 
 .ar-btn-print:hover {
+  background: linear-gradient(135deg, #162B45 0%, #0F172A 100%);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(32, 62, 95, 0.3);
 }
 
 .ar-modal-close {
-  background: none;
-  border: none;
-  color: #94a3b8;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #64748b;
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
 .ar-modal-close:hover {
-  color: #ffffff;
+  color: #0f172a;
+  background: #e2e8f0;
 }
 
 .ar-modal-body {
-  padding: 1.5rem;
+  padding: 1.6rem;
   overflow-y: auto;
   flex: 1;
+  background: #ffffff;
 }
 
 /* Candidate Header in Report */
@@ -471,10 +484,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #171d2e;
-  border: 1px solid #28334a;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
   border-radius: 12px;
-  padding: 1.25rem 1.5rem;
+  padding: 1.25rem 1.6rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
   gap: 1rem;
@@ -483,8 +496,8 @@
 .ar-candidate-info h2 {
   margin: 0 0 0.45rem 0;
   font-size: 1.4rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-weight: 800;
+  color: #0f172a;
 }
 
 .ar-candidate-meta {
@@ -492,7 +505,7 @@
   align-items: center;
   gap: 1.25rem;
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: #475569;
   flex-wrap: wrap;
 }
 
@@ -500,6 +513,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  color: #475569;
+  font-weight: 500;
 }
 
 .ar-report-score-banner {
@@ -511,50 +526,51 @@
 
 .ar-score-big {
   font-size: 1.75rem;
-  font-weight: 800;
-  color: #ffffff;
+  font-weight: 900;
+  color: #0f172a;
 }
 
 .ar-score-big .val {
-  color: #fbbf24;
+  color: #d97706;
 }
 
 .ar-score-big .max {
-  color: #64748b;
+  color: #94a3b8;
   font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .ar-score-badge {
-  background: rgba(16, 185, 129, 0.2);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.4);
-  padding: 0.2rem 0.65rem;
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+  padding: 0.25rem 0.75rem;
   border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 /* Summary Box */
 .ar-report-summary-box {
-  background: rgba(194, 153, 3, 0.08);
-  border: 1px solid rgba(194, 153, 3, 0.25);
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
+  background: #fffbeb;
+  border: 1.5px solid #fde68a;
+  border-radius: 12px;
+  padding: 1.1rem 1.35rem;
   margin-bottom: 1.5rem;
 }
 
 .ar-report-summary-box h4 {
   margin: 0 0 0.4rem 0;
-  font-size: 0.95rem;
-  color: #fbbf24;
-  font-weight: 700;
+  font-size: 0.98rem;
+  color: #b45309;
+  font-weight: 800;
 }
 
 .ar-report-summary-box p {
   margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #e2e8f0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #334155;
 }
 
 /* Category Grid */
@@ -565,9 +581,9 @@
 .ar-category-breakdown-section h4,
 .ar-report-questions-section h4 {
   margin: 0 0 0.85rem 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
 }
 
 .ar-cat-grid {
@@ -577,47 +593,48 @@
 }
 
 .ar-cat-card {
-  background: #171d2e;
-  border: 1px solid #242b3d;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
 }
 
 .ar-cat-header {
   display: flex;
   justify-content: space-between;
-  font-size: 0.82rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.55rem;
 }
 
 .ar-cat-title {
-  font-weight: 600;
-  color: #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 .ar-cat-score {
-  color: #94a3b8;
-  font-weight: 500;
+  color: #64748b;
+  font-weight: 600;
 }
 
 .ar-cat-bar-track {
-  height: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 3px;
+  height: 7px;
+  background: #e2e8f0;
+  border-radius: 999px;
   overflow: hidden;
 }
 
 .ar-cat-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #c29903, #eab308);
-  border-radius: 3px;
+  background: linear-gradient(90deg, #d97706, #f59e0b);
+  border-radius: 999px;
 }
 
 /* Questions Review Table */
 .ar-q-table-wrapper {
-  border: 1px solid #242b3d;
-  border-radius: 8px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
   overflow-x: auto;
+  background: #ffffff;
 }
 
 .ar-q-table {
@@ -627,139 +644,558 @@
 }
 
 .ar-q-table th {
-  padding: 0.75rem 1rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #94a3b8;
-  background: #0d111b;
-  border-bottom: 1px solid #242b3d;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #334155;
+  background: #f8fafc;
+  border-bottom: 1.5px solid #e2e8f0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .ar-q-table td {
-  padding: 0.85rem 1rem;
-  border-bottom: 1px solid #242b3d;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid #f1f5f9;
   font-size: 0.88rem;
-  color: #e2e8f0;
+  color: #1e293b;
   vertical-align: middle;
 }
 
 .ar-q-num {
-  font-weight: 600;
+  font-weight: 700;
   color: #64748b;
 }
 
 .ar-q-statement {
-  font-weight: 500;
-  color: #ffffff;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.4;
 }
 
 .ar-q-cat-tag {
-  font-size: 0.75rem;
-  padding: 0.2rem 0.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-  color: #94a3b8;
+  font-size: 0.76rem;
+  padding: 0.22rem 0.55rem;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  color: #475569;
+  font-weight: 600;
   white-space: nowrap;
+}
+
+.ar-scoring-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 0.22rem 0.55rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.ar-scoring-tag.normal {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.ar-scoring-tag.reverse {
+  background: #fdf2f8;
+  color: #9d174d;
+  border: 1px solid #fbcfe8;
+}
+
+.ar-scoring-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.ar-scoring-tag.normal .ar-scoring-dot {
+  background: #16a34a;
+}
+
+.ar-scoring-tag.reverse .ar-scoring-dot {
+  background: #db2777;
 }
 
 .ar-opt-badge {
   display: inline-block;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   padding: 0.25rem 0.65rem;
   border-radius: 6px;
   white-space: nowrap;
 }
 
 .ar-opt-badge.strongly-disagree {
-  background: rgba(236, 72, 153, 0.15);
-  color: #f472b6;
-  border: 1px solid rgba(236, 72, 153, 0.3);
+  background: #fdf2f8;
+  color: #be185d;
+  border: 1px solid #fbcfe8;
 }
 
 .ar-opt-badge.disagree {
-  background: rgba(139, 92, 246, 0.15);
-  color: #a78bfa;
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
 }
 
 .ar-opt-badge.neutral {
-  background: rgba(59, 130, 246, 0.15);
-  color: #60a5fa;
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
 }
 
 .ar-opt-badge.agree {
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
 }
 
 .ar-opt-badge.strongly-agree {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
 }
 
 .ar-marks-pill {
   display: inline-block;
   font-size: 0.8rem;
-  font-weight: 700;
-  color: #fbbf24;
-  background: rgba(194, 153, 3, 0.15);
-  padding: 0.2rem 0.55rem;
-  border-radius: 4px;
+  font-weight: 800;
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  padding: 0.22rem 0.55rem;
+  border-radius: 6px;
 }
 
 .print-only {
   display: none;
 }
 
-/* Print CSS */
+/* ── Delete Confirmation Popup ── */
+.ar-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(7, 12, 20, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: confirmFadeIn 0.25s ease-out;
+}
+
+.ar-confirm-card {
+  background: linear-gradient(165deg, #1a2a3a 0%, #0f1923 100%);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: 20px;
+  padding: 2.5rem 2.2rem 2rem;
+  max-width: 420px;
+  width: 92%;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(16, 185, 129, 0.08),
+              0 0 80px rgba(16, 185, 129, 0.04);
+  animation: confirmSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ar-confirm-icon-wrap {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  animation: confirmPulse 2s ease-in-out infinite;
+}
+
+.ar-confirm-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 0 0 0.6rem;
+  letter-spacing: -0.01em;
+}
+
+.ar-confirm-desc {
+  font-size: 0.88rem;
+  color: #7a8ba3;
+  line-height: 1.55;
+  margin: 0 0 1.8rem;
+}
+
+.ar-confirm-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.ar-confirm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
+}
+
+.ar-confirm-cancel {
+  background: rgba(16, 185, 129, 0.08);
+  color: #2dd4bf;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.ar-confirm-cancel:hover {
+  background: rgba(16, 185, 129, 0.16);
+  color: #5eead4;
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.ar-confirm-delete {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.25);
+}
+
+.ar-confirm-delete:hover {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+  box-shadow: 0 6px 24px rgba(239, 68, 68, 0.4);
+  transform: translateY(-1px);
+}
+
+@keyframes confirmFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes confirmSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes confirmPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.2); }
+  50%      { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+}
+
+@page {
+  margin: 10mm 12mm;
+  size: A4 portrait;
+}
+
+/* Comprehensive Print CSS for Multi-Page Full Report Output */
 @media print {
-  body * {
-    visibility: hidden;
-  }
-  .printable-report-area, .printable-report-area * {
-    visibility: visible;
-  }
+  /* 1. Un-constrain html, body, and all admin container wrappers so browser can paginate across multiple pages */
+  html,
+  body,
+  #root,
+  .admin-layout,
+  .admin-main,
+  .admin-content,
+  .ar-modal-overlay,
+  .ar-report-modal,
+  .ar-modal-body,
   .printable-report-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    color: #000000 !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    position: static !important;
     background: #ffffff !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    display: block !important;
+    z-index: auto !important;
   }
-  .hide-on-print {
+
+  /* 2. Hide background admin UI, navigation, buttons, and toasts */
+  .admin-sidebar,
+  .admin-header,
+  .ar-page-header,
+  .ar-stats-grid,
+  .ar-table-card,
+  .hide-on-print,
+  .ar-toast,
+  .ar-modal-close,
+  .ar-btn-print {
     display: none !important;
   }
-  .print-only {
+
+  /* 3. High-Contrast Candidate Header for Print */
+  .ar-report-candidate-header {
     display: flex !important;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid #ccc;
-    font-size: 0.8rem;
-  }
-  .ar-report-candidate-header,
-  .ar-cat-card,
-  .ar-report-summary-box {
+    justify-content: space-between !important;
+    align-items: center !important;
     background: #f8fafc !important;
-    border-color: #cbd5e1 !important;
-    color: #000000 !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    padding: 1rem 1.25rem !important;
+    margin-bottom: 1.25rem !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-  .ar-candidate-info h2,
-  .ar-q-statement {
+
+  .ar-candidate-info h2 {
+    color: #0f172a !important;
+    font-size: 1.35rem !important;
+    margin: 0 0 0.35rem 0 !important;
+  }
+
+  .ar-candidate-meta span {
+    color: #334155 !important;
+    font-size: 0.85rem !important;
+  }
+
+  .ar-score-big {
     color: #0f172a !important;
   }
+  .ar-score-big .val {
+    color: #b45309 !important;
+    font-weight: 900 !important;
+  }
+  .ar-score-big .max {
+    color: #64748b !important;
+  }
+  .ar-score-badge {
+    background: #ecfdf5 !important;
+    color: #065f46 !important;
+    border: 1px solid #a7f3d0 !important;
+    font-weight: 700 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 4. Assessment Summary Box */
+  .ar-report-summary-box {
+    background: #fefce8 !important;
+    border: 1.5px solid #fde047 !important;
+    border-radius: 8px !important;
+    padding: 0.9rem 1.15rem !important;
+    margin-bottom: 1.25rem !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .ar-report-summary-box h4 {
+    color: #854d0e !important;
+    margin: 0 0 0.35rem 0 !important;
+  }
+  .ar-report-summary-box p {
+    color: #1e293b !important;
+    margin: 0 !important;
+    line-height: 1.45 !important;
+  }
+
+  /* 5. Category Breakdown Grid */
+  .ar-category-breakdown-section {
+    margin-bottom: 1.25rem !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  .ar-category-breakdown-section h4,
+  .ar-report-questions-section h4 {
+    color: #0f172a !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 0.65rem !important;
+  }
+
+  .ar-cat-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+  }
+
+  .ar-cat-card {
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+    padding: 0.65rem 0.85rem !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .ar-cat-title {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+  }
+  .ar-cat-score {
+    color: #475569 !important;
+    font-weight: 600 !important;
+  }
+  .ar-cat-bar-track {
+    background: #e2e8f0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .ar-cat-bar-fill {
+    background: #d97706 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 6. Question-by-Question Table — Continuous Multi-Page Pagination */
+  .ar-report-questions-section {
+    margin-top: 1.25rem !important;
+  }
+
+  .ar-q-table-wrapper {
+    overflow: visible !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .ar-q-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  .ar-q-table thead {
+    display: table-header-group !important;
+  }
+
   .ar-q-table th {
     background: #f1f5f9 !important;
-    color: #334155 !important;
+    color: #0f172a !important;
+    font-weight: 800 !important;
+    padding: 0.65rem 0.85rem !important;
+    border-bottom: 2px solid #cbd5e1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
+
   .ar-q-table td {
     color: #0f172a !important;
-    border-color: #e2e8f0 !important;
+    padding: 0.65rem 0.85rem !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .ar-q-table tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .ar-q-num {
+    color: #475569 !important;
+    font-weight: 700 !important;
+  }
+
+  .ar-q-statement {
+    color: #0f172a !important;
+    font-weight: 600 !important;
+    line-height: 1.35 !important;
+  }
+
+  .ar-q-cat-tag {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .ar-scoring-tag {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    font-weight: 800 !important;
+    border: 1px solid #cbd5e1 !important;
+    padding: 0.18rem 0.45rem !important;
+    border-radius: 4px !important;
+  }
+  .ar-scoring-tag.normal {
+    background: #f0fdf4 !important;
+    color: #166534 !important;
+    border-color: #bbf7d0 !important;
+  }
+  .ar-scoring-tag.reverse {
+    background: #fdf2f8 !important;
+    color: #9d174d !important;
+    border-color: #fbcfe8 !important;
+  }
+
+  .ar-opt-badge {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    border: 1px solid #cbd5e1 !important;
+    font-weight: 700 !important;
+  }
+  .ar-opt-badge.strongly-disagree {
+    background: #fdf2f8 !important;
+    color: #be185d !important;
+    border-color: #fbcfe8 !important;
+  }
+  .ar-opt-badge.disagree {
+    background: #f5f3ff !important;
+    color: #6d28d9 !important;
+    border-color: #ddd6fe !important;
+  }
+  .ar-opt-badge.neutral {
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+    border-color: #bfdbfe !important;
+  }
+  .ar-opt-badge.agree {
+    background: #ecfdf5 !important;
+    color: #047857 !important;
+    border-color: #a7f3d0 !important;
+  }
+  .ar-opt-badge.strongly-agree {
+    background: #fffbeb !important;
+    color: #b45309 !important;
+    border-color: #fde68a !important;
+  }
+
+  .ar-marks-pill {
+    background: #fef3c7 !important;
+    color: #92400e !important;
+    border: 1px solid #fde68a !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    font-weight: 800 !important;
+  }
+
+  /* 7. Printable Footer & Verification Signature */
+  .print-only {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-top: 1.5rem !important;
+    padding-top: 1rem !important;
+    border-top: 1.5px solid #cbd5e1 !important;
+    font-size: 0.82rem !important;
+    color: #475569 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 }

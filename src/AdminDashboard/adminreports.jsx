@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   FileText, Search, RefreshCw, Trash2, Eye, Printer, Award,
-  Calendar, Mail, Phone, User, CheckCircle, AlertCircle, X, ChevronRight, BarChart2
+  Calendar, Mail, Phone, User, CheckCircle, AlertCircle, X, ChevronRight, BarChart2, AlertTriangle
 } from 'lucide-react';
 import Sidebar from './Sidebar';
 import AdminHeader from './AdminHeader';
@@ -39,6 +39,40 @@ const AdminReports = () => {
   const [selectedReport, setSelectedReport] = useState(null);
   const [toast, setToast] = useState({ msg: '', type: '' });
   const [deletingId, setDeletingId] = useState(null);
+  const [questionsMap, setQuestionsMap] = useState({});
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+
+  // Helper to determine whether question scoring is Normal (1->5) or Reverse (5->1)
+  const getQuestionScoringType = (resp) => {
+    if (resp.scoringType) return resp.scoringType;
+    if (resp.isReverse !== undefined) return resp.isReverse ? 'Reverse' : 'Normal';
+
+    if (resp.questionId && questionsMap[resp.questionId]) {
+      const q = questionsMap[resp.questionId];
+      if (q.scoringType) return q.scoringType;
+      if (q.options && q.options.length > 0 && q.options[0].label === 'Strongly Disagree' && q.options[0].marks === 5) {
+        return 'Reverse';
+      }
+    }
+    if (resp.order && questionsMap[`order_${resp.order}`]) {
+      const q = questionsMap[`order_${resp.order}`];
+      if (q.scoringType) return q.scoringType;
+    }
+    if (resp.questionText && questionsMap[resp.questionText.trim().toLowerCase()]) {
+      const q = questionsMap[resp.questionText.trim().toLowerCase()];
+      if (q.scoringType) return q.scoringType;
+    }
+
+    // Mathematical deduction from selectedOption & marksObtained
+    const opt = (resp.selectedOption || '').trim().toLowerCase();
+    const marks = Number(resp.marksObtained);
+    if (opt.includes('strongly agree')) return marks === 1 ? 'Reverse' : 'Normal';
+    if (opt.includes('strongly disagree')) return marks === 5 ? 'Reverse' : 'Normal';
+    if (opt.includes('agree') && !opt.includes('disagree')) return marks === 2 ? 'Reverse' : 'Normal';
+    if (opt.includes('disagree')) return marks === 4 ? 'Reverse' : 'Normal';
+
+    return 'Normal';
+  };
 
   // Fetch all test submissions
   const fetchReports = async () => {
@@ -58,6 +92,38 @@ const AdminReports = () => {
 
   useEffect(() => {
     fetchReports();
+
+    // Fetch questions to build lookup map for scoring types
+    fetch(`${API_URL}/api/questions/admin`)
+      .then(res => res.json())
+      .then(d => {
+        if (d.data && Array.isArray(d.data)) {
+          const map = {};
+          d.data.forEach(q => {
+            if (q._id) map[q._id] = q;
+            if (q.order) map[`order_${q.order}`] = q;
+            if (q.question) map[q.question.trim().toLowerCase()] = q;
+          });
+          setQuestionsMap(map);
+        }
+      })
+      .catch(() => {
+        // fallback to public questions endpoint
+        fetch(`${API_URL}/api/questions`)
+          .then(res => res.json())
+          .then(d => {
+            if (d.data && Array.isArray(d.data)) {
+              const map = {};
+              d.data.forEach(q => {
+                if (q._id) map[q._id] = q;
+                if (q.order) map[`order_${q.order}`] = q;
+                if (q.question) map[q.question.trim().toLowerCase()] = q;
+              });
+              setQuestionsMap(map);
+            }
+          })
+          .catch(() => {});
+      });
   }, []);
 
   // Toast timer
@@ -69,7 +135,6 @@ const AdminReports = () => {
 
   // Delete submission
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this test report?')) return;
     setDeletingId(id);
     try {
       const res = await fetch(`${API_URL}/api/test/reports/${id}`, { method: 'DELETE' });
@@ -245,7 +310,7 @@ const AdminReports = () => {
                             </button>
                             <button
                               className="ar-btn-delete"
-                              onClick={() => handleDelete(r._id)}
+                              onClick={() => setConfirmDeleteId(r._id)}
                               disabled={deletingId === r._id}
                               title="Delete Report"
                             >
@@ -353,8 +418,9 @@ const AdminReports = () => {
                       <tr>
                         <th style={{ width: '40px' }}>#</th>
                         <th>Question Statement</th>
-                        <th style={{ width: '180px' }}>Category</th>
-                        <th style={{ width: '180px' }}>User Selected Option</th>
+                        <th style={{ width: '130px' }}>Scoring Mode</th>
+                        <th style={{ width: '170px' }}>Category</th>
+                        <th style={{ width: '170px' }}>User Selected Option</th>
                         <th style={{ width: '90px' }}>Marks</th>
                       </tr>
                     </thead>
@@ -362,6 +428,9 @@ const AdminReports = () => {
                       {selectedReport.responses && selectedReport.responses.map((resp, i) => {
                         const opt = resp.selectedOption || '';
                         const marks = resp.marksObtained;
+                        const scoringType = getQuestionScoringType(resp);
+                        const isReverse = scoringType === 'Reverse';
+
                         let badgeClass = 'neutral';
                         if (marks === 5) badgeClass = 'strongly-disagree';
                         else if (marks === 4) badgeClass = 'disagree';
@@ -373,6 +442,12 @@ const AdminReports = () => {
                           <tr key={i}>
                             <td className="ar-q-num">{i + 1}</td>
                             <td className="ar-q-statement">{resp.questionText}</td>
+                            <td>
+                              <span className={`ar-scoring-tag ${isReverse ? 'reverse' : 'normal'}`}>
+                                <span className="ar-scoring-dot" />
+                                {scoringType} ({isReverse ? '5→1' : '1→5'})
+                              </span>
+                            </td>
                             <td>
                               <span className="ar-q-cat-tag">{resp.category || 'General'}</span>
                             </td>
@@ -402,6 +477,40 @@ const AdminReports = () => {
                   <span>Authorized Signature / System Verified</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Custom Delete Confirmation Popup */}
+      {confirmDeleteId && (
+        <div className="ar-confirm-overlay">
+          <div className="ar-confirm-card">
+            <div className="ar-confirm-icon-wrap">
+              <AlertTriangle size={32} />
+            </div>
+            <h3 className="ar-confirm-title">Delete Test Report?</h3>
+            <p className="ar-confirm-desc">
+              This action is permanent and cannot be undone. The student's entire assessment data, scores, and responses will be permanently removed.
+            </p>
+            <div className="ar-confirm-actions">
+              <button
+                className="ar-confirm-btn ar-confirm-cancel"
+                onClick={() => setConfirmDeleteId(null)}
+              >
+                <X size={15} />
+                <span>Cancel</span>
+              </button>
+              <button
+                className="ar-confirm-btn ar-confirm-delete"
+                onClick={() => {
+                  handleDelete(confirmDeleteId);
+                  setConfirmDeleteId(null);
+                }}
+              >
+                <Trash2 size={15} />
+                <span>Yes, Delete</span>
+              </button>
             </div>
           </div>
         </div>

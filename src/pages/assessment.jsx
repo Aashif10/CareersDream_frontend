@@ -152,7 +152,7 @@ const Assessment = () => {
 
           {/* Feature pills */}
           <div className="ahc-features">
-            <span className="ahc-feature-pill"><CheckCircle size={12} /> 10 Questions</span>
+            <span className="ahc-feature-pill"><CheckCircle size={12} /> 30 Questions</span>
             <span className="ahc-feature-pill"><CheckCircle size={12} /> One-time Assessment</span>
             <span className="ahc-feature-pill"><CheckCircle size={12} /> Instant Results</span>
             <span className="ahc-feature-pill"><CheckCircle size={12} /> PDF Report</span>
@@ -160,14 +160,14 @@ const Assessment = () => {
 
           {/* CTA Button */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.6rem' }}>
-            <Link to="/test" className="ahc-explore-btn">
+            <Link to="/test7k-9xqv28mnp" className="ahc-explore-btn">
               <Award size={17} />
               <span>Explore Test</span>
               <span className="ahc-btn-arrow">→</span>
             </Link>
 
             <p className="ahc-note">
-              <Shield size={12} /> Free for all registered students · Takes ~5 minutes
+              <Shield size={12} /> Free for all registered students · Takes ~ 30 minutes
             </p>
           </div>
         </div>

@@ -54,7 +54,7 @@ function AppLayout() {
           <Route path="/schools" element={<Schools />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/assessment1" element={<Assessment1 />} />
-          <Route path="/test" element={<PersonalityTest />} />
+          <Route path="/test7k-9xqv28mnp" element={<PersonalityTest />} />
           {/* Placeholders for other routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
