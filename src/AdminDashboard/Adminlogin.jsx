@@ -93,7 +93,6 @@ const Adminlogin = () => {
         </div>
 
         {error && <div className="modern-alert alert-error">{error}</div>}
-        {success && <div className="modern-alert alert-success">{success}</div>}
 
         <form onSubmit={handleSubmit} className="modern-form">
           <div className="modern-input-wrapper">
@@ -156,6 +155,19 @@ const Adminlogin = () => {
         </div>
 
       </div>
+      {/* Success Popup Modal */}
+      {success && (
+        <div className="success-popup-overlay">
+          <div className="success-popup-content">
+            <div className="success-icon-ring">
+              <ShieldCheck size={36} className="success-icon" />
+            </div>
+            <h3>Authentication Successful</h3>
+            <p>Redirecting to dashboard...</p>
+            <div className="success-loader-bar"></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

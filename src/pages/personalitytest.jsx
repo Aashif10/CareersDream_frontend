@@ -962,7 +962,7 @@ const PersonalityTest = () => {
                           {/* Row Header: Rank & Dimension Name on Left, Percentage on Right */}
                           <div className="mbr-top">
                             <div className="mbr-title-wrap">
-                              <span className="mbr-rank-badge">#{rankIdx + 1}</span>
+                              <span className="mbr-rank-badge">{rankIdx + 1}</span>
                               <span className="mbr-dim-name">{dim.fullName}</span>
                             </div>
                             <div className="mbr-score-wrap">
@@ -1015,7 +1015,7 @@ const PersonalityTest = () => {
                         <div className="mrc-header">
                           <div className="mrc-header-left">
                             <span className="mrc-rank-pill" style={{ backgroundColor: dim.color }}>
-                              Rank #{rankNum}
+                              Rank {rankNum}
                             </span>
                             <h4 className="mrc-title">{dim.fullName}</h4>
                           </div>
@@ -1122,7 +1122,7 @@ const PersonalityTest = () => {
                     <tbody>
                       {displayRankedDimensions.map((dim, idx) => (
                         <tr key={dim.code} style={{ borderBottom: '1px solid #e2e8f0' }}>
-                          <td style={{ padding: '8px', fontWeight: 700 }}>#{idx + 1}</td>
+                          <td style={{ padding: '8px', fontWeight: 700 }}>{idx + 1}</td>
                           <td style={{ padding: '8px', fontWeight: 600 }}>{dim.fullName}</td>
                           <td style={{ padding: '8px', color: '#475569', fontSize: '0.85rem' }}>{dim.measures}</td>
                           <td style={{ padding: '8px', fontSize: '0.85rem' }}>{dim.questionNumbers.join(', ')}</td>
@@ -1149,7 +1149,7 @@ const PersonalityTest = () => {
                           <div className="mrc-header">
                             <div className="mrc-header-left">
                               <span className="mrc-rank-pill" style={{ backgroundColor: dim.color }}>
-                                Rank #{rankNum}
+                                Rank {rankNum}
                               </span>
                               <h4 className="mrc-title">{dim.fullName}</h4>
                             </div>
