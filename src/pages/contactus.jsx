@@ -214,7 +214,7 @@ const ContactUs = () => {
                   </div>
                   <div className="cri-content">
                     <div className="cri-top-row">
-                      <span className="cri-label">OFFICE HEADQUARTERS</span>
+                      <span className="cri-label">OFFICE LOCATION</span>
                       <span className="cri-value cri-value--static">New Delhi, India</span>
                     </div>
                     <div className="cri-sub">Mon–Sat: 9:00 AM – 6:00 PM</div>
