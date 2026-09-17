@@ -29,9 +29,9 @@ const Home = () => {
           <div className="trusted-by">
             <p>Trusted By: Helping students, schools, and parents make smarter career decisions.</p>
             <div className="stats-mini">
-              <span><strong>10,000+</strong> Students Guided</span>
-              <span><strong>300+</strong> Schools Connected</span>
-              <span><strong>100+</strong> Career Experts</span>
+              <span><strong>100+</strong> Students Guided</span>
+              <span><strong>25+</strong> Schools Connected</span>
+              <span><strong>10+</strong> Career Experts</span>
               <span><strong>95%</strong> Student Satisfaction</span>
             </div>
           </div>
@@ -107,20 +107,8 @@ const Home = () => {
                 <p>Create a clear roadmap for your academic and professional future.</p>
               </div>
             </div>
-            <div className="service-item">
-              <CheckCircle className="icon-maize" />
-              <div>
-                <h3>College Admission Guidance</h3>
-                <p>Explore universities, eligibility, entrance exams, and admission processes.</p>
-              </div>
-            </div>
-            <div className="service-item">
-              <CheckCircle className="icon-maize" />
-              <div>
-                <h3>Competitive Exam Guidance</h3>
-                <p>JEE • NEET • CUET • UPSC • SSC • CAT • GATE • Banking • NDA</p>
-              </div>
-            </div>
+
+
             <div className="service-item">
               <CheckCircle className="icon-maize" />
               <div>

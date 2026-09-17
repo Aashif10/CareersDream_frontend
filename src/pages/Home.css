@@ -200,7 +200,7 @@
 
 .service-item {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: flex-start;
   background: white;
   padding: 1.5rem;

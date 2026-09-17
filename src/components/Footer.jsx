@@ -144,7 +144,7 @@ const Footer = () => {
           <div className="footer-contact">
             <h4>Contact</h4>
             <ul>
-              <li><Phone size={14} /> +91 7417573741</li>
+              <li><Phone size={14} /> +91-9541869852</li>
               <li><Mail size={14} />careersdream4u@gmail.com </li>
               <li><Globe size={14} /> <a href="https://www.careersdream.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>CareersDream.com</a></li>
               <li><MapPin size={14} /> New Delhi, India</li>

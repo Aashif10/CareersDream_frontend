@@ -55,56 +55,43 @@ const Schools = () => {
       <section className="section-padding container">
         <h2 className="heading-secondary text-center">Our Services for Schools</h2>
         <div className="grid grid-cols-2 gap-8 mt-8">
-          <div className="service-item">
+          <div className="service-item" style={{ gap: '1.25rem' }}>
             <CheckCircle className="icon-maize mt-1" />
             <div>
               <h3>Career Counseling Sessions</h3>
               <p>Personalized one-on-one counseling sessions to help students identify suitable career paths based on their strengths and goals.</p>
             </div>
           </div>
-          <div className="service-item">
+          <div className="service-item" style={{ gap: '1.25rem' }}>
             <CheckCircle className="icon-maize mt-1" />
             <div>
               <h3>Psychometric Assessments</h3>
               <p>Comprehensive assessments covering Aptitude, Personality, Interests, Learning Style, and Career Preferences.</p>
             </div>
           </div>
-          <div className="service-item">
+          <div className="service-item" style={{ gap: '1.25rem' }}>
             <CheckCircle className="icon-maize mt-1" />
             <div>
               <h3>Career Guidance Workshops</h3>
               <p>Interactive sessions on Career Planning, Stream Selection, Future Skills, Emerging Careers, and Goal Setting.</p>
             </div>
           </div>
-          <div className="service-item">
+          <div className="service-item" style={{ gap: '1.25rem' }}>
             <CheckCircle className="icon-maize mt-1" />
             <div>
               <h3>Parent Counseling Programs</h3>
               <p>Dedicated sessions to help parents understand career opportunities, educational planning, and decision-making strategies.</p>
             </div>
           </div>
-          <div className="service-item">
+          <div className="service-item" style={{ gap: '1.25rem' }}>
             <CheckCircle className="icon-maize mt-1" />
             <div>
               <h3>Teacher Training Programs</h3>
               <p>Professional development workshops covering student mentoring, motivational techniques, and career guidance basics.</p>
             </div>
           </div>
-          <div className="service-item">
-            <CheckCircle className="icon-maize mt-1" />
-            <div>
-              <h3>College & University Guidance</h3>
-              <p>Support for Course/College Selection, Admission Planning, Entrance Exams, and Scholarship Opportunities.</p>
-            </div>
-          </div>
-          <div className="service-item">
-            <CheckCircle className="icon-maize mt-1" />
-            <div>
-              <h3>Competitive Exam Guidance</h3>
-              <p>Awareness and preparation strategies for JEE, NEET, CUET, CLAT, NDA, UPSC, SSC, Banking, CAT, GATE.</p>
-            </div>
-          </div>
-          <div className="service-item">
+
+          <div className="service-item" style={{ gap: '1.25rem' }}>
             <CheckCircle className="icon-maize mt-1" />
             <div>
               <h3>Skill Development & Career Fairs</h3>
@@ -118,22 +105,64 @@ const Schools = () => {
       <section className="section-padding bg-dark text-white">
         <div className="container">
           <h2 className="heading-secondary text-white text-center">Benefits for Schools</h2>
-          <div className="grid grid-cols-2 gap-4 mt-8 max-w-3xl mx-auto benefits-list">
+          <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.55)', marginBottom: '2.5rem', fontSize: '1rem' }}>
+            Everything your school gains by partnering with CareersDream
+          </p>
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            justifyContent: 'center',
+            maxWidth: '900px',
+            margin: '0 auto'
+          }}>
             {[
-              'Improved Career Awareness Among Students', 'Better Academic and Career Planning',
-              'Increased Student Confidence', 'Enhanced Parent Satisfaction',
-              'Stronger School Reputation', 'Better Student Outcomes',
-              'Professional Career Reports', 'Customized Career Programs',
-              'Online & Offline Delivery', 'Continuous Student Support'
+              { label: 'Improved Career Awareness Among Students', icon: '🎯' },
+              { label: 'Better Academic and Career Planning', icon: '📚' },
+              { label: 'Increased Student Confidence', icon: '💪' },
+              { label: 'Enhanced Parent Satisfaction', icon: '👨‍👩‍👧' },
+              { label: 'Stronger School Reputation', icon: '🏆' },
+              { label: 'Better Student Outcomes', icon: '📈' },
+              { label: 'Professional Career Reports', icon: '📋' },
+              { label: 'Customized Career Programs', icon: '⚙️' },
+              { label: 'Online & Offline Delivery', icon: '🌐' },
+              { label: 'Continuous Student Support', icon: '🤝' },
             ].map((benefit, idx) => (
-              <div key={idx} className="flex items-center gap-4">
-                <CheckCircle className="text-champagne" size={20} />
-                <span>{benefit}</span>
+              <div key={idx} style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.65rem',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(212,175,55,0.3)',
+                borderRadius: '50px',
+                padding: '0.65rem 1.25rem',
+                fontSize: '0.92rem',
+                fontWeight: '500',
+                color: '#fff',
+                backdropFilter: 'blur(6px)',
+                transition: 'all 0.2s ease',
+                cursor: 'default',
+                boxShadow: '0 2px 12px rgba(212,175,55,0.08)'
+              }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'rgba(212,175,55,0.18)';
+                  e.currentTarget.style.borderColor = 'rgba(212,175,55,0.7)';
+                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(212,175,55,0.2)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+                  e.currentTarget.style.borderColor = 'rgba(212,175,55,0.3)';
+                  e.currentTarget.style.boxShadow = '0 2px 12px rgba(212,175,55,0.08)';
+                }}
+              >
+                <span style={{ fontSize: '1.1rem' }}>{benefit.icon}</span>
+                <span>{benefit.label}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* Our Process */}
       <section className="section-padding container text-center">

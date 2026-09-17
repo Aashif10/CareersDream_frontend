@@ -15,7 +15,8 @@ import {
   ShieldCheck,
   ArrowRight,
 } from 'lucide-react';
-import { FaInstagram, FaLinkedin, FaFacebook } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaFacebook, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import './contactus.css';
 
 const ContactUs = () => {
@@ -127,94 +128,96 @@ const ContactUs = () => {
             {/* ── Left Column: Direct Reach & Info ── */}
             <div className="contact-info-col">
 
-              {/* Direct Reach Cards Grid */}
-              <div className="contact-quick-cards">
-                
-                {/* Phone Card */}
-                <div className="quick-info-card">
-                  <div className="qic-icon-box qic-phone">
-                    <Phone size={22} />
+              {/* Contact Info Rows (Colorful Accents: Icon | Content | Copy Button) */}
+              <div className="contact-info-rows">
+
+                {/* Row 1: Call Our Advisors */}
+                <div className="contact-row-item contact-row-item--phone">
+                  <div className="cri-icon cri-icon--phone">
+                    <Phone size={20} />
                   </div>
-                  <div className="qic-details">
-                    <span className="qic-label">Call Our Advisors</span>
-                    <a href="tel:+917417573741" className="qic-value">
-                      +91 7417573741
-                    </a>
-                    <span className="qic-subtext">Mon–Sat, 9:00 AM – 6:00 PM</span>
+                  <div className="cri-content">
+                    <div className="cri-top-row">
+                      <span className="cri-label">CALL OUR ADVISORS</span>
+                      <a href="tel:+917417573741" className="cri-value">+91 7417573741</a>
+                    </div>
+                    <div className="cri-sub">Mon–Sat, 9:00 AM – 6:00 PM</div>
                   </div>
-                  <button
-                    type="button"
-                    className="qic-copy-btn"
-                    onClick={() => handleCopy('+917417573741', 'phone')}
-                    title="Copy Phone Number"
-                    aria-label="Copy Phone Number"
+                  <button 
+                    className="cri-copy-btn" 
+                    onClick={() => handleCopy('+91 7417573741', 'phone')}
+                    title="Copy phone number"
                   >
                     {copiedField === 'phone' ? <Check size={16} className="text-success" /> : <Copy size={16} />}
-                    {copiedField === 'phone' && <span className="copy-tooltip">Copied!</span>}
+                    {copiedField === 'phone' && <span className="cri-tooltip">Copied!</span>}
                   </button>
                 </div>
 
-                {/* Email Card */}
-                <div className="quick-info-card">
-                  <div className="qic-icon-box qic-email">
-                    <Mail size={22} />
+                {/* Row 2: Send An Email */}
+                <div className="contact-row-item contact-row-item--email">
+                  <div className="cri-icon cri-icon--email">
+                    <Mail size={20} />
                   </div>
-                  <div className="qic-details">
-                    <span className="qic-label">Send an Email</span>
-                    <a href="mailto:careersdream4u@gmail.com" className="qic-value">
-                      careersdream4u@gmail.com
-                    </a>
-                    <span className="qic-subtext">Online support team</span>
+                  <div className="cri-content">
+                    <div className="cri-top-row">
+                      <span className="cri-label">SEND AN EMAIL</span>
+                      <a href="mailto:careersdream4u@gmail.com" className="cri-value">
+                        careersdream4u@gmail.com
+                      </a>
+                    </div>
+                    <div className="cri-sub">Online support team</div>
                   </div>
-                  <button
-                    type="button"
-                    className="qic-copy-btn"
+                  <button 
+                    className="cri-copy-btn" 
                     onClick={() => handleCopy('careersdream4u@gmail.com', 'email')}
-                    title="Copy Email Address"
-                    aria-label="Copy Email Address"
+                    title="Copy email address"
                   >
                     {copiedField === 'email' ? <Check size={16} className="text-success" /> : <Copy size={16} />}
-                    {copiedField === 'email' && <span className="copy-tooltip">Copied!</span>}
+                    {copiedField === 'email' && <span className="cri-tooltip">Copied!</span>}
                   </button>
                 </div>
 
-                {/* Website Card */}
-                <div className="quick-info-card">
-                  <div className="qic-icon-box qic-globe">
-                    <Globe size={22} />
+                {/* Row 3: Official Website */}
+                <div className="contact-row-item contact-row-item--website">
+                  <div className="cri-icon cri-icon--website">
+                    <Globe size={20} />
                   </div>
-                  <div className="qic-details">
-                    <span className="qic-label">Official Website</span>
-                    <a
-                      href="https://www.careersdream.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="qic-value"
-                    >
-                      www.careersdream.com
-                    </a>
-                    <span className="qic-subtext">Explore courses & assessments</span>
+                  <div className="cri-content">
+                    <div className="cri-top-row">
+                      <span className="cri-label">OFFICIAL WEBSITE</span>
+                      <a 
+                        href="https://www.careersdream.com" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="cri-value"
+                      >
+                        www.careersdream.com
+                      </a>
+                    </div>
+                    <div className="cri-sub">Explore courses &amp; assessments</div>
                   </div>
-                  <a
-                    href="https://www.careersdream.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="qic-link-btn"
-                    aria-label="Visit Website"
+                  <a 
+                    href="https://www.careersdream.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="cri-copy-btn"
+                    title="Visit official website"
                   >
                     <ArrowRight size={16} />
                   </a>
                 </div>
 
-                {/* Location & Hours Card */}
-                <div className="quick-info-card">
-                  <div className="qic-icon-box qic-location">
-                    <MapPin size={22} />
+                {/* Row 4: Office Headquarters */}
+                <div className="contact-row-item contact-row-item--location">
+                  <div className="cri-icon cri-icon--location">
+                    <MapPin size={20} />
                   </div>
-                  <div className="qic-details">
-                    <span className="qic-label">Office Headquarters</span>
-                    <span className="qic-value-static">New Delhi, India</span>
-                    <span className="qic-subtext">Mon–Sat: 9:00 AM – 6:00 PM</span>
+                  <div className="cri-content">
+                    <div className="cri-top-row">
+                      <span className="cri-label">OFFICE HEADQUARTERS</span>
+                      <span className="cri-value cri-value--static">New Delhi, India</span>
+                    </div>
+                    <div className="cri-sub">Mon–Sat: 9:00 AM – 6:00 PM</div>
                   </div>
                 </div>
 
@@ -238,51 +241,6 @@ const ContactUs = () => {
                   <a href="mailto:careersdream4u@gmail.com?subject=School%20Partnership%20Inquiry" className="spc-btn">
                     <span>Inquire for Institution</span>
                     <ArrowRight size={16} />
-                  </a>
-                </div>
-              </div>
-
-              {/* Follow Us / Social Section */}
-              <div className="contact-social-card">
-                <div className="social-card-header">
-                  <div className="social-icon-pulse">
-                    <MessageSquare size={18} />
-                  </div>
-                  <div>
-                    <h3 className="social-card-title">Follow Us & Stay Connected</h3>
-                    <p className="social-card-sub">Stay updated with our latest programs and career tips.</p>
-                  </div>
-                </div>
-                <div className="social-buttons-grid">
-                  <a
-                    href="https://www.instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-pill social-pill--instagram"
-                    aria-label="Instagram"
-                  >
-                    <FaInstagram size={18} className="social-pill-icon" />
-                    <span>Instagram</span>
-                  </a>
-                  <a
-                    href="https://www.linkedin.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-pill social-pill--linkedin"
-                    aria-label="LinkedIn"
-                  >
-                    <FaLinkedin size={18} className="social-pill-icon" />
-                    <span>LinkedIn</span>
-                  </a>
-                  <a
-                    href="https://www.facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-pill social-pill--facebook"
-                    aria-label="Facebook"
-                  >
-                    <FaFacebook size={18} className="social-pill-icon" />
-                    <span>Facebook</span>
                   </a>
                 </div>
               </div>
@@ -464,6 +422,70 @@ const ContactUs = () => {
                   </div>
                 )}
 
+              </div>
+            </div>
+
+            {/* ── Full Width Social Section with Centered Header ── */}
+            <div className="contact-social-section">
+              <div className="social-header-centered">
+                <div className="social-icon-pulse">
+                  <MessageSquare size={20} />
+                </div>
+                <h3 className="social-card-title">Follow Us &amp; Stay Connected</h3>
+                <p className="social-card-sub">Stay updated with our latest programs and career tips.</p>
+              </div>
+
+              <div className="contact-social-full-row">
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-pill social-pill--facebook"
+                  aria-label="Facebook"
+                >
+                  <FaFacebook size={18} className="social-pill-icon" />
+                  <span>Facebook</span>
+                </a>
+                <a
+                  href="https://www.instagram.com/careersdream4u/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-pill social-pill--instagram"
+                  aria-label="Instagram"
+                >
+                  <FaInstagram size={18} className="social-pill-icon" />
+                  <span>Instagram</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/careers-dream-92630b425/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-pill social-pill--linkedin"
+                  aria-label="LinkedIn"
+                >
+                  <FaLinkedin size={18} className="social-pill-icon" />
+                  <span>LinkedIn</span>
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UCJ3eiGtgCmOaLuvvv7Jvs-g"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-pill social-pill--youtube"
+                  aria-label="YouTube"
+                >
+                  <FaYoutube size={18} className="social-pill-icon" />
+                  <span>YouTube</span>
+                </a>
+                <a
+                  href="https://x.com/Careersdream4u"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-pill social-pill--twitter"
+                  aria-label="X (Twitter)"
+                >
+                  <FaXTwitter size={18} className="social-pill-icon" />
+                  <span></span>
+                </a>
               </div>
             </div>
 

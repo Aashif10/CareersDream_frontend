@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import animationGif from '../assets/animation766.gif';
 import {
   Brain, ArrowLeft, ArrowRight, Sparkles, Trophy,
   Download, UserCheck, Shield, Award, HelpCircle,
   Clock, CheckCircle, BarChart3, ChevronRight, User, Mail, Phone, Lock,
-  PieChart as PieChartIcon, CheckCircle2, Star, Layers, Activity
+  PieChart as PieChartIcon, CheckCircle2, Star, Layers, Activity,
+  Target, TrendingUp, X, RotateCcw
 } from 'lucide-react';
 import './personalitytest.css';
 
@@ -289,13 +291,29 @@ const DEFAULT_30_QUESTIONS = [
   }
 ];
 
-// 5-point Likert Scale (Scores 1 to 5)
+// Reverse-Scored Questions Configuration (Questions 10, 15, 22, 25)
+export const REVERSE_QUESTION_NUMBERS = [10, 15, 22, 25];
+
+export const isReverseQuestion = (qNum) => {
+  return REVERSE_QUESTION_NUMBERS.includes(Number(qNum));
+};
+
+// 5-point Likert Scale (Standard: 1 to 5)
 const STANDARD_5_OPTIONS = [
   { letter: 'A', label: 'Strongly Disagree', marks: 1, tag: '1 Mark' },
   { letter: 'B', label: 'Disagree', marks: 2, tag: '2 Marks' },
   { letter: 'C', label: 'Neutral', marks: 3, tag: '3 Marks' },
   { letter: 'D', label: 'Agree', marks: 4, tag: '4 Marks' },
   { letter: 'E', label: 'Strongly Agree', marks: 5, tag: '5 Marks' }
+];
+
+// 5-point Likert Scale (Reverse-Scored: 5 to 1)
+const REVERSE_5_OPTIONS = [
+  { letter: 'A', label: 'Strongly Disagree', marks: 5, tag: '5 Marks' },
+  { letter: 'B', label: 'Disagree', marks: 4, tag: '4 Marks' },
+  { letter: 'C', label: 'Neutral', marks: 3, tag: '3 Marks' },
+  { letter: 'D', label: 'Agree', marks: 2, tag: '2 Marks' },
+  { letter: 'E', label: 'Strongly Agree', marks: 1, tag: '1 Mark' }
 ];
 
 const OPTION_MARKS_MAP = {
@@ -306,17 +324,31 @@ const OPTION_MARKS_MAP = {
   'Strongly Agree': 5
 };
 
-const getQuestionOptions = (question) => {
+const REVERSE_OPTION_MARKS_MAP = {
+  'Strongly Disagree': 5,
+  'Disagree': 4,
+  'Neutral': 3,
+  'Agree': 2,
+  'Strongly Agree': 1
+};
+
+export const getQuestionOptions = (question, qNum) => {
+  const targetQNum = qNum || question?.order;
+  const isRev = isReverseQuestion(targetQNum) || question?.isReverse;
+
   if (question && question.options && Array.isArray(question.options) && question.options.length === 5) {
     const letters = ['A', 'B', 'C', 'D', 'E'];
-    return question.options.map((opt, i) => ({
-      letter: letters[i] || `${i + 1}`,
-      label: opt.label,
-      marks: opt.marks,
-      tag: `${opt.marks} Mark${opt.marks !== 1 ? 's' : ''}`
-    }));
+    return question.options.map((opt, i) => {
+      const marks = isRev ? (6 - opt.marks) : opt.marks;
+      return {
+        letter: letters[i] || `${i + 1}`,
+        label: opt.label,
+        marks,
+        tag: `${marks} Mark${marks !== 1 ? 's' : ''}`
+      };
+    });
   }
-  return STANDARD_5_OPTIONS;
+  return isRev ? REVERSE_5_OPTIONS : STANDARD_5_OPTIONS;
 };
 
 // Calculate Big Five Dimension scores and rank them descending
@@ -326,7 +358,9 @@ export const calculateRankedDimensions = (responsesList) => {
     const qNum = resp.order || (idx + 1);
     let marks = resp.marksObtained;
     if (marks === undefined || marks === null) {
-      marks = OPTION_MARKS_MAP[resp.selectedOption] || 3;
+      const isRev = isReverseQuestion(qNum) || resp.isReverse;
+      const mapToUse = isRev ? REVERSE_OPTION_MARKS_MAP : OPTION_MARKS_MAP;
+      marks = mapToUse[resp.selectedOption] || 3;
     }
     answersByQNum[qNum] = marks;
   });
@@ -497,7 +531,97 @@ const PersonalityPieChart = ({ dimensions, activeCode, onHoverDim }) => {
   );
 };
 
+// ── 1-on-1 Guidance Illustration Component (Below 30% Score Popup) ──
+const GuidanceIllustration = () => (
+  <svg viewBox="0 0 500 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="pt-guidance-svg">
+    {/* Soft Light Blue Backdrop Blob */}
+    <path
+      d="M60 120C60 65 110 30 200 25C290 20 420 35 440 90C460 145 420 205 340 215C260 225 100 215 70 180C50 155 60 135 60 120Z"
+      fill="#E0F2FE"
+      opacity="0.8"
+    />
+    
+    {/* Lightbulb above Student */}
+    <g transform="translate(135, 20)">
+      <circle cx="20" cy="20" r="18" fill="#FEF08A" opacity="0.6" />
+      <circle cx="20" cy="20" r="12" fill="#F59E0B" />
+      <path d="M16 20C16 17.8 17.8 16 20 16C22.2 16 24 17.8 24 20C24 21.8 22.8 23.3 21.2 23.8V26H18.8V23.8C17.2 23.3 16 21.8 16 20Z" fill="#FFFFFF" />
+      <rect x="18.5" y="26.5" width="3" height="2.5" rx="0.5" fill="#D97706" />
+      <line x1="20" y1="3" x2="20" y2="0" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+      <line x1="6" y1="9" x2="3.5" y2="7" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+      <line x1="34" y1="9" x2="36.5" y2="7" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+      <line x1="2" y1="20" x2="-1" y2="20" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+      <line x1="38" y1="20" x2="41" y2="20" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+    </g>
+
+    {/* Speech Bubble "Your Goals Our Guidance" */}
+    <g transform="translate(200, 18)">
+      <rect x="0" y="0" width="135" height="38" rx="19" fill="#FFFFFF" stroke="#93C5FD" strokeWidth="1.5" />
+      <path d="M45 38 L55 46 L58 37 Z" fill="#FFFFFF" stroke="#93C5FD" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M44 36 L57 36 L54 44 Z" fill="#FFFFFF" />
+      <text x="67.5" y="16" textAnchor="middle" fill="#1E40AF" fontSize="11" fontWeight="700" fontFamily="sans-serif">Your Goals</text>
+      <text x="67.5" y="29" textAnchor="middle" fill="#1E40AF" fontSize="11" fontWeight="700" fontFamily="sans-serif">Our Guidance</text>
+    </g>
+
+    {/* Plant in background right */}
+    <g transform="translate(365, 80)">
+      <path d="M25 60 Q40 30 50 15 Q30 30 25 60Z" fill="#4ADE80" />
+      <path d="M20 70 Q5 35 -10 25 Q10 45 20 70Z" fill="#22C55E" />
+      <path d="M22 65 Q35 45 42 35 Q28 50 22 65Z" fill="#16A34A" />
+    </g>
+
+    {/* Desk Surface */}
+    <path d="M110 185 L390 185 C400 185 408 190 405 194 L395 204 C393 207 385 208 375 208 L125 208 C115 208 107 207 105 204 L95 194 C92 190 100 185 110 185Z" fill="#E2E8F0" />
+    <rect x="100" y="185" width="300" height="4" fill="#CBD5E1" />
+
+    {/* Laptop on desk */}
+    <g transform="translate(290, 130)">
+      <path d="M15 12 L55 12 L65 55 L5 55 Z" fill="#64748B" />
+      <path d="M18 15 L52 15 L60 50 L10 50 Z" fill="#1E293B" />
+      <circle cx="35" cy="32" r="3" fill="#94A3B8" />
+      <path d="M0 55 L70 55 C73 55 75 57 73 59 L68 62 L2 62 L-3 59 C-5 57 -3 55 0 55Z" fill="#94A3B8" />
+    </g>
+
+    {/* Notebook & Pen on desk */}
+    <g transform="translate(235, 180)">
+      <polygon points="0,5 30,0 45,15 15,20" fill="#1E3A8A" />
+      <polygon points="2,6 29,1.5 43,15 16,19" fill="#FFFFFF" />
+      <line x1="40" y1="2" x2="52" y2="12" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" />
+    </g>
+
+    {/* Student (Left) */}
+    <g transform="translate(100, 80)">
+      <path d="M-5 50 C-15 50 -20 70 -15 95 C-10 110 -5 110 5 105 Z" fill="#1E3A8A" />
+      <path d="M20 75 C10 75 0 85 -5 115 L55 115 C55 105 50 85 40 75 Z" fill="#2563EB" />
+      <path d="M5 82 C15 90 30 95 45 92 L50 115 L25 115 Z" fill="#1D4ED8" />
+      <path d="M15 65 C10 65 5 70 5 78 C12 80 25 80 32 75 Z" fill="#1E40AF" />
+      <rect x="23" y="60" width="10" height="12" fill="#FDBA74" />
+      <circle cx="28" cy="48" r="16" fill="#FDBA74" />
+      <path d="M14 46 C12 30 25 22 36 28 C42 32 42 42 42 42 C38 38 32 38 28 42 C24 38 18 40 14 46Z" fill="#1E1B4B" />
+      <circle cx="34" cy="46" r="2" fill="#431407" />
+      <path d="M36 52 Q32 55 29 52" fill="none" stroke="#431407" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M38 90 C45 90 60 98 68 105 L60 112 C52 106 42 100 35 98 Z" fill="#2563EB" />
+      <circle cx="70" cy="106" r="5" fill="#FDBA74" />
+    </g>
+
+    {/* Mentor / Counselor (Right) */}
+    <g transform="translate(230, 70)">
+      <rect x="120" y="60" width="35" height="70" rx="8" fill="#1E293B" />
+      <path d="M60 70 C45 70 35 85 30 125 L115 125 C110 85 100 70 85 70 Z" fill="#0F172A" />
+      <polygon points="66,70 72.5,100 79,70" fill="#FFFFFF" />
+      <rect x="67" y="55" width="11" height="18" fill="#FED7AA" />
+      <circle cx="72.5" cy="42" r="16" fill="#FED7AA" />
+      <path d="M55 42 C55 22 70 18 85 24 C92 30 92 50 90 75 C82 72 82 50 82 42 C75 35 62 38 55 42Z" fill="#020617" />
+      <circle cx="66" cy="42" r="2" fill="#431407" />
+      <path d="M64 48 Q67 52 71 49" fill="none" stroke="#431407" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M45 80 C30 85 15 88 0 86 L-5 93 C12 96 30 93 48 87 Z" fill="#0F172A" />
+      <circle cx="-6" cy="89" r="5" fill="#FED7AA" />
+    </g>
+  </svg>
+);
+
 const PersonalityTest = () => {
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem('token'));
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -508,6 +632,8 @@ const PersonalityTest = () => {
   const [showResults, setShowResults] = useState(false);
   const [alreadyAttempted, setAlreadyAttempted] = useState(false);
   const [hoveredDimCode, setHoveredDimCode] = useState(null);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [showLowScorePopup, setShowLowScorePopup] = useState(false);
 
   // User details state (auto-populated from logged-in session)
   const [userDetails, setUserDetails] = useState({
@@ -526,6 +652,12 @@ const PersonalityTest = () => {
         setSubmissionResult(data.data);
         setAlreadyAttempted(true);
         setShowResults(true);
+        const overallPct = data.data.percentage !== undefined
+          ? data.data.percentage
+          : Math.round(((data.data.totalScore || 0) / 150) * 100);
+        if (overallPct < 40) {
+          setShowLowScorePopup(true);
+        }
       }
     } catch (err) {
       console.warn('Error checking prior test submission:', err);
@@ -710,12 +842,17 @@ const PersonalityTest = () => {
       setAlreadyAttempted(true);
     } finally {
       setSubmitting(false);
-      setShowResults(true);
+      setShowSuccessPopup(true);
     }
   };
 
   const handlePrintReport = () => {
     window.print();
+  };
+
+  const handleGetGuidance = () => {
+    setShowLowScorePopup(false);
+    navigate('/contactus');
   };
 
   // Compute ranked dimensions for the results display
@@ -746,8 +883,115 @@ const PersonalityTest = () => {
         })
       : calculateRankedDimensions(DEFAULT_30_QUESTIONS.map(q => ({ order: q.order, marksObtained: 3 })));
 
+  const overallScorePct = submissionResult?.percentage !== undefined
+    ? submissionResult.percentage
+    : Math.round(((submissionResult?.totalScore || displayRankedDimensions.reduce((acc, curr) => acc + curr.score, 0)) / 150) * 100);
+
   return (
     <div className="personalitytest-page">
+
+      {/* ── Test Submitted Success Popup ── */}
+      {showSuccessPopup && (
+        <div className="pt-success-overlay" onClick={() => { setShowSuccessPopup(false); setShowResults(true); if (overallScorePct < 40) setShowLowScorePopup(true); }}>
+          <div className="pt-success-popup" onClick={e => e.stopPropagation()}>
+            {/* Full Popup Confetti Animation Overlay (Plays Once & Fades Out Slower) */}
+            <img
+              key="pt-confetti-once"
+              src={animationGif}
+              alt="Celebration Confetti"
+              className="pt-confetti-bg-gif"
+            />
+
+            <div className="pt-success-icon-circle">
+              <CheckCircle size={42} color="#22c55e" strokeWidth={2.2} />
+            </div>
+            <h2 className="pt-success-title">
+              Test Submitted! <span className="pt-party-popper">🎉</span>
+            </h2>
+            <p className="pt-success-desc">
+              Your personality assessment has been submitted successfully.
+            </p>
+            <div className="pt-success-actions">
+              <button
+                className="pt-success-btn pt-success-btn-primary"
+                onClick={() => {
+                  setShowSuccessPopup(false);
+                  setShowResults(true);
+                  if (overallScorePct < 40) setShowLowScorePopup(true);
+                }}
+              >
+                View Report
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── One to One Guidance Modal Popup (Triggers when student score is below 40%) ── */}
+      {showLowScorePopup && (
+        <div className="pt-guidance-overlay" onClick={() => setShowLowScorePopup(false)}>
+          <div className="pt-guidance-modal" onClick={e => e.stopPropagation()}>
+            {/* Close Button */}
+            <button
+              className="pt-guidance-close-btn"
+              onClick={() => setShowLowScorePopup(false)}
+              aria-label="Close guidance popup"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Vector Illustration at Top */}
+            <div className="pt-guidance-illustration-wrap">
+              <GuidanceIllustration />
+            </div>
+
+            {/* Title & Description */}
+            <h2 className="pt-guidance-title">One to One Guidance</h2>
+            <p className="pt-guidance-desc">
+              Get personalized career guidance from our expert mentors, tailored to your goals, interests and strengths.
+            </p>
+
+            {/* 4 Feature Badges */}
+            <div className="pt-guidance-features-grid">
+              <div className="pt-guidance-feature-item">
+                <div className="pt-gf-icon-circle pt-gf-user">
+                  <User size={22} color="#0284c7" />
+                </div>
+                <span className="pt-gf-text">Personalized Support</span>
+              </div>
+
+              <div className="pt-guidance-feature-item">
+                <div className="pt-gf-icon-circle pt-gf-target">
+                  <Target size={22} color="#16a34a" />
+                </div>
+                <span className="pt-gf-text">Career Planning</span>
+              </div>
+
+              <div className="pt-guidance-feature-item">
+                <div className="pt-gf-icon-circle pt-gf-chart">
+                  <TrendingUp size={22} color="#9333ea" />
+                </div>
+                <span className="pt-gf-text">Expert Mentors</span>
+              </div>
+
+              <div className="pt-guidance-feature-item">
+                <div className="pt-gf-icon-circle pt-gf-star">
+                  <Star size={22} color="#eab308" />
+                </div>
+                <span className="pt-gf-text">Better Opportunities</span>
+              </div>
+            </div>
+
+            {/* Main Action Button */}
+            <div className="pt-guidance-cta-wrap">
+              <button className="pt-guidance-btn-primary" onClick={handleGetGuidance}>
+                <span>Get Guidance</span>
+                <ArrowRight size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <section className="personalitytest-section container-fluid">
         {/* Top Hero Banner in Warm Golden Yellow Gradient */}
         {!showResults && isLoggedIn && (
@@ -757,7 +1001,7 @@ const PersonalityTest = () => {
             </div>
             <div className="hero-banner-text">
               <h2>Psychometric &amp; Personality Assessment Test</h2>
-              <p>Evaluate your 5 core personality dimensions (E, C, A, O, S) across 30 questions</p>
+
             </div>
           </div>
         )}
@@ -794,30 +1038,20 @@ const PersonalityTest = () => {
         ) : !showResults ? (
           /* Active Question Card View */
           <div className="single-question-wrapper hide-on-print">
-            {/* Progress Status Bar */}
-            <div className="quiz-status-bar">
-              <div className="status-item">
-                <span className="status-label">Progress:</span>
-                <span className="status-value">{Object.keys(userAnswers).length} of {totalQuestions} Answered</span>
-              </div>
-              <div className="status-item">
-                <span className="status-label">Dimension:</span>
-                <span className="status-value" style={{ color: currentDim.color }}>{currentDim.code} ({currentDim.name})</span>
-              </div>
-            </div>
 
             <div className="question-card">
-              <div className="question-card-header">
+              <div className="question-badge-wrap mb-2">
                 <span className="question-number-badge">Question {currentQNum} of {totalQuestions}</span>
-                <span className="question-category-tag" style={{ color: currentDim.color, fontWeight: 700 }}>
-                  {currentDim.fullName}
-                </span>
+                {isReverseQuestion(currentQNum) && (
+                  <span className="question-reverse-badge" title="Scoring scale is inverted for this reverse-scored question">
+                    <RotateCcw size={12} /> Reverse-Scored Question
+                  </span>
+                )}
               </div>
-
               <h3 className="question-text" style={{ whiteSpace: 'pre-line' }}>{currentQ.question}</h3>
 
               <div className="options-vertical-list">
-                {getQuestionOptions(currentQ).map((opt, optIdx) => {
+                {getQuestionOptions(currentQ, currentQNum).map((opt, optIdx) => {
                   const isSelected = userAnswers[currentQId]?.selectedOption === opt.label;
 
                   return (
@@ -883,41 +1117,32 @@ const PersonalityTest = () => {
                   <h2 className="mhh-title">Personality Dimensions Breakdown</h2>
 
                   <div className="mhh-user-info">
-                    <div className="mhh-avatar">
-                      {(submissionResult?.userName || userDetails.name || 'C').charAt(0).toUpperCase()}
-                    </div>
                     <div className="mhh-user-details">
-                      <span className="mhh-user-name">{submissionResult?.userName || userDetails.name || 'Candidate'}</span>
-                      <span className="mhh-user-email">{submissionResult?.userEmail || userDetails.email || 'student@careersdream.com'}</span>
+                      <span className="mhh-notice-text">
+                        <Shield size={13} className="mhh-shield-icon" />
+                        <strong>Note:</strong> A student can take this test only once using one email ID ({submissionResult?.userEmail || userDetails.email || 'careersdream@gmail.com'}).
+                      </span>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="mhh-right-stats">
-                  <div className="mhh-stat-card">
-                    <div className="mhh-stat-number">5</div>
-                    <div className="mhh-stat-label">Core Dimensions</div>
+              {/* Low Score 1-on-1 Guidance Banner */}
+              {overallScorePct < 40 && (
+                <div className="pt-low-score-banner hide-on-print">
+                  <div className="pt-lsb-content">
+                    <Brain size={24} className="pt-lsb-icon" />
+                    <div>
+                      <h4 className="pt-lsb-title">Score Below 40% — Expert Mentorship Recommended</h4>
+                      <p className="pt-lsb-desc">Your overall assessment score is below 40%. Connect with our expert mentors for one-on-one personalized career guidance.</p>
+                    </div>
                   </div>
-                  <div className="mhh-stat-divider" />
-                  <div className="mhh-stat-card">
-                    <div className="mhh-stat-number">30</div>
-                    <div className="mhh-stat-label">Questions Evaluated</div>
-                  </div>
-                  <div className="mhh-stat-divider" />
-                  <div className="mhh-stat-card">
-                    <div className="mhh-stat-number">100%</div>
-                    <div className="mhh-stat-label">Verified Assessment</div>
-                  </div>
+                  <button className="pt-lsb-btn" onClick={() => setShowLowScorePopup(true)}>
+                    <span>One to One Guidance</span>
+                    <ArrowRight size={16} />
+                  </button>
                 </div>
-              </div>
-
-              {/* Attempt Notice Banner */}
-              <div className="modern-attempt-notice hide-on-print">
-                <Shield size={18} className="notice-icon" />
-                <span>
-                  <strong>Note:</strong> A student can take this test only once using one email ID ({submissionResult?.userEmail || userDetails.email || 'your email'}).
-                </span>
-              </div>
+              )}
 
               {/* Main Dual Grid: Pie Chart (Left) + Ranked Progress Bars (Right) */}
               <div className="modern-results-grid">
@@ -1215,7 +1440,12 @@ const PersonalityTest = () => {
                     return (
                       <div key={idx} className="pdf-question-item">
                         <div className="pdf-q-header flex justify-between items-center">
-                          <span className="pdf-q-num">Q{qNum}. {dim.fullName}</span>
+                          <span className="pdf-q-num">
+                            Q{qNum}. {dim.fullName}
+                            {isReverseQuestion(qNum) && (
+                              <span className="pdf-reverse-tag"> (Reverse-Scored)</span>
+                            )}
+                          </span>
                           <span className="pdf-status-badge status-correct">
                             {item.marksObtained || 3} Marks Awarded
                           </span>
