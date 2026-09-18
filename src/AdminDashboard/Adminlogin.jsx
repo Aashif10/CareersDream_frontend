@@ -46,7 +46,7 @@ const Adminlogin = () => {
     setError('');
     setLoading(true);
     try {
-      const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const backendUrl = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
       const response = await fetch(`${backendUrl}/api/team/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

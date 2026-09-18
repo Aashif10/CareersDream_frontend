@@ -253,6 +253,38 @@
   color: var(--admin-primary); /* Numbers are green in the screenshot */
   margin-bottom: 8px;
   letter-spacing: -0.05em;
+  min-height: 2.5rem;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.stat-value.stat-loading {
+  width: 80px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.05) 25%,
+    rgba(255,255,255,0.12) 50%,
+    rgba(255,255,255,0.05) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.chart-skeleton {
+  min-height: 320px;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.03) 25%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.03) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
 }
 
 .stat-change {

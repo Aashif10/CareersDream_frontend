@@ -1,12 +1,217 @@
-import React from 'react';
-import { 
-  Users, UserPlus, Folder, DollarSign, Calendar, Edit, MessageSquare
+import React, { useState, useEffect } from 'react';
+import {
+  Users, UserPlus, Bell, Handshake,
+  Calendar, Edit, MessageSquare,
+  TrendingUp, TrendingDown, Minus
 } from 'lucide-react';
 import Sidebar from './Sidebar';
 import AdminHeader from './AdminHeader';
 import './index.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://careersdream-backend.onrender.com';
+
+// ── helpers ──────────────────────────────────────────────────────────────────
+
+const daysAgo = (n) => {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return d.toISOString().slice(0, 10);
+};
+
+const weekdayLabel = (iso) =>
+  new Date(iso).toLocaleDateString('en-US', { weekday: 'short' });
+
+const buildDailyBuckets = (users, days = 7) => {
+  const buckets = {};
+  for (let i = days - 1; i >= 0; i--) {
+    const iso = daysAgo(i);
+    buckets[iso] = 0;
+  }
+  users.forEach((u) => {
+    const iso = new Date(u.createdAt).toISOString().slice(0, 10);
+    if (iso in buckets) buckets[iso]++;
+  });
+  return Object.entries(buckets).map(([date, count]) => ({
+    date,
+    label: weekdayLabel(date),
+    count,
+  }));
+};
+
+// ── SVG line graph ────────────────────────────────────────────────────────────
+
+const SVG_W = 820, SVG_H = 300, PAD_L = 48, PAD_R = 20, PAD_T = 20, PAD_B = 30;
+
+const UserGraph = ({ buckets }) => {
+  const counts = buckets.map((b) => b.count);
+  const maxVal = Math.max(...counts, 1);
+
+  const xOf = (i) => PAD_L + (i / (buckets.length - 1)) * (SVG_W - PAD_L - PAD_R);
+  const yOf = (v) => PAD_T + (1 - v / maxVal) * (SVG_H - PAD_T - PAD_B);
+
+  const pts = buckets.map((b, i) => ({ x: xOf(i), y: yOf(b.count) }));
+
+  const linePath = pts.map((p, i) => {
+    if (i === 0) return `M${p.x},${p.y}`;
+    const prev = pts[i - 1];
+    const cx = (prev.x + p.x) / 2;
+    return `C${cx},${prev.y} ${cx},${p.y} ${p.x},${p.y}`;
+  }).join(' ');
+
+  const areaPath =
+    linePath +
+    ` L${pts[pts.length - 1].x},${SVG_H - PAD_B} L${pts[0].x},${SVG_H - PAD_B} Z`;
+
+  const ticks = 5;
+  const yTicks = Array.from({ length: ticks + 1 }, (_, i) =>
+    Math.round((maxVal / ticks) * i)
+  ).reverse();
+
+  const fmtDate = (iso) =>
+    new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const rangeLabel =
+    buckets.length ? `${fmtDate(buckets[0].date)} – ${fmtDate(buckets[buckets.length - 1].date)}` : '';
+
+  return (
+    <div className="chart-card">
+      <div className="chart-header">
+        <div>
+          <h3 className="chart-title">User Registrations</h3>
+          <p className="chart-subtitle">New sign-ups per day (last 7 days)</p>
+        </div>
+        <div className="chart-legend">
+          <span className="legend-dot" />
+          New Users ({rangeLabel})
+        </div>
+      </div>
+      <div className="chart-container">
+        <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} className="mock-chart">
+          <defs>
+            <linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="var(--admin-primary)" stopOpacity="0.18" />
+              <stop offset="100%" stopColor="var(--admin-primary)" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {/* Grid lines */}
+          <g className="grid-lines">
+            {yTicks.map((_, i) => {
+              const y = PAD_T + (i / ticks) * (SVG_H - PAD_T - PAD_B);
+              return <line key={i} x1={PAD_L} y1={y} x2={SVG_W - PAD_R} y2={y} />;
+            })}
+          </g>
+          {/* Y labels */}
+          <g className="y-labels">
+            {yTicks.map((val, i) => {
+              const y = PAD_T + (i / ticks) * (SVG_H - PAD_T - PAD_B);
+              return <text key={i} x={PAD_L - 6} y={y + 4} textAnchor="end">{val}</text>;
+            })}
+          </g>
+          {/* X labels */}
+          <g className="x-labels">
+            {buckets.map((b, i) => (
+              <text key={i} x={xOf(i)} y={SVG_H - 4} textAnchor="middle">{b.label}</text>
+            ))}
+          </g>
+          {/* Area */}
+          <path d={areaPath} fill="url(#chartGradient)" />
+          {/* Line */}
+          <path d={linePath} fill="none" stroke="var(--admin-primary)" strokeWidth="3" strokeLinejoin="round" />
+          {/* Data points */}
+          {pts.map((p, i) => (
+            <g key={i}>
+              <circle cx={p.x} cy={p.y} r="6"
+                fill="var(--admin-card)" stroke="var(--admin-primary)" strokeWidth="2.5" />
+              <title>{`${buckets[i].label}: ${buckets[i].count} new user${buckets[i].count !== 1 ? 's' : ''}`}</title>
+            </g>
+          ))}
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+// ── Trend badge ───────────────────────────────────────────────────────────────
+
+const TrendBadge = ({ value, suffix = '', neutral = false }) => {
+  if (neutral)
+    return (
+      <div className="stat-change neutral" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <Minus size={13} /> Live count
+      </div>
+    );
+  if (value === null || value === undefined) return null;
+  const positive = value >= 0;
+  return (
+    <div className={`stat-change ${positive ? 'positive' : 'negative'}`}
+      style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+      {positive ? <TrendingUp size={13} /> : <TrendingDown size={13} />}
+      {positive ? '+' : ''}{value}{suffix}
+    </div>
+  );
+};
+
+// ── Main component ────────────────────────────────────────────────────────────
+
 const AdminDashboard = () => {
+  const [stats, setStats] = useState({
+    totalUsers: null,
+    teamCount: null,
+    subscriberCount: null,
+  });
+  const [graphBuckets, setGraphBuckets] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    };
+
+    const parseArr = async (result) => {
+      if (result.status === 'fulfilled' && result.value.ok) {
+        const data = await result.value.json();
+        return Array.isArray(data)
+          ? data
+          : (data.data ?? data.users ?? data.members ?? data.subscribers ?? []);
+      }
+      return [];
+    };
+
+    const fetchStats = async () => {
+      try {
+        const [usersRes, teamRes, newsletterRes] = await Promise.allSettled([
+          fetch(`${API_URL}/api/auth/users`, { headers }),
+          fetch(`${API_URL}/api/team`, { headers }),
+          fetch(`${API_URL}/api/newsletter`, { headers }),
+        ]);
+
+        const [users, team, subscribers] = await Promise.all([
+          parseArr(usersRes),
+          parseArr(teamRes),
+          parseArr(newsletterRes),
+        ]);
+
+        setStats({
+          totalUsers: users.length,
+          teamCount: team.length,
+          subscriberCount: subscribers.length,
+        });
+
+        // Build per-day registration buckets from real createdAt timestamps
+        setGraphBuckets(buildDailyBuckets(users, 7));
+      } catch (err) {
+        console.error('Failed to fetch dashboard stats:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  const formatNum = (n) => (n !== null && n !== undefined ? n.toLocaleString() : '—');
+
   return (
     <div className="admin-layout">
       {/* Sidebar */}
@@ -28,107 +233,54 @@ const AdminDashboard = () => {
                 </div>
                 <span className="stat-title">Total Users</span>
               </div>
-              <div className="stat-value">12,482</div>
-              <div className="stat-change positive">+8.1% vs last month</div>
+              <div className={`stat-value${loading ? ' stat-loading' : ''}`}>
+                {loading ? '' : formatNum(stats.totalUsers)}
+              </div>
+              <TrendBadge value={8.1} suffix="% vs last month" />
             </div>
             <div className="stat-card">
               <div className="stat-header">
                 <div className="stat-icon-wrapper primary">
                   <UserPlus size={20} />
                 </div>
-                <span className="stat-title">New Registrations</span>
+                <span className="stat-title">Team</span>
               </div>
-              <div className="stat-value">1,294</div>
-              <div className="stat-change positive">+15.3%</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-header">
-                <div className="stat-icon-wrapper">
-                  <Folder size={20} />
-                </div>
-                <span className="stat-title">Active Projects</span>
+              <div className={`stat-value${loading ? ' stat-loading' : ''}`}>
+                {loading ? '' : formatNum(stats.teamCount)}
               </div>
-              <div className="stat-value">58</div>
-              <div className="stat-change neutral">2 new</div>
+              <TrendBadge value={15.3} suffix="%" />
             </div>
             <div className="stat-card">
               <div className="stat-header">
                 <div className="stat-icon-wrapper primary">
-                  <DollarSign size={20} />
+                  <Bell size={20} />
                 </div>
-                <span className="stat-title">Revenue</span>
+                <span className="stat-title">Subscribers</span>
               </div>
-              <div className="stat-value">$48,720</div>
-              <div className="stat-change positive">+4.5%</div>
+              <div className={`stat-value${loading ? ' stat-loading' : ''}`}>
+                {loading ? '' : formatNum(stats.subscriberCount)}
+              </div>
+              <TrendBadge neutral />
+            </div>
+            <div className="stat-card">
+              <div className="stat-header">
+                <div className="stat-icon-wrapper primary">
+                  <Handshake size={20} />
+                </div>
+                <span className="stat-title">Let's Connect</span>
+              </div>
+              <div className="stat-value">120</div>
+              <TrendBadge value={4.5} suffix="%" />
             </div>
           </div>
 
           {/* Main Grid */}
           <div className="main-grid">
-            {/* Graph Area */}
-            <div className="chart-card">
-              <div className="chart-header">
-                <div>
-                  <h3 className="chart-title">Active Users graph</h3>
-                  <p className="chart-subtitle">Recent User Activity</p>
-                </div>
-                <div className="chart-legend">
-                  <span className="legend-dot"></span>
-                  Active Users (May 10 - May 15)
-                </div>
-              </div>
-              <div className="chart-container">
-                <svg viewBox="0 0 820 300" className="mock-chart">
-                  <defs>
-                    <linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0%" stopColor="var(--admin-primary)" stopOpacity="0.15"/>
-                      <stop offset="100%" stopColor="var(--admin-primary)" stopOpacity="0"/>
-                    </linearGradient>
-                  </defs>
-                  
-                  {/* Grid Lines */}
-                  <g className="grid-lines">
-                    <line x1="40" y1="20" x2="780" y2="20" />
-                    <line x1="40" y1="70" x2="780" y2="70" />
-                    <line x1="40" y1="120" x2="780" y2="120" />
-                    <line x1="40" y1="170" x2="780" y2="170" />
-                    <line x1="40" y1="220" x2="780" y2="220" />
-                    <line x1="40" y1="270" x2="780" y2="270" />
-                  </g>
-
-                  {/* Y Axis Labels */}
-                  <g className="y-labels">
-                    <text x="30" y="25">14k</text>
-                    <text x="30" y="75">12k</text>
-                    <text x="30" y="125">10k</text>
-                    <text x="30" y="175">8k</text>
-                    <text x="30" y="225">4k</text>
-                    <text x="30" y="275">2k</text>
-                  </g>
-
-                  {/* X Axis Labels */}
-                  <g className="x-labels">
-                    <text x="188" y="295">Mon</text>
-                    <text x="336" y="295">Tue</text>
-                    <text x="484" y="295">Wed</text>
-                    <text x="632" y="295">Thu</text>
-                    <text x="780" y="295">Fri</text>
-                  </g>
-
-                  {/* Chart Line & Area */}
-                  <path d="M40,270 C 114,270 114,180 188,180 C 262,180 262,230 336,230 C 410,230 410,100 484,100 C 558,100 558,140 632,140 C 706,140 706,60 780,60" fill="none" stroke="var(--admin-primary)" strokeWidth="3" />
-                  <path d="M40,270 C 114,270 114,180 188,180 C 262,180 262,230 336,230 C 410,230 410,100 484,100 C 558,100 558,140 632,140 C 706,140 706,60 780,60 L 780,270 L 40,270 Z" fill="url(#chartGradient)" />
-                  
-                  {/* Data Points */}
-                  <circle cx="40" cy="270" r="5" fill="var(--admin-card)" stroke="var(--admin-primary)" strokeWidth="2.5" />
-                  <circle cx="188" cy="180" r="5" fill="var(--admin-card)" stroke="var(--admin-primary)" strokeWidth="2.5" />
-                  <circle cx="336" cy="230" r="5" fill="var(--admin-card)" stroke="var(--admin-primary)" strokeWidth="2.5" />
-                  <circle cx="484" cy="100" r="5" fill="var(--admin-card)" stroke="var(--admin-primary)" strokeWidth="2.5" />
-                  <circle cx="632" cy="140" r="5" fill="var(--admin-card)" stroke="var(--admin-primary)" strokeWidth="2.5" />
-                  <circle cx="780" cy="60" r="5" fill="var(--admin-card)" stroke="var(--admin-primary)" strokeWidth="2.5" />
-                </svg>
-              </div>
-            </div>
+            {/* Dynamic user registration graph */}
+            {loading
+              ? <div className="chart-card chart-skeleton" />
+              : <UserGraph buckets={graphBuckets} />
+            }
 
             {/* Recent Tasks Area */}
             <div className="tasks-card">
