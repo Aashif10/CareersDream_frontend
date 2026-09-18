@@ -6,7 +6,7 @@ import {
   Download, UserCheck, Shield, Award, HelpCircle,
   Clock, CheckCircle, BarChart3, ChevronRight, User, Mail, Phone, Lock,
   PieChart as PieChartIcon, CheckCircle2, Star, Layers, Activity,
-  Target, TrendingUp, X, RotateCcw
+  Target, TrendingUp, X, RotateCcw, Briefcase, Compass, BookOpen, Check
 } from 'lucide-react';
 import './personalitytest.css';
 
@@ -90,6 +90,184 @@ export const PERSONALITY_DIMENSIONS = [
     ]
   }
 ];
+
+// 10 Career Trait Signatures Configuration (Career to Trait Fit Matrix)
+export const CAREER_TRAIT_SIGNATURES = [
+  {
+    career: 'Doctor',
+    traitSignature: 'C + A + S',
+    primaryTraits: ['C', 'A', 'S'],
+    note: null,
+    whyItFits: 'Long training, patient care, pressure tolerance',
+    domain: 'Healthcare & Medicine'
+  },
+  {
+    career: 'Entrepreneur',
+    traitSignature: 'E + O + S',
+    primaryTraits: ['E', 'O', 'S'],
+    note: null,
+    whyItFits: 'Selling ideas, creative risk-taking, handling setbacks',
+    domain: 'Business & Leadership'
+  },
+  {
+    career: 'Scientist/Researcher',
+    traitSignature: 'O + C (E optional)',
+    primaryTraits: ['O', 'C'],
+    note: 'E optional',
+    whyItFits: 'Curiosity + rigour; often independent work',
+    domain: 'Science & Research'
+  },
+  {
+    career: 'Teacher/Educator',
+    traitSignature: 'E + A + C',
+    primaryTraits: ['E', 'A', 'C'],
+    note: null,
+    whyItFits: 'Energy, empathy, structured preparation',
+    domain: 'Education & Mentorship'
+  },
+  {
+    career: 'Lawyer',
+    traitSignature: 'E + C (low A acceptable)',
+    primaryTraits: ['E', 'C'],
+    note: 'low A acceptable',
+    whyItFits: 'Argument, preparation, healthy competitiveness',
+    domain: 'Legal & Advocacy'
+  },
+  {
+    career: 'Engineer',
+    traitSignature: 'C + O',
+    primaryTraits: ['C', 'O'],
+    note: null,
+    whyItFits: 'Disciplined problem-solving',
+    domain: 'Engineering & Technology'
+  },
+  {
+    career: 'Designer/Artist',
+    traitSignature: 'O + A',
+    primaryTraits: ['O', 'A'],
+    note: null,
+    whyItFits: 'Creativity combined with audience empathy',
+    domain: 'Design & Creative Arts'
+  },
+  {
+    career: 'Civil Servant',
+    traitSignature: 'C + A + S',
+    primaryTraits: ['C', 'A', 'S'],
+    note: null,
+    whyItFits: 'Discipline, public service, exam pressure',
+    domain: 'Public Administration & Govt'
+  },
+  {
+    career: 'Analyst / CA',
+    traitSignature: 'C + (low E is fine)',
+    primaryTraits: ['C'],
+    note: 'low E is fine',
+    whyItFits: 'Precision and patience over people-work',
+    domain: 'Finance, Accounts & Analytics'
+  },
+  {
+    career: 'Armed Forces',
+    traitSignature: 'E + C + S',
+    primaryTraits: ['E', 'C', 'S'],
+    note: null,
+    whyItFits: 'Leadership, discipline, high-pressure environments',
+    domain: 'Defense & National Security'
+  }
+];
+
+// Helper component to render styled trait signature pills with color codes
+export const TraitSignatureDisplay = ({ signature }) => {
+  const DIM_COLORS = {
+    E: { bg: 'rgba(37, 99, 235, 0.12)', color: '#2563eb', border: 'rgba(37, 99, 235, 0.35)', name: 'Extraversion' },
+    C: { bg: 'rgba(59, 113, 159, 0.12)', color: '#3b719f', border: 'rgba(59, 113, 159, 0.35)', name: 'Conscientiousness' },
+    A: { bg: 'rgba(139, 92, 246, 0.12)', color: '#8b5cf6', border: 'rgba(139, 92, 246, 0.35)', name: 'Agreeableness' },
+    S: { bg: 'rgba(46, 155, 114, 0.12)', color: '#2e9b72', border: 'rgba(46, 155, 114, 0.35)', name: 'Emotional Stability' },
+    O: { bg: 'rgba(234, 88, 12, 0.12)', color: '#ea580c', border: 'rgba(234, 88, 12, 0.35)', name: 'Openness' }
+  };
+
+  // Match trait tokens (e.g. "C", "+", "A", "(E optional)", etc.)
+  const parts = signature.split(/(\s*\+\s*|\s*\(.*?\))/g).filter(p => p && p.trim().length > 0);
+
+  return (
+    <div className="pt-trait-sig-wrap">
+      {parts.map((part, pIdx) => {
+        const trimmed = part.trim();
+        if (trimmed === '+') {
+          return <span key={pIdx} className="pt-sig-plus">+</span>;
+        }
+        if (trimmed.startsWith('(') && trimmed.endsWith(')')) {
+          return (
+            <span key={pIdx} className="pt-sig-note">
+              {trimmed}
+            </span>
+          );
+        }
+        const dimConfig = DIM_COLORS[trimmed];
+        if (dimConfig) {
+          return (
+            <span
+              key={pIdx}
+              className="pt-sig-badge"
+              style={{
+                backgroundColor: dimConfig.bg,
+                color: dimConfig.color,
+                borderColor: dimConfig.border
+              }}
+              title={`${trimmed} — ${dimConfig.name}`}
+            >
+              {trimmed}
+            </span>
+          );
+        }
+        return <span key={pIdx} className="pt-sig-raw">{trimmed}</span>;
+      })}
+    </div>
+  );
+};
+
+// Calculate career fit scores based on ranked dimensions
+export const calculateCareerFitScores = (dimensionsList) => {
+  const scoresByCode = {};
+  dimensionsList.forEach(d => {
+    scoresByCode[d.code] = d.percentage || 0;
+  });
+
+  const list = CAREER_TRAIT_SIGNATURES.map((item, index) => {
+    const relevantScores = item.primaryTraits.map(t => scoresByCode[t] !== undefined ? scoresByCode[t] : 50);
+    const avgScore = relevantScores.length > 0
+      ? Math.round(relevantScores.reduce((a, b) => a + b, 0) / relevantScores.length)
+      : 50;
+
+    let fitBadgeClass = 'fit-badge-good';
+    let fitText = 'Good Fit';
+    let fitColor = '#2563eb';
+
+    if (avgScore >= 75) {
+      fitBadgeClass = 'fit-badge-high';
+      fitText = 'High Match';
+      fitColor = '#10b981';
+    } else if (avgScore >= 60) {
+      fitBadgeClass = 'fit-badge-solid';
+      fitText = 'Strong Fit';
+      fitColor = '#0284c7';
+    } else if (avgScore < 50) {
+      fitBadgeClass = 'fit-badge-moderate';
+      fitText = 'Moderate Fit';
+      fitColor = '#f59e0b';
+    }
+
+    return {
+      ...item,
+      id: `career-${index + 1}`,
+      matchPercentage: avgScore,
+      fitBadgeClass,
+      fitText,
+      fitColor
+    };
+  });
+
+  return list.sort((a, b) => b.matchPercentage - a.matchPercentage);
+};
 
 // Helper to find dimension for a question number (1-based)
 export const getDimensionForQuestionNumber = (qNum) => {
@@ -1102,27 +1280,27 @@ const PersonalityTest = () => {
               
               {/* Redesigned Ultra-Modern Top Hero Banner */}
               <div className="modern-hero-header mb-6">
-                <div className="mhh-left">
-                  <div className="mhh-badge-row">
-                    <div className="mhh-pill-badge">
-                      <CheckCircle2 size={14} color="#34d399" />
-                      <span>Personality Assessment Evaluation</span>
-                    </div>
-                    <div className="mhh-date-chip">
-                      <Clock size={13} />
-                      <span>{new Date(submissionResult?.createdAt || Date.now()).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                    </div>
+                <div className="mhh-main-content">
+                  <div className="mhh-pill-badge">
+                    <CheckCircle2 size={13} color="#34d399" />
+                    <span>Personality Assessment Evaluation</span>
                   </div>
 
                   <h2 className="mhh-title">Personality Dimensions Breakdown</h2>
 
-                  <div className="mhh-user-info">
-                    <div className="mhh-user-details">
-                      <span className="mhh-notice-text">
-                        <Shield size={13} className="mhh-shield-icon" />
-                        <strong>Note:</strong> A student can take this test only once using one email ID ({submissionResult?.userEmail || userDetails.email || 'careersdream@gmail.com'}).
-                      </span>
-                    </div>
+                  <div className="mhh-date-chip">
+                    <Clock size={12} />
+                    <span>{new Date(submissionResult?.createdAt || Date.now()).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                  </div>
+
+                  <div className="mhh-notice-text">
+                    <span className="mhh-notice-label">
+                      <Shield size={13} className="mhh-shield-icon" />
+                      <strong>Note:</strong>
+                    </span>
+                    <span className="mhh-notice-message">
+                      A student can take this test only once using one email ID ({submissionResult?.userEmail || userDetails.email || 'careersdream@gmail.com'}).
+                    </span>
                   </div>
                 </div>
               </div>

@@ -999,17 +999,15 @@
 /* Ultra-Modern Top Hero Banner (Compact Height) */
 .modern-hero-header {
   background: linear-gradient(135deg, #0F172A 0%, #1E293B 55%, #1E3A8A 100%);
-  border-radius: 14px;
-  padding: 0.85rem 1.4rem;
+  border-radius: 12px;
+  padding: 0.55rem 1.25rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.2rem;
+  flex-direction: column;
+  gap: 0.45rem;
   color: #ffffff;
   box-shadow: 0 6px 20px -4px rgba(15, 23, 42, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  margin-bottom: 1.2rem;
-  flex-wrap: wrap;
+  margin-bottom: 1rem;
   position: relative;
   overflow: hidden;
 }
@@ -1025,99 +1023,102 @@
   pointer-events: none;
 }
 
-.mhh-left {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  flex: 1;
-  min-width: 250px;
+.mhh-main-content {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "badge title date"
+    "notice notice notice";
+  align-items: center;
+  gap: 0.45rem 1rem;
+  width: 100%;
   z-index: 1;
 }
 
-.mhh-badge-row {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  flex-wrap: wrap;
-}
-
 .mhh-pill-badge {
+  grid-area: badge;
+  justify-self: start;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   background: rgba(16, 185, 129, 0.15);
   color: #34d399;
   border: 1px solid rgba(52, 211, 153, 0.3);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 800;
-  padding: 0.18rem 0.6rem;
+  padding: 0.18rem 0.65rem;
   border-radius: 999px;
   letter-spacing: 0.02em;
   backdrop-filter: blur(4px);
-}
-
-.mhh-date-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  font-size: 0.71rem;
-  font-weight: 600;
-  padding: 0.18rem 0.55rem;
-  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .mhh-title {
-  font-size: 1.25rem;
+  grid-area: title;
+  font-size: 1.22rem;
   font-weight: 800;
   color: #ffffff;
   margin: 0;
   letter-spacing: -0.01em;
   text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  text-align: center;
+  white-space: nowrap;
 }
 
-.mhh-user-info {
-  display: flex;
+.mhh-date-chip {
+  grid-area: date;
+  justify-self: end;
+  display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  margin-top: 0.1rem;
-}
-
-.mhh-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
-  color: #ffffff;
-  font-weight: 900;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.35);
-  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.73rem;
+  font-weight: 600;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
   flex-shrink: 0;
 }
 
-.mhh-user-details {
-  display: flex;
+.mhh-notice-text {
+  grid-area: notice;
+  justify-self: start;
+  display: inline-flex;
+  flex-direction: row;
   align-items: center;
-  gap: 0.45rem;
-  flex-wrap: wrap;
+  gap: 0.35rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 8px;
+  padding: 0.22rem 0.65rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 0.28rem;
 }
 
-.mhh-user-name {
-  font-weight: 700;
-  color: #ffffff;
-  font-size: 0.85rem;
+.mhh-notice-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #fbbf24;
+  font-weight: 800;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 0.76rem;
 }
 
-.mhh-user-email {
-  font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.68);
-  font-weight: 500;
+.mhh-notice-message {
+  flex: 1;
+  min-width: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  text-align: left;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .mhh-right-stats {
@@ -1173,6 +1174,408 @@
   }
 }
 
+/* ── MOBILE RESPONSIVE FIXES (≤640px) ── */
+@media (max-width: 640px) {
+  /* Section padding */
+  .personalitytest-section.container-fluid {
+    padding: 0 0.75rem !important;
+  }
+
+  /* Report container */
+  .ultra-light-theme .modern-report-container,
+  .modern-report-container {
+    padding: 1rem 0.9rem 1.5rem !important;
+    border-radius: 16px !important;
+  }
+
+  /* Hero header (Compact Height & Top-Right Date on Mobile) */
+  .ultra-light-theme .modern-hero-header,
+  .modern-hero-header {
+    padding: 0.48rem 0.65rem !important;
+    border-radius: 10px !important;
+    gap: 0.25rem !important;
+  }
+
+  .mhh-main-content {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-areas:
+      "badge date"
+      "title title"
+      "notice notice" !important;
+    gap: 0.32rem !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .mhh-pill-badge {
+    grid-area: badge !important;
+    justify-self: start !important;
+    font-size: 0.58rem !important;
+    padding: 0.1rem 0.35rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .mhh-date-chip {
+    grid-area: date !important;
+    justify-self: end !important;
+    font-size: 0.58rem !important;
+    padding: 0.1rem 0.35rem !important;
+    white-space: nowrap !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .ultra-light-theme .mhh-title,
+  .mhh-title {
+    grid-area: title !important;
+    font-size: 1.02rem !important;
+    line-height: 1.25 !important;
+    word-break: break-word !important;
+    margin: 0.08rem 0 0.04rem 0 !important;
+    width: 100% !important;
+    text-align: left !important;
+    white-space: normal !important;
+  }
+
+  /* Notice text — Positioned at the very last on mobile */
+  .ultra-light-theme .mhh-notice-text,
+  .mhh-notice-text {
+    grid-area: notice !important;
+    justify-self: start !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 0.3rem !important;
+    padding: 0.22rem 0.55rem !important;
+    border-radius: 7px !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin-top: 0.22rem !important;
+  }
+
+  .mhh-notice-label {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+    color: #fbbf24 !important;
+    font-weight: 800 !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    font-size: 0.73rem !important;
+  }
+
+  .mhh-notice-message {
+    flex: 1 !important;
+    min-width: 0 !important;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.73rem !important;
+    line-height: 1.45 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    text-align: left !important;
+  }
+
+  /* Attempt notice */
+  .modern-attempt-notice {
+    padding: 0.65rem 0.85rem !important;
+    font-size: 0.8rem !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  /* Results grid — single column with no gap waste */
+  .modern-results-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Modern card */
+  .modern-card {
+    padding: 1rem 0.9rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* Pie chart */
+  .pt-pie-svg-box {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    aspect-ratio: 1 / 1;
+  }
+
+  .pt-pie-chart-wrapper {
+    gap: 0.85rem !important;
+  }
+
+  /* Pie legend */
+  .pt-pie-legend-item {
+    padding: 0.4rem 0.65rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  .pt-legend-name {
+    font-size: 0.78rem !important;
+    word-break: break-word;
+  }
+
+  .pt-legend-pct {
+    font-size: 0.82rem !important;
+  }
+
+  .pt-legend-score {
+    font-size: 0.7rem !important;
+  }
+
+  /* Ranked bars card */
+  .modern-bar-row {
+    padding: 0.75rem 0.85rem !important;
+    border-radius: 12px !important;
+  }
+
+  .mbr-top {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.4rem !important;
+    margin-bottom: 0.5rem !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .mbr-title-wrap {
+    gap: 0.4rem !important;
+    flex-wrap: nowrap;
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .mbr-dim-name {
+    font-size: 0.82rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mbr-rank-badge {
+    font-size: 0.68rem !important;
+    padding: 0.18rem 0.5rem !important;
+    flex-shrink: 0;
+  }
+
+  .mbr-percentage {
+    font-size: 0.95rem !important;
+    flex-shrink: 0;
+  }
+
+  .mbr-score-wrap {
+    flex-shrink: 0;
+  }
+
+  /* Modern report card (trait cards) */
+  .modern-report-card {
+    border-radius: 14px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .mrc-header {
+    padding: 1.1rem 1rem 0.9rem !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+  }
+
+  .mrc-header-left {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  .mrc-header-right {
+    flex-shrink: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    text-align: right !important;
+  }
+
+  .mrc-title {
+    font-size: 1.05rem !important;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+
+  .mrc-rank-pill {
+    font-size: 0.68rem !important;
+    padding: 0.2rem 0.65rem !important;
+  }
+
+  .mrc-score-val {
+    font-size: 1.65rem !important;
+  }
+
+  .mrc-score-pct {
+    font-size: 1rem !important;
+  }
+
+  .mrc-score-label {
+    font-size: 0.68rem !important;
+    white-space: nowrap !important;
+  }
+
+  .mrc-body {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+    padding: 1rem 1rem 1.25rem !important;
+  }
+
+  .mrc-measures-text {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.85rem !important;
+  }
+
+  .mrc-bullet-text {
+    font-size: 0.88rem !important;
+  }
+
+  .mrc-bullet-list {
+    gap: 0.7rem !important;
+  }
+
+  /* Card header */
+  .card-header-styled {
+    padding-bottom: 0.65rem !important;
+    margin-bottom: 0.85rem !important;
+    gap: 0.55rem !important;
+  }
+
+  .card-title {
+    font-size: 0.95rem !important;
+  }
+
+  .card-subtitle {
+    font-size: 0.75rem !important;
+  }
+
+  /* Bottom download button */
+  .btn-modern-download-large {
+    padding: 0.75rem 1.25rem !important;
+    font-size: 0.88rem !important;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modern-bottom-actions {
+    margin-top: 1rem !important;
+  }
+
+  /* Low score banner */
+  .pt-low-score-banner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 0.85rem 1rem !important;
+    gap: 0.75rem !important;
+    border-radius: 12px !important;
+  }
+
+  .pt-lsb-title {
+    font-size: 0.88rem !important;
+  }
+
+  .pt-lsb-desc {
+    font-size: 0.78rem !important;
+  }
+
+  .pt-lsb-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Navigation controls */
+  .quiz-nav-controls {
+    padding: 0.45rem 0.75rem !important;
+  }
+
+  .btn-quiz-nav {
+    padding: 0.5rem 0.9rem !important;
+    font-size: 0.82rem !important;
+  }
+
+  /* Question card */
+  .question-card {
+    padding: 0.85rem 0.9rem !important;
+  }
+
+  .question-text {
+    font-size: 0.92rem !important;
+  }
+
+  .option-row-button {
+    padding: 0.55rem 0.9rem !important;
+  }
+
+  .option-label-text {
+    font-size: 0.84rem !important;
+  }
+
+  /* Report trait list */
+  .report-traits-list {
+    gap: 0.75rem;
+  }
+}
+
+/* ── EXTRA SMALL MOBILE (≤400px) ── */
+@media (max-width: 400px) {
+  .personalitytest-section.container-fluid {
+    padding: 0 0.5rem !important;
+  }
+
+  .ultra-light-theme .modern-report-container,
+  .modern-report-container {
+    padding: 0.75rem 0.65rem 1.1rem !important;
+  }
+
+  .ultra-light-theme .mhh-title,
+  .mhh-title {
+    font-size: 0.97rem !important;
+  }
+
+  .mhh-pill-badge {
+    font-size: 0.54rem !important;
+    padding: 0.08rem 0.3rem !important;
+  }
+
+  .mhh-date-chip {
+    font-size: 0.54rem !important;
+    padding: 0.08rem 0.3rem !important;
+  }
+
+  .mrc-header {
+    padding: 0.9rem 0.75rem 0.75rem !important;
+  }
+
+  .mrc-body {
+    padding: 0.85rem 0.75rem 1rem !important;
+  }
+
+  .modern-card {
+    padding: 0.85rem 0.7rem !important;
+  }
+
+  .mbr-dim-name {
+    font-size: 0.78rem !important;
+  }
+
+  .mrc-title {
+    font-size: 0.95rem !important;
+  }
+}
+
 /* Attempt Notice */
 .modern-attempt-notice {
   background: #FFFBEB;
@@ -1197,10 +1600,12 @@
 /* ── Dual Results Grid ── */
 .modern-results-grid {
   display: grid;
-  grid-template-columns: minmax(460px, 500px) 1fr;
+  grid-template-columns: minmax(0, 500px) 1fr;
   gap: 1.8rem;
   align-items: stretch;
   margin-bottom: 1.8rem;
+  width: 100%;
+  overflow: hidden;
 }
 
 @media (max-width: 980px) {
@@ -1218,6 +1623,8 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
+  min-width: 0;    /* prevent grid blowout */
+  overflow: hidden; /* clip any internal overflow */
 }
 
 .card-header-styled {
@@ -1250,7 +1657,7 @@
 /* ── Pie Chart Side ── */
 .modern-pie-card {
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .pt-pie-chart-wrapper {
@@ -1259,16 +1666,19 @@
   align-items: center;
   gap: 1.4rem;
   width: 100%;
+  min-width: 0;
 }
 
 .pt-pie-svg-box {
-  width: 420px;
-  height: 420px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
   filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.08));
+  overflow: hidden;
 }
 
 .pt-pie-svg {
@@ -1305,7 +1715,7 @@
 .pt-pie-legend-list {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.32rem;
   width: 100%;
 }
 
@@ -1313,13 +1723,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.45rem 0.8rem;
-  border-radius: 9px;
+  padding: 0.3rem 0.65rem;
+  border-radius: 8px;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  min-width: 0;
+  gap: 0.5rem;
 }
 
 .pt-pie-legend-item:hover,
@@ -1333,38 +1745,48 @@
 .pt-legend-left {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.45rem;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
 }
 
 .pt-legend-color-dot {
-  width: 11px;
-  height: 11px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   flex-shrink: 0;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
+  box-shadow: 0 0 0 1.5px rgba(255,255,255,0.8);
 }
 
 .pt-legend-name {
   font-weight: 700;
   color: #1E293B;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pt-legend-right {
   display: flex;
   align-items: baseline;
-  gap: 0.4rem;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .pt-legend-pct {
   font-weight: 800;
   color: #0F172A;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
 }
 
 .pt-legend-score {
   color: #64748B;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 /* ── Right: Ranked Horizontal Progress Bars — Premium Animated ── */
@@ -1761,7 +2183,7 @@
 /* Force full width for the section when in light dashboard mode */
 .personalitytest-section.container-fluid:has(.ultra-light-theme) {
   max-width: 100% !important;
-  padding: 0 2.5rem;
+  padding: 0 1.5rem;
 }
 
 .ultra-light-theme .modern-report-container {
@@ -2020,6 +2442,8 @@
   flex-direction: column;
   gap: 0.6rem;
   align-items: flex-start;
+  flex: 1;
+  min-width: 0;
 }
 
 .mrc-rank-pill {
@@ -2538,6 +2962,326 @@
   font-weight: 700;
   margin-left: 0.35rem;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Career Trait Signatures & Career Fit Matrix Section
+   ═══════════════════════════════════════════════════════════════ */
+
+.career-signatures-card {
+  margin-top: 1.5rem;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Trait Legend Key Bar */
+.pt-trait-legend-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  background: #f8fafc;
+  padding: 0.65rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1.25rem;
+}
+
+.pt-tlb-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.pt-tlb-chips {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pt-tlb-chip {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: transform 0.18s ease;
+}
+
+.pt-tlb-chip:hover {
+  transform: translateY(-1px);
+}
+
+.pt-tlb-code {
+  font-weight: 800;
+}
+
+/* Table Container */
+.career-matrix-table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.career-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.career-matrix-table thead tr {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.career-matrix-table th {
+  padding: 0.85rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.cmt-th-career {
+  width: 28%;
+  min-width: 180px;
+}
+
+.cmt-th-why {
+  width: 52%;
+  min-width: 260px;
+}
+
+.cmt-th-fit {
+  width: 20%;
+  min-width: 140px;
+}
+
+.career-matrix-row {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.2s ease;
+}
+
+.career-matrix-row:last-child {
+  border-bottom: none;
+}
+
+.career-matrix-row:hover {
+  background-color: #f8fafc;
+}
+
+.career-matrix-table td {
+  padding: 0.95rem 1rem;
+  vertical-align: middle;
+}
+
+/* Column: Career Name */
+.cmt-career-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.cmt-career-domain {
+  display: block;
+  font-size: 0.76rem;
+  color: #64748b;
+  font-weight: 500;
+  margin-top: 0.15rem;
+}
+
+/* Column: Trait Signature Pills */
+.pt-trait-sig-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.pt-sig-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-weight: 800;
+  border-width: 1.5px;
+  border-style: solid;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.pt-sig-plus {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #94a3b8;
+  margin: 0 0.1rem;
+}
+
+.pt-sig-note {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  margin-left: 0.2rem;
+}
+
+.pt-sig-raw {
+  font-size: 0.82rem;
+  color: #475569;
+}
+
+/* Column: Why It Fits */
+.cmt-why-text {
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.45;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Column: Profile Match */
+.cmt-fit-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 110px;
+}
+
+.cmt-fit-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.cmt-fit-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.18rem 0.5rem;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.fit-badge-high {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.fit-badge-solid {
+  background: #f0f9ff;
+  color: #0284c7;
+  border: 1px solid #bae6fd;
+}
+
+.fit-badge-good {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.fit-badge-moderate {
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.cmt-fit-pct {
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.cmt-fit-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cmt-fit-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Print Styling for Career Matrix ── */
+@media print {
+  .career-signatures-card {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+  .pdf-career-table th,
+  .pdf-career-table td {
+    border: 1px solid #cbd5e1 !important;
+  }
+  .pdf-career-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .pt-sig-badge {
+    border: 1px solid #64748b !important;
+    color: #0f172a !important;
+    background: #f1f5f9 !important;
+  }
+}
+
+/* ── Responsive Styling ── */
+@media (max-width: 768px) {
+  .career-signatures-card {
+    padding: 1.1rem;
+    border-radius: 14px;
+  }
+  .pt-trait-legend-bar {
+    padding: 0.5rem 0.75rem;
+  }
+  .pt-tlb-chip {
+    font-size: 0.74rem;
+    padding: 0.2rem 0.5rem;
+  }
+  .career-matrix-table th,
+  .career-matrix-table td {
+    padding: 0.75rem 0.75rem;
+  }
+  .cmt-career-name {
+    font-size: 0.88rem;
+  }
+  .cmt-why-text {
+    font-size: 0.82rem;
+  }
+  .pt-sig-badge {
+    width: 25px;
+    height: 25px;
+    font-size: 0.78rem;
+  }
+}
+
 
 
 
