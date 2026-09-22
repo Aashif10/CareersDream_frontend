@@ -139,7 +139,7 @@ const ContactUs = () => {
                   <div className="cri-content">
                     <div className="cri-top-row">
                       <span className="cri-label">CALL OUR ADVISORS</span>
-                      <a href="tel:+917417573741" className="cri-value">+91 7417573741</a>
+                      <a href="tel:+91-9541869852" className="cri-value">+91 7417573741</a>
                     </div>
                     <div className="cri-sub">Mon–Sat, 9:00 AM – 6:00 PM</div>
                   </div>
