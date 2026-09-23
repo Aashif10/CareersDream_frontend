@@ -139,13 +139,13 @@ const ContactUs = () => {
                   <div className="cri-content">
                     <div className="cri-top-row">
                       <span className="cri-label">CALL OUR ADVISORS</span>
-                      <a href="tel:+91-9541869852" className="cri-value">+91 7417573741</a>
+                      <a href="tel:+91-9541869852" className="cri-value">+91-9541869852</a>
                     </div>
                     <div className="cri-sub">Mon–Sat, 9:00 AM – 6:00 PM</div>
                   </div>
                   <button 
                     className="cri-copy-btn" 
-                    onClick={() => handleCopy('+91 7417573741', 'phone')}
+                    onClick={() => handleCopy('+91-9541869852', 'phone')}
                     title="Copy phone number"
                   >
                     {copiedField === 'phone' ? <Check size={16} className="text-success" /> : <Copy size={16} />}
