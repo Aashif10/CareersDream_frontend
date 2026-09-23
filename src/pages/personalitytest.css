@@ -3282,8 +3282,819 @@
   }
 }
 
+/* ── Modern Ultra-Attractive Trait Guidance Notes Section ── */
+.guidance-cards-container {
+  margin-top: 1.8rem;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  padding: 1.8rem 2rem;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.04), 0 2px 6px rgba(15, 23, 42, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.guidance-cards-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981 0%, #2563eb 50%, #f59e0b 100%);
+}
+
+.guidance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  margin-top: 1.25rem;
+  align-items: stretch;
+}
+
+.guidance-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.guidance-col-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 14px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.guidance-col-header.top-header {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.04) 100%);
+  color: #047857;
+  border: 1.5px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+}
+
+.guidance-col-header.bottom-header {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 119, 6, 0.04) 100%);
+  color: #b45309;
+  border: 1.5px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.08);
+}
+
+.guidance-col-header h4 {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 800;
+  flex: 1;
+  letter-spacing: -0.01em;
+}
+
+.guidance-count-pill {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.guidance-count-pill.top-pill {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+}
+
+.guidance-count-pill.bottom-pill {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+}
+
+.guidance-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.bottom-traits-col .guidance-cards-stack {
+  justify-content: space-between;
+}
+
+.guidance-item-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-left: 5px solid var(--trait-color, #2563eb);
+  border-radius: 12px;
+  padding: 0.7rem 0.95rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.03);
+  position: relative;
+}
+
+.guidance-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.08), 0 3px 8px -2px rgba(15, 23, 42, 0.04);
+  border-color: #cbd5e1;
+  border-left-color: var(--trait-color, #2563eb);
+}
+
+.bottom-traits-col .guidance-item-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.gic-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.gic-rank-pill {
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.gic-score-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid;
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.gic-trait-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.gic-trait-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.gic-trait-name {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.08rem;
+  line-height: 1.25;
+}
+
+.gic-trait-measures {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 500;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gic-note-callout {
+  border-radius: 8px;
+  border: 1px solid;
+  padding: 0.45rem 0.75rem;
+  margin-top: 0.15rem;
+}
+
+.gic-note-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.18rem;
+}
+
+.gic-note-body {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* ── Ultra-Modern State-of-the-Art Bar Histogram Chart Styling ── */
+.modern-histogram-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04);
+  margin-bottom: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.mhc-header-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+  flex-wrap: wrap;
+}
+
+.mhc-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.mhc-header-icon {
+  color: #2563eb;
+}
+
+.mhc-title {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.mhc-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mhc-pill {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.mhc-pill-top {
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.mhc-pill-bottom {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.mhc-chart-body {
+  display: flex;
+  gap: 0.75rem;
+  position: relative;
+  width: 100%;
+}
+
+.mhc-y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748b;
+  padding-right: 0.5rem;
+  border-right: 2px solid #cbd5e1;
+  user-select: none;
+}
+
+.mhc-plot-area {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-bottom: 2px solid #cbd5e1;
+  padding-bottom: 2px;
+}
+
+.mhc-gridlines {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.mhc-grid-line {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.mhc-trendline-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.mhc-node-group {
+  transition: transform 0.2s ease;
+}
+
+.mhc-bars-stack {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  padding: 0 0.5rem;
+  gap: 0.65rem;
+}
+
+.mhc-bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  justify-content: flex-end;
+  position: relative;
+  transition: transform 0.22s ease;
+}
+
+.mhc-bar-group:hover {
+  transform: translateY(-4px);
+}
+
+.mhc-val-badge {
+  font-size: 0.76rem;
+  font-weight: 900;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.mhc-bar-track {
+  width: 100%;
+  max-width: 54px;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(241, 245, 249, 0.65);
+  border-radius: 12px 12px 0 0;
+  padding: 3px 3px 0 3px;
+}
+
+.mhc-bar-fill {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  overflow: hidden;
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mhc-bar-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.mhc-x-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 8px;
+}
+
+.mhc-code-badge {
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 800;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.mhc-rank-lbl {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.mhc-x-footer {
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed #e2e8f0;
+}
+
+/* Mini Bar Histogram inside Trait Cards (No static icons!) */
+.gic-histogram-mini {
+  width: 100%;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.gh-mini-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #334155;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.gh-mini-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.4rem;
+  height: 48px;
+  border-bottom: 1.5px solid #cbd5e1;
+  padding-bottom: 1px;
+}
+
+.gh-mini-bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.gh-mini-bar-fill {
+  width: 100%;
+  max-width: 18px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.4s ease;
+}
+
+.gh-mini-bar-lbl {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-top: 2px;
+}
 
 
+/* Quick Guidance Box inside individual Trait Cards */
+.mrc-guidance-box {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid;
+  transition: all 0.2s ease;
+}
 
+.mrc-guidance-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+}
 
+.mrc-guidance-text {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 0;
+  line-height: 1.5;
+}
 
+@media (max-width: 860px) {
+  .guidance-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Histogram Legend & Breakdown List */
+.histogram-legend-container {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  margin-top: 0.75rem;
+}
+
+.histogram-legend-header {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.hl-pill {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.hl-pill.hl-top {
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.hl-pill.hl-bottom {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.histogram-legend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.histogram-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.9rem;
+  min-height: 44px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  font-size: 0.86rem;
+  transition: all 0.2s ease;
+}
+
+.histogram-legend-item:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.hli-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.hli-rank {
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: #64748b;
+  width: 18px;
+}
+
+.hli-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.hli-name {
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+.hli-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.hli-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.15rem 0.55rem;
+  border-radius: 5px;
+}
+
+.hli-tag-top {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.hli-tag-bottom {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.hli-pct {
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+/* Embedded Quick Guidance Note in Modern Report Cards */
+.mrc-guidance-box {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+}
+
+.mrc-guidance-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.mrc-guidance-text {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+  line-height: 1.4;
+}
+
+/* ── Career Trait Signature Section ── */
+.career-suggestion-card {
+  margin-top: 1.5rem;
+}
+
+.cs-trait-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 1.25rem;
+  padding: 0.9rem 1.1rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+.cs-trait-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  border: 1.5px solid;
+  font-weight: 800;
+  transition: transform 0.2s ease;
+}
+
+.cs-trait-pill:hover {
+  transform: translateY(-2px);
+}
+
+.cs-trait-code {
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+}
+
+.cs-trait-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.cs-plus-icon {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #94a3b8;
+  line-height: 1;
+}
+
+.cs-match-label {
+  margin-left: auto;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+  padding: 0.3rem 0.75rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.cs-careers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 0.85rem;
+}
+
+.cs-career-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 1.15rem;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-left: 5px solid var(--cs-accent, #6366f1);
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-career-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -4px rgba(15, 23, 42, 0.08);
+  border-color: #cbd5e1;
+  border-left-color: var(--cs-accent, #6366f1);
+}
+
+.cs-career-icon {
+  font-size: 1.65rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.cs-career-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cs-career-title {
+  font-size: 0.97rem;
+  font-weight: 800;
+  margin: 0 0 0.2rem;
+  line-height: 1.3;
+}
+
+.cs-career-fit {
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: #475569;
+  margin: 0;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.cs-fallback-note {
+  margin-top: 1rem;
+  padding: 0.65rem 1rem;
+  background: #fefce8;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  color: #713f12;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .cs-careers-grid {
+    grid-template-columns: 1fr;
+  }
+  .cs-match-label {
+    display: none;
+  }
+  .cs-career-fit {
+    white-space: normal;
+  }
+}

@@ -6,7 +6,8 @@ import {
   Download, UserCheck, Shield, Award, HelpCircle,
   Clock, CheckCircle, BarChart3, ChevronRight, User, Mail, Phone, Lock,
   PieChart as PieChartIcon, CheckCircle2, Star, Layers, Activity,
-  Target, TrendingUp, X, RotateCcw, Briefcase, Compass, BookOpen, Check
+  Target, TrendingUp, TrendingDown, X, RotateCcw, Briefcase, Compass, BookOpen, Check,
+  Zap, Heart, Lightbulb
 } from 'lucide-react';
 import './personalitytest.css';
 
@@ -90,6 +91,331 @@ export const PERSONALITY_DIMENSIONS = [
     ]
   }
 ];
+
+// Quick Guidance Notes for Top 3 & Bottom 2 Ranked Personality Traits
+export const TRAIT_GUIDANCE_NOTES = {
+  E: {
+    high: 'Suits debate, extempore, student council, sales/leadership roles.',
+    low: 'Thrives in independent, focused work; needs gentle encouragement to participate.'
+  },
+  C: {
+    high: 'Reliable, exam-ready.',
+    low: 'Needs planners, checklists and chunked deadlines.'
+  },
+  A: {
+    high: 'Natural mediator, good for peer-mentoring.',
+    low: 'Direct and competitive; benefits from empathy and conflict-resolution activities.'
+  },
+  O: {
+    high: 'Suits research, arts, innovation projects.',
+    low: 'Prefers structure and clear instructions; introduce novelty gradually.'
+  },
+  S: {
+    high: 'Handles pressure well.',
+    low: 'Needs exam-anxiety coaching, breathing techniques and counsellor check-ins.'
+  }
+};
+
+// Career Suggestions based on Top 2 Trait Combination
+export const CAREER_SUGGESTIONS = [
+  {
+    traits: ['C', 'A'],
+    careers: [{ title: 'Doctor', fit: 'Long training, patient care, pressure tolerance', icon: '🩺' }]
+  },
+  {
+    traits: ['E', 'O'],
+    careers: [{ title: 'Entrepreneur', fit: 'Selling ideas, creative risk-taking, handling setbacks', icon: '🚀' }]
+  },
+  {
+    traits: ['O', 'C'],
+    careers: [{ title: 'Scientist / Researcher', fit: 'Curiosity + rigour; often independent work', icon: '🔬' }]
+  },
+  {
+    traits: ['E', 'A'],
+    careers: [{ title: 'Teacher / Educator', fit: 'Energy, empathy, structured preparation', icon: '🎓' }]
+  },
+  {
+    traits: ['E', 'C'],
+    careers: [
+      { title: 'Lawyer', fit: 'Argument, preparation, healthy competitiveness', icon: '⚖️' },
+      { title: 'Armed Forces Officer', fit: 'Leadership, discipline, high-pressure environments', icon: '🎖️' },
+      { title: 'Analyst / CA', fit: 'Precision and patience balanced with people-work', icon: '📊' }
+    ]
+  },
+  {
+    traits: ['C', 'O'],
+    careers: [{ title: 'Engineer', fit: 'Disciplined problem-solving', icon: '⚙️' }]
+  },
+  {
+    traits: ['O', 'A'],
+    careers: [{ title: 'Designer / Artist', fit: 'Creativity combined with audience empathy', icon: '🎨' }]
+  },
+  {
+    traits: ['A', 'C'],
+    careers: [{ title: 'Civil Servant', fit: 'Discipline, public service, exam pressure', icon: '🏛️' }]
+  }
+];
+
+// Find matching careers from top 2 traits
+export const getCareerSuggestions = (rankedDimensions) => {
+  if (!rankedDimensions || rankedDimensions.length < 2) return null;
+  const top2Codes = rankedDimensions.slice(0, 2).map(d => d.code);
+
+  // Try exact match (both orders)
+  for (const suggestion of CAREER_SUGGESTIONS) {
+    const [a, b] = suggestion.traits;
+    if (
+      (top2Codes[0] === a && top2Codes[1] === b) ||
+      (top2Codes[0] === b && top2Codes[1] === a)
+    ) {
+      return { matched: true, top2Codes, suggestion };
+    }
+  }
+
+  // No match — return general suggestions based on individual top traits
+  const generalMap = {
+    E: [{ title: 'Sales & Marketing Executive', fit: 'Social energy, persuasion, team leadership', icon: '📣' }, { title: 'Public Relations Specialist', fit: 'Communication, networking, and brand presence', icon: '🌐' }],
+    C: [{ title: 'Chartered Accountant', fit: 'Meticulous, organized, and exam-focused', icon: '🧾' }, { title: 'Project Manager', fit: 'Planning, reliability, and meeting deadlines', icon: '📋' }],
+    A: [{ title: 'Counsellor / Therapist', fit: 'Empathy, active listening, people-centred support', icon: '💬' }, { title: 'HR Manager', fit: 'Team harmony, conflict resolution, people care', icon: '🤝' }],
+    O: [{ title: 'Research Analyst', fit: 'Curiosity-driven insight, data exploration', icon: '🔍' }, { title: 'Content Creator / Writer', fit: 'Creative expression and original thinking', icon: '✍️' }],
+    S: [{ title: 'Emergency Services', fit: 'Calm under pressure, resilience in crises', icon: '🚑' }, { title: 'Sports Coach / Athlete', fit: 'Emotional regulation, consistency, and focus', icon: '🏅' }]
+  };
+
+  const fallbackCareers = [...(generalMap[top2Codes[0]] || []), ...(generalMap[top2Codes[1]] || [])];
+  return { matched: false, top2Codes, fallbackCareers };
+};
+
+export const RANK_BADGES = {
+  1: { label: '🏆 Rank #1 (Primary Strength)', bg: 'linear-gradient(135deg, #059669 0%, #10b981 100%)' },
+  2: { label: '⭐ Rank #2 (Secondary Strength)', bg: 'linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)' },
+  3: { label: '✨ Rank #3 (Core Strength)', bg: 'linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)' },
+  4: { label: '🎯 Rank #4 (Growth Focus)', bg: 'linear-gradient(135deg, #d97706 0%, #f59e0b 100%)' },
+  5: { label: '💡 Rank #5 (Priority Guidance)', bg: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)' }
+};
+
+export const TRAIT_ICONS = {
+  E: Zap,
+  C: CheckCircle2,
+  A: Heart,
+  S: Shield,
+  O: Sparkles
+};
+
+// Ascending Signal Bar Icon Component
+export const SignalBarGraphic = ({ size = 20, color = '#1E293B', activeBars = 4 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+  >
+    <rect x="2" y="14" width="3.8" height="7" rx="1.9" fill={activeBars >= 1 ? color : `${color}33`} />
+    <rect x="7.6" y="10" width="3.8" height="11" rx="1.9" fill={activeBars >= 2 ? color : `${color}33`} />
+    <rect x="13.2" y="6" width="3.8" height="15" rx="1.9" fill={activeBars >= 3 ? color : `${color}33`} />
+    <rect x="18.8" y="2" width="3.8" height="19" rx="1.9" fill={activeBars >= 4 ? color : `${color}33`} />
+  </svg>
+);
+
+// ── Modern Ultra-Attractive Combo Bar + Trendline Histogram Chart Component ──
+export const BarHistogramChart = ({
+  data = [],
+  height = 360,
+  title = 'Personality Dimensions Bar Histogram',
+  xAxisLabel = 'Ranked Traits (Top 3 High Strengths vs Last 2 Low Support Areas)'
+}) => {
+  const yTicks = [100, 75, 50, 25, 0];
+  const numBars = data.length || 5;
+
+  // Calculate Trendline SVG points (viewBox 0 0 500 300)
+  const svgWidth = 500;
+  const svgHeight = 300;
+  const topPad = 42;
+  const bottomPad = 72;
+  const usableHeight = svgHeight - topPad - bottomPad;
+
+  const trendPoints = data.map((item, idx) => {
+    const val = item.percentage !== undefined ? item.percentage : (item.score || 0);
+    const clampedVal = Math.max(0, Math.min(100, val));
+    const x = ((idx + 0.5) / numBars) * svgWidth;
+    const y = svgHeight - bottomPad - (clampedVal / 100) * usableHeight;
+    return { x, y, val, code: item.code, color: item.color };
+  });
+
+  const polylinePoints = trendPoints.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+
+  return (
+    <div className="modern-histogram-card">
+      {/* Header Info Banner */}
+      <div className="mhc-header-banner">
+        <div className="mhc-title-wrap">
+          <BarChart3 size={18} className="mhc-header-icon" />
+          <h4 className="mhc-title">{title}</h4>
+        </div>
+        <div className="mhc-pills-row">
+          <span className="mhc-pill mhc-pill-top">Top 3 High</span>
+          <span className="mhc-pill mhc-pill-bottom">Last 2 Low</span>
+        </div>
+      </div>
+
+      {/* Main Chart Body */}
+      <div className="mhc-chart-body" style={{ height: `${height}px` }}>
+        {/* Y Axis Scale */}
+        <div className="mhc-y-axis">
+          {yTicks.map(tick => (
+            <span key={tick} className="mhc-y-label">{tick}%</span>
+          ))}
+        </div>
+
+        {/* Chart Plot Area */}
+        <div className="mhc-plot-area">
+          {/* Dashed Gridlines */}
+          <div className="mhc-gridlines">
+            {yTicks.map(tick => (
+              <div key={tick} className="mhc-grid-line" />
+            ))}
+          </div>
+
+          {/* Connected Trendline Overlay (SVG) */}
+          <svg
+            className="mhc-trendline-svg"
+            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <filter id="mhc-line-glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="3" stdDeviation="3.5" floodColor="#6366f1" floodOpacity="0.4" />
+              </filter>
+            </defs>
+
+            {/* Connecting Polyline */}
+            {trendPoints.length > 1 && (
+              <polyline
+                fill="none"
+                stroke="#6366f1"
+                strokeWidth="3.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                points={polylinePoints}
+                filter="url(#mhc-line-glow)"
+              />
+            )}
+
+            {/* Glowing Node Dots */}
+            {trendPoints.map((p, i) => (
+              <g key={p.code || i} className="mhc-node-group">
+                <circle
+                  cx={p.x}
+                  cy={p.y}
+                  r="8"
+                  fill="#6366f1"
+                  stroke="#ffffff"
+                  strokeWidth="2.5"
+                  className="mhc-node-outer"
+                />
+                <circle
+                  cx={p.x}
+                  cy={p.y}
+                  r="3.2"
+                  fill="#ffffff"
+                  className="mhc-node-inner"
+                />
+              </g>
+            ))}
+          </svg>
+
+          {/* Histogram Bars Container */}
+          <div className="mhc-bars-stack">
+            {data.map((item, idx) => {
+              const val = item.percentage !== undefined ? item.percentage : (item.score || 0);
+              const barHeightPct = Math.max(6, Math.min(100, val));
+              const isTop3 = idx < 3;
+              const rankNum = idx + 1;
+              const traitColor = item.color || (isTop3 ? '#10b981' : '#f59e0b');
+
+              // Gradient Fills
+              const gradientBg = isTop3
+                ? `linear-gradient(180deg, ${traitColor} 0%, ${traitColor}CC 100%)`
+                : `linear-gradient(180deg, ${traitColor} 0%, ${traitColor}AA 100%)`;
+
+              return (
+                <div key={item.code || idx} className={`mhc-bar-group ${isTop3 ? 'mhc-group-top' : 'mhc-group-bottom'}`}>
+                  {/* Floating Percentage Badge */}
+                  <div className="mhc-val-badge" style={{ color: traitColor, borderColor: `${traitColor}40`, backgroundColor: `${traitColor}12` }}>
+                    {val}%
+                  </div>
+
+                  {/* Vertical Bar Container */}
+                  <div className="mhc-bar-track">
+                    <div
+                      className="mhc-bar-fill"
+                      style={{
+                        height: `${barHeightPct}%`,
+                        background: gradientBg,
+                        boxShadow: `0 4px 14px ${traitColor}45`
+                      }}
+                    >
+                      <div className="mhc-bar-shine" />
+                    </div>
+                  </div>
+
+                  {/* X Axis Meta Labels */}
+                  <div className="mhc-x-meta">
+                    <span className="mhc-code-badge" style={{ backgroundColor: traitColor }}>
+                      {item.code}
+                    </span>
+                    <span className="mhc-rank-lbl">Rank #{rankNum}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {xAxisLabel && (
+        <div className="mhc-x-footer">
+          <span>{xAxisLabel}</span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Mini Question-by-Question Vertical Bar Histogram inside Trait Cards (No static icons!)
+export const MiniTraitHistogram = ({ qScores = [], color = '#2563eb' }) => {
+  const scores = (qScores && qScores.length > 0)
+    ? qScores
+    : [4, 5, 3, 4, 5, 4];
+
+  return (
+    <div className="gic-histogram-mini">
+      <div className="gh-mini-head">
+        <span>Question Scores Histogram</span>
+        <span>6 Questions</span>
+      </div>
+      <div className="gh-mini-bars">
+        {scores.map((item, idx) => {
+          const val = typeof item === 'number' ? item : (item.score || 3);
+          const barHeightPct = Math.max(15, Math.min(100, Math.round((val / 5) * 100)));
+          return (
+            <div key={idx} className="gh-mini-bar-col" title={`Q${item.qNum || (idx + 1)}: ${val}/5 Marks`}>
+              <div
+                className="gh-mini-bar-fill"
+                style={{
+                  height: `${barHeightPct}%`,
+                  backgroundColor: color
+                }}
+              />
+              <span className="gh-mini-bar-lbl">Q{item.qNum || (idx + 1)}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 // 10 Career Trait Signatures Configuration (Career to Trait Fit Matrix)
 export const CAREER_TRAIT_SIGNATURES = [
@@ -1065,6 +1391,9 @@ const PersonalityTest = () => {
     ? submissionResult.percentage
     : Math.round(((submissionResult?.totalScore || displayRankedDimensions.reduce((acc, curr) => acc + curr.score, 0)) / 150) * 100);
 
+  const top3Traits = displayRankedDimensions.slice(0, 3);
+  const bottom2Traits = displayRankedDimensions.slice(3, 5);
+
   return (
     <div className="personalitytest-page">
 
@@ -1394,6 +1723,169 @@ const PersonalityTest = () => {
 
               </div>
 
+              {/* Top 3 & Bottom 2 Personality Trait Guidance & Histogram Section */}
+              <div className="modern-card guidance-cards-container mb-6">
+                <div className="guidance-grid">
+
+                  {/* LEFT SIDE: Quick Guidance Notes */}
+                  <div className="guidance-column left-guidance-col">
+                    <div className="card-header-styled" style={{ padding: 0, marginBottom: '1rem' }}>
+                      <Compass size={22} className="card-header-icon" style={{ color: '#2563eb' }} />
+                      <div>
+                        <h3 className="card-title">Quick Guidance Notes</h3>
+                        <span className="card-subtitle">
+                          Personalized action notes for Top 3 Strengths &amp; Bottom 2 Support Areas
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="guidance-cards-stack">
+                      {/* Top 3 Highest-Scoring Traits (High Guidance) */}
+                      <div className="guidance-section-block">
+                        <div className="guidance-col-header top-header" style={{ marginBottom: '0.65rem' }}>
+                          <h4>Top 3 Highest-Scoring Traits</h4>
+                          <span className="guidance-count-pill top-pill">Top 3 High</span>
+                        </div>
+
+                        {top3Traits.map((dim, idx) => {
+                          const rankInfo = RANK_BADGES[idx + 1];
+                          const note = TRAIT_GUIDANCE_NOTES[dim.code]?.high;
+
+                          return (
+                            <div
+                              key={dim.code}
+                              className="guidance-item-card top-item-card"
+                              style={{ '--trait-color': dim.color, borderLeftColor: dim.color, marginBottom: '0.5rem' }}
+                            >
+                              <div className="gic-header-row">
+                                <span className="gic-rank-pill" style={{ background: rankInfo.bg }}>
+                                  {rankInfo.label}
+                                </span>
+                                <div className="gic-score-pill" style={{ backgroundColor: `${dim.color}15`, color: dim.color, borderColor: `${dim.color}40` }}>
+                                  <span className="gic-score-val">{dim.percentage}%</span>
+                                </div>
+                              </div>
+
+                              <div className="gic-trait-title-row">
+                                <div className="gic-trait-meta">
+                                  <h4 className="gic-trait-name">{dim.fullName}</h4>
+                                  <span className="gic-trait-measures">{dim.measures}</span>
+                                </div>
+                              </div>
+
+                              <div className="gic-note-callout" style={{ backgroundColor: `${dim.color}0A`, borderColor: `${dim.color}25` }}>
+                                <div className="gic-note-head" style={{ color: dim.color }}>
+                                  <Sparkles size={14} />
+                                  <span>High {dim.code} Guidance:</span>
+                                </div>
+                                <p className="gic-note-body">{note}</p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Bottom 2 Lowest-Scoring Traits (Low Guidance) */}
+                      <div className="guidance-section-block" style={{ marginTop: '0.6rem' }}>
+                        <div className="guidance-col-header bottom-header" style={{ marginBottom: '0.5rem' }}>
+                          <h4>Bottom 2 Lowest-Scoring Traits</h4>
+                          <span className="guidance-count-pill bottom-pill">Last 2 Low</span>
+                        </div>
+
+                        {bottom2Traits.map((dim, idx) => {
+                          const rankNum = idx + 4;
+                          const rankInfo = RANK_BADGES[rankNum];
+                          const note = TRAIT_GUIDANCE_NOTES[dim.code]?.low;
+
+                          return (
+                            <div
+                              key={dim.code}
+                              className="guidance-item-card bottom-item-card"
+                              style={{ '--trait-color': dim.color, borderLeftColor: dim.color, marginBottom: '0.5rem' }}
+                            >
+                              <div className="gic-header-row">
+                                <span className="gic-rank-pill" style={{ background: rankInfo.bg }}>
+                                  {rankInfo.label}
+                                </span>
+                                <div className="gic-score-pill" style={{ backgroundColor: `${dim.color}15`, color: dim.color, borderColor: `${dim.color}40` }}>
+                                  <span className="gic-score-val">{dim.percentage}%</span>
+                                </div>
+                              </div>
+
+                              <div className="gic-trait-title-row">
+                                <div className="gic-trait-meta">
+                                  <h4 className="gic-trait-name">{dim.fullName}</h4>
+                                  <span className="gic-trait-measures">{dim.measures}</span>
+                                </div>
+                              </div>
+
+                              <div className="gic-note-callout" style={{ backgroundColor: `${dim.color}0A`, borderColor: `${dim.color}25` }}>
+                                <div className="gic-note-head" style={{ color: dim.color }}>
+                                  <Target size={14} />
+                                  <span>Low {dim.code} Guidance:</span>
+                                </div>
+                                <p className="gic-note-body">{note}</p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* RIGHT SIDE: Bar Histogram (Top 3 High & Last 2 Low) */}
+                  <div className="guidance-column right-histogram-col">
+                    <div className="card-header-styled" style={{ padding: 0, marginBottom: '1rem' }}>
+                      <BarChart3 size={22} className="card-header-icon" style={{ color: '#000080' }} />
+                      <div>
+                        <h3 className="card-title">Personality Dimensions Bar Histogram</h3>
+                        <span className="card-subtitle">
+                          Vertical bar histogram (Top 3 High Strengths vs Last 2 Low Support Areas)
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Full 5-Dimension Vertical Bar Histogram Chart */}
+                    <BarHistogramChart
+                      data={displayRankedDimensions}
+                      height={360}
+                      title="Ranked Dimensions Score Histogram"
+                      xAxisLabel="Ranked Traits (Top 3 High & Last 2 Low)"
+                    />
+
+                    {/* Histogram Legend & Trait Breakdown List */}
+                    <div className="histogram-legend-container">
+                      <div className="histogram-legend-header">
+                        <span className="hl-pill hl-top">Top 3 High (Strengths)</span>
+                        <span className="hl-pill hl-bottom">Last 2 Low (Support Areas)</span>
+                      </div>
+
+                      <div className="histogram-legend-list">
+                        {displayRankedDimensions.map((dim, idx) => {
+                          const isTop3 = idx < 3;
+                          return (
+                            <div key={dim.code} className="histogram-legend-item">
+                              <div className="hli-left">
+                                <span className="hli-rank">{idx + 1}</span>
+                                <span className="hli-dot" style={{ backgroundColor: dim.color }} />
+                                <span className="hli-name">{dim.fullName}</span>
+                              </div>
+                              <div className="hli-right">
+                                <span className={`hli-tag ${isTop3 ? 'hli-tag-top' : 'hli-tag-bottom'}`}>
+                                  {isTop3 ? 'High' : 'Low'}
+                                </span>
+                                <span className="hli-pct" style={{ color: dim.color }}>{dim.percentage}%</span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
               {/* Image-Style 5 Personality Trait Cards Section (Matching Uploaded Design) */}
               <div className="modern-card trait-cards-container">
                 <div className="card-header-styled">
@@ -1476,6 +1968,48 @@ const PersonalityTest = () => {
                 </div>
               </div>
 
+              {/* Career Trait Signature Section */}
+              {(() => {
+                const careerResult = getCareerSuggestions(displayRankedDimensions);
+                if (!careerResult) return null;
+                const { matched, top2Codes, suggestion, fallbackCareers } = careerResult;
+                const careers = matched ? suggestion.careers : fallbackCareers;
+                const top1Dim = displayRankedDimensions[0];
+                const top2Dim = displayRankedDimensions[1];
+
+                return (
+                  <div className="modern-card career-suggestion-card">
+                    {/* Header */}
+                    <div className="card-header-styled">
+                      <Briefcase size={19} className="card-header-icon" style={{ color: '#6366f1' }} />
+                      <div>
+                        <h3 className="card-title">Discover Your Best-Fit Careers</h3>
+                        <span className="card-subtitle">
+                          Based on your top 2 personality strengths: <strong style={{ color: top1Dim?.color }}>{top2Codes[0]}</strong> &amp; <strong style={{ color: top2Dim?.color }}>{top2Codes[1]}</strong>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Career Cards Grid */}
+                    <div className="cs-careers-grid">
+                      {careers.map((career, idx) => {
+                        const accentColors = ['#6366f1', '#10b981', '#f59e0b', '#2563eb', '#8b5cf6', '#ef4444'];
+                        const accent = accentColors[idx % accentColors.length];
+                        return (
+                          <div key={idx} className="cs-career-card" style={{ '--cs-accent': accent, borderLeftColor: accent }}>
+                            <div className="cs-career-icon">{career.icon}</div>
+                            <div className="cs-career-info">
+                              <h5 className="cs-career-title" style={{ color: accent }}>{career.title}</h5>
+                              <p className="cs-career-fit">{career.fit}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()}
+
               {/* Centered Download CTA */}
               <div className="modern-bottom-actions hide-on-print">
                 <button className="btn-modern-download-large" onClick={handlePrintReport}>
@@ -1535,6 +2069,50 @@ const PersonalityTest = () => {
                       ))}
                     </tbody>
                   </table>
+                </div>
+
+                {/* Printable Top 3 & Bottom 2 Guidance Section */}
+                <div className="pdf-guidance-section mb-4" style={{ pageBreakInside: 'avoid' }}>
+                  <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.65rem', color: '#1A2634' }}>
+                    Top 3 &amp; Bottom 2 Personality Trait Guidance Notes
+                  </h4>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    {/* Top 3 Printable Block */}
+                    <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px', padding: '0.85rem' }}>
+                      <h5 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#15803d', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                        <SignalBarGraphic size={16} color="#15803d" activeBars={4} />
+                        Top 3 Highest-Scoring Traits (High Guidance)
+                      </h5>
+                      {top3Traits.map((dim, idx) => (
+                        <div key={dim.code} style={{ marginBottom: '0.55rem', paddingBottom: '0.4rem', borderBottom: idx < 2 ? '1px dashed #cbd5e1' : 'none' }}>
+                          <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#0f172a' }}>
+                            Rank #{idx + 1}: {dim.fullName} ({dim.percentage}%)
+                          </div>
+                          <div style={{ fontSize: '0.8rem', color: '#334155', marginTop: '0.15rem' }}>
+                            <strong>High {dim.code}:</strong> {TRAIT_GUIDANCE_NOTES[dim.code]?.high}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Bottom 2 Printable Block */}
+                    <div style={{ background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: '8px', padding: '0.85rem' }}>
+                      <h5 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#c2410c', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                        <SignalBarGraphic size={16} color="#c2410c" activeBars={2} />
+                        Bottom 2 Lowest-Scoring Traits (Low Guidance)
+                      </h5>
+                      {bottom2Traits.map((dim, idx) => (
+                        <div key={dim.code} style={{ marginBottom: '0.55rem', paddingBottom: '0.4rem', borderBottom: idx < 1 ? '1px dashed #cbd5e1' : 'none' }}>
+                          <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#0f172a' }}>
+                            Rank #{idx + 4}: {dim.fullName} ({dim.percentage}%)
+                          </div>
+                          <div style={{ fontSize: '0.8rem', color: '#334155', marginTop: '0.15rem' }}>
+                            <strong>Low {dim.code}:</strong> {TRAIT_GUIDANCE_NOTES[dim.code]?.low}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Printable Trait Analysis Cards */}
