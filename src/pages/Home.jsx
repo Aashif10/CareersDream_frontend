@@ -148,18 +148,18 @@ const Home = () => {
           <h2 className="heading-secondary text-center">Student Success Stories</h2>
           <div className="grid grid-cols-3 gap-8">
             <div className="testimonial-card">
-              <p>"I was confused after Class 12. CareersDream helped me choose Computer Science based on my interests. Today I'm pursuing my dream course with confidence."</p>
-              <h4>Riya Sharma</h4>
+              <p>"It was an excellent experience in the workshop, as it pointed out many valid points everyone should work on. It was also an interactive session, that makes it more heartfelt.”</p>
+              <h4>Saptarshi , Banaras Hindu University</h4>
               <div className="stars"><Star/><Star/><Star/><Star/><Star/></div>
             </div>
             <div className="testimonial-card">
-              <p>"The psychometric assessment and Counselling session gave me complete clarity about my future. Highly recommended!"</p>
-              <h4>Aman Verma</h4>
+              <p>"I found the session to be interactive and well suited to my needs.”</p>
+              <h4>Anustup , University of Veterinary Medicine, Vienna (Austria)</h4>
               <div className="stars"><Star/><Star/><Star/><Star/><Star/></div>
             </div>
             <div className="testimonial-card">
-              <p>"The counselors were supportive and explained every career option in detail. The experience was excellent."</p>
-              <h4>Neha Gupta</h4>
+              <p>"It was a really good experience, I really gained some deep information and knowledge.”</p>
+              <h4>Anjali , Dhirendra Mahila PG College</h4>
               <div className="stars"><Star/><Star/><Star/><Star/><Star/></div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { 
-  Upload, Save, Eye, EyeOff, X, CheckCircle2, Image as ImageIcon
+  Upload, Save, Eye, EyeOff, X, CheckCircle2, Image as ImageIcon, Mail
 } from 'lucide-react';
 import Sidebar from './Sidebar';
 import AdminHeader from './AdminHeader';
@@ -44,7 +44,7 @@ const Team = () => {
   const [success, setSuccess]       = useState('');
   const [error, setError]           = useState('');
   const [showModal, setShowModal]   = useState(false);
-  const [addedMemberName, setAddedMemberName] = useState('');
+  const [addedMemberInfo, setAddedMemberInfo] = useState({ name: '', email: '' });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -79,7 +79,7 @@ const Team = () => {
         throw new Error(data.message || 'Failed to add member');
       }
 
-      setAddedMemberName(formData.name);
+      setAddedMemberInfo({ name: formData.name, email: formData.email });
       setShowModal(true);
 
       // Reset form
@@ -278,8 +278,27 @@ const Team = () => {
             </div>
             <h3 className="modal-title">Member Added Successfully!</h3>
             <p className="modal-subtitle">
-              <strong>{addedMemberName}</strong> has been registered and added to the team list.
+              <strong>{addedMemberInfo.name}</strong> has been registered and added to the team list.
             </p>
+            {addedMemberInfo.email && (
+              <div style={{
+                marginTop: '14px',
+                marginBottom: '8px',
+                padding: '12px 16px',
+                background: 'rgba(37, 99, 235, 0.08)',
+                border: '1px solid rgba(37, 99, 235, 0.2)',
+                borderRadius: '8px',
+                fontSize: '13.5px',
+                color: '#1e40af',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                textAlign: 'left'
+              }}>
+                <Mail size={20} style={{ flexShrink: 0 }} />
+                <span>Login credentials have been sent to <strong>{addedMemberInfo.email}</strong></span>
+              </div>
+            )}
             <div className="modal-actions">
               <button 
                 type="button" 
